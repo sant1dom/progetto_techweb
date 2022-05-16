@@ -2,8 +2,8 @@
 
     $host = "localhost";
     $user = "root";
-    $pass = "viva1felice";
-    $name = "tdw_2122";
+    $pass = "";
+    $name = "";
 
     $mysqli = new mysqli($host, $user, $pass, $name);
     
