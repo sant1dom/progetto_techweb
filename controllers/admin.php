@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']."/include/template2.inc.php";
+require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
 
 $colnames = array(
     "Data",

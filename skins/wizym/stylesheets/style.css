@@ -5595,8 +5595,8 @@ body.bg-boxed {
 
 footer.style3 {
 	background-image: url(../image/footer.jpg);
-	height: 445px;
-	max-height: 445px;
+	height: 300px;
+	max-height: 300px;
 }
 
 footer.style3 .container {
@@ -6606,7 +6606,7 @@ transition: all 1s ease;
 
 .flat-our-history {
 	padding: 100px 0 119px;
-	background-image: url(../image/homepage114.png);
+	background-image: url(../image/bottiglia_back.png);
 	background-position: center;
 }
 
