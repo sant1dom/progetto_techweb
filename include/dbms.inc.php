@@ -1,9 +1,9 @@
 <?php
 
     $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $name = "";
+    $user = "tdw";
+    $pass = "Tdw_2022@";
+    $name = "tdw_ecommerce";
 
     $mysqli = new mysqli($host, $user, $pass, $name);
     

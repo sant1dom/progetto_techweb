@@ -1,0 +1,63 @@
+<[foreach]>
+<tr class="border-bottom">
+    <td>
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[id]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[nome]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[cognome]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[email]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[telefono]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="g-2">
+            <a class="btn text-primary btn-sm"
+               data-bs-toggle="tooltip"
+               data-bs-original-title="Edit"
+               href="/admin/users/<[id]>/edit"><span
+                    class="fe fe-edit fs-14"></span></a>
+            <a class="btn text-danger btn-sm"
+               data-bs-toggle="tooltip"
+               data-bs-original-title="Delete"
+               href="/admin/users/<[id]>/delete"><span
+                    class="fe fe-trash-2 fs-14"></span></a>
+        </div>
+    </td>
+</tr>
+<[/foreach]>

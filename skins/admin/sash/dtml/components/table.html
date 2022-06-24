@@ -1,30 +1,15 @@
 <!-- Table -->
-<div class="main-container container-fluid">
+<div class="main-container container-fluid mt-3">
     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title mb-0">Ultimi ordini</h3>
+                    <h3 class="card-title mb-0"><[title]></h3>
                 </div>
                 <div class="card-body pt-4">
                     <div class="grid-margin">
                         <div class="">
                             <div class="panel panel-primary">
-                                <div class="tab-menu-heading border-0 p-0">
-                                    <div class="tabs-menu1">
-                                        <!-- Tabs -->
-                                        <ul class="nav panel-tabs product-sale">
-                                            <li><a href="#tab5" class="active"
-                                                   data-bs-toggle="tab">All products</a></li>
-                                            <li><a href="#tab6" data-bs-toggle="tab"
-                                                   class="text-dark">Shipped</a></li>
-                                            <li><a href="#tab7" data-bs-toggle="tab"
-                                                   class="text-dark">Pending</a></li>
-                                            <li><a href="#tab8" data-bs-toggle="tab"
-                                                   class="text-dark">Cancelled</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="panel-body tabs-menu-body border-0 pt-0">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab5">
@@ -34,7 +19,7 @@
                                                     <thead class="border-top">
                                                     <tr>
                                                         <th class="bg-transparent border-bottom-0"
-                                                            style="width: 5%;">Id</th>
+                                                            style="width: 5%;">ID</th>
                                                         <[foreach]>
                                                         <th class="bg-transparent border-bottom-0">
                                                             <[colname]>
@@ -45,67 +30,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <[foreach]>
-                                                    <tr class="border-bottom">
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <div class="mt-0 mt-sm-3 d-block">
-                                                                    <h6 class="mb-0 fs-14 fw-semibold">
-                                                                        <[id]>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <div class="mt-0 mt-sm-3 d-block">
-                                                                    <h6 class="mb-0 fs-14 fw-semibold">
-                                                                        <[data]>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <div class="mt-0 mt-sm-3 d-block">
-                                                                    <h6 class="mb-0 fs-14 fw-semibold">
-                                                                        <[stato]>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <div class="mt-0 mt-sm-3 d-block">
-                                                                    <h6 class="mb-0 fs-14 fw-semibold">
-                                                                        <[totale]>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <div class="mt-0 mt-sm-3 d-block">
-                                                                    <h6 class="mb-0 fs-14 fw-semibold">
-                                                                        <[utente]>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="g-2">
-                                                                <a class="btn text-primary btn-sm"
-                                                                   data-bs-toggle="tooltip"
-                                                                   data-bs-original-title="Edit"><span
-                                                                        class="fe fe-edit fs-14"></span></a>
-                                                                <a class="btn text-danger btn-sm"
-                                                                   data-bs-toggle="tooltip"
-                                                                   data-bs-original-title="Delete"><span
-                                                                        class="fe fe-trash-2 fs-14"></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <[/foreach]>
+                                                        <[sptable]>
                                                     </tbody>
                                                 </table>
                                             </div>
