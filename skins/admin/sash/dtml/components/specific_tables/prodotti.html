@@ -1,0 +1,108 @@
+<[foreach]>
+<tr>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[id]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[nome]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[prezzo]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[dimensione]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[quantita_disponibile]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[descrizione]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="g-2">
+            <a class="btn text-primary btn-sm"
+               data-bs-toggle="tooltip"
+               data-bs-original-title="Edit"
+               href="/admin/products/<[id]>"><span
+                    class="fe fe-edit fs-14"></span></a>
+            <a class="btn text-danger btn-sm"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteconfirmation"
+               data-bs-original-title="Delete"
+               data-id="/admin/products/<[id]>/delete"
+               href="/admin/products/<[id]>/delete"><span
+                    class="fe fe-trash-2 fs-14"></span></a>
+        </div>
+    </td>
+</tr>
+<[/foreach]>
+
+<script>
+    $(document).ready(function () {
+        $(".clickable-row").css("cursor", "pointer");
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function(e) {
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+
+        $('#remove-button').click(function() {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function(data) {
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        window.location.reload();
+                    } else {
+                        alert(response['error']);
+                    }
+                }
+            });
+        });
+    });
+</script>

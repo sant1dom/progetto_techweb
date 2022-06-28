@@ -1,0 +1,253 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Prodotto</h4>
+                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
+                        <span class="fe fe-edit fs-14"></span> Modifica Prodotto </button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" value="<[id]>" name="id" id="id" required aria-required="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nome">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome" value="<[nome]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un nome valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="prezzo">Prezzo</label>
+                                        <input type="number" step=".01" class="form-control" id="prezzo" name="prezzo" value="<[prezzo]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un prezzo valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="dimensione">Dimensione</label>
+                                        <input type="number" step=".01" class="form-control" id="dimensione" name="dimensione" value="<[dimensione]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una dimensione valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="quantita_disponibile">Quantità Disponibile</label>
+                                        <input type="number" step=".01" class="form-control" id="quantita_disponibile" name="quantita_disponibile" value="<[quantita_disponibile]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una quantità valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descrizione">Descrizione</label>
+                                        <textarea class="form-control" id="descrizione" name="descrizione" readonly required aria-required="true"><[descrizione]></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="categoria">Categoria</label>
+                                        <select disabled class="form-control select2-show-search form-select" id="categoria" name="categoria" readonly required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[categoria_id]>"><[categoria]></option>
+                                            <[/foreach]>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="produttore">Produttore</label>
+                                        <select disabled class="form-control select2-show-search form-select" id="produttore" name="produttore" readonly required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[produttore_id]>"><[produttore]></option>
+                                            <[/foreach]>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="provenienza">Provenienza</label>
+                                        <select disabled class="form-control select2-show-search form-select" id="provenienza" name="provenienza" readonly required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[provenienza_id]>"><[nazione]>, <[regione]></option>
+                                            <[/foreach]>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- INTERNAL WYSIWYG Editor JS -->
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/wysiwyag.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').select2().attr('disabled', true);
+        $('#edit').click(function() {
+            if ($(this).val() === 'edit') {
+                $('body').find('.alert').remove();
+                $('#nome').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#prezzo').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#dimensione').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#quantita_disponibile').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#descrizione').richText({"imageUpload":false,
+                    "fileUpload":false,
+                    "videoEmbed":false,
+                    "code":false,
+                    "table":false,
+                    "urls":false});
+                $('#categoria').attr('readonly', function (_, attr) {
+                    return !attr
+                }).attr('disabled', false);
+
+                $('#produttore').attr('readonly', function (_, attr) {
+                    return !attr
+                }).attr('disabled', false);
+                $('#provenienza').attr('readonly', function (_, attr) {
+                    return !attr
+                }).attr('disabled', false);
+                $(this).val('save');
+                $(this).html('<span class="fe fe-check fs-14"></span> Salva modifiche');
+            } else {
+                // Controllo che serve a vedere se tutti gli input sono riempiti
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/products/<[id]>/edit',
+                        data: {
+                            'id': $('#id').val(),
+                            'nome': $('#nome').val(),
+                            'prezzo': $('#prezzo').val(),
+                            'dimensione': $('#dimensione').val(),
+                            'quantita_disponibile': $('#quantita_disponibile').val(),
+                            'descrizione': $('#descrizione').val(),
+                            'categoria': $('#categoria').val(),
+                            'produttore': $('#produttore').val(),
+                            'provenienza': $('#provenienza').val()
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit').val('edit');
+                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica utente');
+                                $('#nome').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#prezzo').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#dimensione').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#quantita_disponibile').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#descrizione').unRichText();
+                                $('#categoria').attr('readonly', function (_, attr) {
+                                    return !attr
+                                }).attr('disabled', true);
+                                $('#produttore').attr('readonly', function (_, attr) {
+                                    return !attr
+                                }).attr('disabled', true);
+                                $('#provenienza').attr('readonly', function (_, attr) {
+                                    return !attr
+                                }).attr('disabled', true);
+                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi obbligatori' + '</div>');
+                }
+            }
+        });
+
+
+        $('input').on('propertychange change click keyup input paste', function() {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.invalid-feedback').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.invalid-feedback').show();
+            }
+        });
+
+
+        $("#produttore option").each(function() {
+            if ($(this).val() === '<[produttore_selected]>') {
+                $(this).attr('selected', true);
+            }
+        });
+
+        $("#provenienza option").each(function() {
+            if ($(this).val() === '<[nazione_selected], <[regione_selected]>') {
+                $(this).attr('selected', true);
+            }
+        });
+
+        $("#categoria option").each(function() {
+            if ($(this).val() === '<[categoria_selected]>') {
+                $(this).attr('selected', true);
+            }
+        });
+    });
+</script>
