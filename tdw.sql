@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `tdw_ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
+CREATE DATABASE  IF NOT EXISTS `tdw_ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `tdw_ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
@@ -28,7 +28,7 @@ CREATE TABLE `categorie` (
                              `id` int NOT NULL AUTO_INCREMENT,
                              `nome` varchar(45) NOT NULL,
                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `groups` (
                           `id` int NOT NULL AUTO_INCREMENT,
                           `group_name` varchar(45) NOT NULL,
                           PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `immagini` (
                             `id` int NOT NULL AUTO_INCREMENT,
                             `nome_file` varchar(45) NOT NULL,
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `indirizzi` (
                              PRIMARY KEY (`id`),
                              KEY `fk_indirizzi_users1_idx` (`users_id`),
                              CONSTRAINT `fk_indirizzi_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `metodi_pagamento` (
                                     PRIMARY KEY (`id`),
                                     KEY `fk_metodi_pagamento_users_idx` (`users_id`),
                                     CONSTRAINT `fk_metodi_pagamento_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `ordini` (
                           CONSTRAINT `fk_ordini_indirizzi1` FOREIGN KEY (`indirizzi_fatturazione`) REFERENCES `indirizzi` (`id`),
                           CONSTRAINT `fk_ordini_indirizzi2` FOREIGN KEY (`indirizzi_spedizione`) REFERENCES `indirizzi` (`id`),
                           CONSTRAINT `fk_ordini_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `ordini_has_prodotti` (
                                        KEY `fk_ordini_has_prodotti_ordini1_idx` (`ordini_id`),
                                        CONSTRAINT `fk_ordini_has_prodotti_ordini1` FOREIGN KEY (`ordini_id`) REFERENCES `ordini` (`id`),
                                        CONSTRAINT `fk_ordini_has_prodotti_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,17 +223,14 @@ CREATE TABLE `prodotti` (
                             `produttori_id` int NOT NULL,
                             `provenienze_id` int NOT NULL,
                             `categorie_id` int NOT NULL,
-                            `immagini_id` int NOT NULL,
                             PRIMARY KEY (`id`),
                             KEY `fk_prodotti_produttori1_idx` (`produttori_id`),
                             KEY `fk_prodotti_provenienze1_idx` (`provenienze_id`),
                             KEY `fk_prodotti_categorie1_idx` (`categorie_id`),
-                            KEY `fk_prodotti_immagini1_idx` (`immagini_id`),
                             CONSTRAINT `fk_prodotti_categorie1` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`),
-                            CONSTRAINT `fk_prodotti_immagini1` FOREIGN KEY (`immagini_id`) REFERENCES `immagini` (`id`),
                             CONSTRAINT `fk_prodotti_produttori1` FOREIGN KEY (`produttori_id`) REFERENCES `produttori` (`id`),
                             CONSTRAINT `fk_prodotti_provenienze1` FOREIGN KEY (`provenienze_id`) REFERENCES `provenienze` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,6 +241,19 @@ LOCK TABLES `prodotti` WRITE;
 /*!40000 ALTER TABLE `prodotti` DISABLE KEYS */;
 /*!40000 ALTER TABLE `prodotti` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `prodotti_has_immagini`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `prodotti_has_immagini` (
+                                         `prodotti_id` int NOT NULL,
+                                         `immagini_id` int NOT NULL,
+                                         PRIMARY KEY (`prodotti_id`,`immagini_id`),
+                                         KEY `fk_prodotti_has_immagini_immagini1_idx` (`immagini_id`),
+                                         KEY `fk_prodotti_has_immagini_prodotti1_idx` (`prodotti_id`),
+                                         CONSTRAINT `fk_prodotti_has_immagini_immagini1` FOREIGN KEY (`immagini_id`) REFERENCES `immagini` (`id`),
+                                         CONSTRAINT `fk_prodotti_has_immagini_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `produttori`
@@ -261,7 +271,7 @@ CREATE TABLE `produttori` (
                               `email` varchar(45) NOT NULL,
                               `sito_web` varchar(45) DEFAULT NULL,
                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +295,7 @@ CREATE TABLE `provenienze` (
                                `nazione` varchar(45) NOT NULL,
                                `regione` varchar(45) NOT NULL,
                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +325,7 @@ CREATE TABLE `recensioni` (
                               KEY `fk_recensioni_users1_idx` (`users_id`),
                               CONSTRAINT `fk_recensioni_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`),
                               CONSTRAINT `fk_recensioni_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,8 +347,11 @@ DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
                             `id` int NOT NULL AUTO_INCREMENT,
                             `username` varchar(45) NOT NULL,
+                            `url` varchar(255) NOT NULL,
+                            `script` varchar(255) NOT NULL,
+                            `callback` varchar(255) NOT NULL,
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,7 +378,7 @@ CREATE TABLE `services_has_groups` (
                                        KEY `fk_services_has_groups_services1_idx` (`services_id`),
                                        CONSTRAINT `fk_services_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`),
                                        CONSTRAINT `fk_services_has_groups_services1` FOREIGN KEY (`services_id`) REFERENCES `services` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,7 +405,7 @@ CREATE TABLE `users` (
                          `password` varchar(45) NOT NULL,
                          `telefono` varchar(45) NOT NULL,
                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +432,7 @@ CREATE TABLE `users_has_groups` (
                                     KEY `fk_users_has_groups_users1_idx` (`users_id`),
                                     CONSTRAINT `fk_users_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`),
                                     CONSTRAINT `fk_users_has_groups_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

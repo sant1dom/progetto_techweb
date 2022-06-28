@@ -1,52 +1,26 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . "/include/dbms.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/include/utility.inc.php";
 /**
  * Routing page
  */
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $request = $_SERVER['REQUEST_URI'];
 const __CONTROLLERS__ = __DIR__.'/controllers/';
-
-switch ($request) {
-    case '':
-    case '/' :
-        require __CONTROLLERS__.'home.php';
-        break;
-    case '/about' :
-        require  __CONTROLLERS__.'about.php';
-        break;
-    case '/contacts' :
-        require  __CONTROLLERS__.'contacts.php';
-        break;
-    case '/products' :
-        require  __CONTROLLERS__.'products/index.php';
-        break;
-    case '/product/{*}' :
-        require  __CONTROLLERS__.'products/show.php';
-        break;
-    case '/cart' :
-        require  __CONTROLLERS__.'cart.php';
-        break;
-    case '/admin':
-        require  __CONTROLLERS__.'admin/index.php';
-        break;
-    case '/admin/orders':
-        require  __CONTROLLERS__.'admin/orders/index.php';
-        break;
-    case '/admin/orders/{*}':
-        require  __CONTROLLERS__.'admin/orders/show.php';
-        break;
-    case '/admin/products':
-        require  __CONTROLLERS__.'admin/products/index.php';
-        break;
-    case '/admin/products/{*}':
-        require  __CONTROLLERS__.'admin/products/show.php';
-        break;
-    case '/admin/users':
-        require  __CONTROLLERS__.'admin/utenti/index.php';
-        break;
-    case '/admin/users/{*}':
-        require  __CONTROLLERS__.'admin/utenti/show.php';
-        break;
-    default:
-        require  __CONTROLLERS__.'errors.php';
-        break;
+global $mysqli;
+$query = "SELECT * FROM services where '".$request."' like url ORDER BY LENGTH(url) DESC LIMIT 1;";
+$oid = $mysqli->query($query);
+if($oid->num_rows > 0){
+    $oid = $oid->fetch_assoc();
+    $controller = $oid['script'];
+    $action = $oid['callback'];
+    $controller = __CONTROLLERS__.$controller;
+    require $controller;
+    $action();
+}else{
+    require __CONTROLLERS__.'errors.php';
 }
