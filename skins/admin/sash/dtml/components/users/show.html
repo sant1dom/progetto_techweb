@@ -1,0 +1,152 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Utente</h4>
+                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
+                        <span class="fe fe-edit fs-14"></span> Modifica utente </button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" value="<[id]>" name="id" id="id" required aria-required="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nome">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome" value="<[nome]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un nome valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cognome">Cognome</label>
+                                        <input type="text" class="form-control" id="cognome" name="cognome" value="<[cognome]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un cognome valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<[email]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una mail valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="telefono">Telefono</label>
+                                        <input type="tel" class="form-control" id="telefono" name="telefono" value="<[telefono]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un numero di telefono valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#edit').click(function() {
+            if ($(this).val() === 'edit') {
+                $('body').find('.alert').remove();
+                $('#nome').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#cognome').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#email').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#telefono').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#edit').val('save');
+                $('#edit').html('<span class="fe fe-check fs-14"></span> Salva modifiche');
+            } else {
+                // Controllo che serve a vedere se tutti gli input sono riempiti
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/users/<[id]>/edit',
+                        data: {
+                            'nome': $('#nome').val(),
+                            'cognome': $('#cognome').val(),
+                            'email': $('#email').val(),
+                            'telefono': $('#telefono').val(),
+                            'id': $('#id').val()
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit').val('edit');
+                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica utente');
+                                $('#nome').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#cognome').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#email').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#telefono').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $('input').on('propertychange change click keyup input paste', function() {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.invalid-feedback').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.invalid-feedback').show();
+            }
+        });
+    });
+</script>
