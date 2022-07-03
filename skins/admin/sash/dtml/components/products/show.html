@@ -2,7 +2,7 @@
     <div class="side-app">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header justify-content-between align-items-center">
                     <h4 class="card-title">Prodotto</h4>
                     <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
                         <span class="fe fe-edit fs-14"></span> Modifica Prodotto </button>
@@ -175,7 +175,7 @@
                             let response = JSON.parse(data);
                             if (response['success']) {
                                 $('#edit').val('edit');
-                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica utente');
+                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica prodotto');
                                 $('#nome').attr('readonly', function (_, attr) {
                                     return !attr
                                 });
@@ -215,7 +215,7 @@
                 } else {
                     $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                        'Compilare tutti i campi obbligatori' + '</div>');
+                        'Compilare tutti i campi correttamente' + '</div>');
                 }
             }
         });

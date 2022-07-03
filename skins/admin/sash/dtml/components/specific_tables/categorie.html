@@ -1,0 +1,91 @@
+<[foreach]>
+<tr>
+    <td class="clickable-row" data-href="/admin/categories/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[id]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/categories/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[nome]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="g-2">
+            <a class="btn text-primary btn-sm"
+               data-bs-toggle="tooltip"
+               data-bs-original-title="Edit"
+               href="/admin/categories/<[id]>"><span
+                    class="fe fe-edit fs-14"></span></a>
+            <a class="btn text-danger btn-sm"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteconfirmation"
+               data-bs-original-title="Delete"
+               data-id="/admin/categories/<[id]>/delete"
+               href="/admin/categories/<[id]>/delete"><span
+                    class="fe fe-trash-2 fs-14"></span></a>
+        </div>
+    </td>
+</tr>
+<[/foreach]>
+<div class="modal fade" id="error">
+    <div class="modal-dialog modal-dialog-centered text-center " role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body text-center p-4 pb-5">
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <i class="icon icon-close fs-70 text-red lh-1 my-5 d-inline-block"></i>
+                <h4 class="text-danger tx-semibold"></h4>
+                <button aria-label="Procedi" class="btn btn-danger pd-x-25 font-weight-bold" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".clickable-row").css("cursor", "pointer");
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function(e) {
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+
+        $('#remove-button').click(function() {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function(data) {
+                    console.log(data);
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        location.reload();
+                    } else {
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.card-header').append('<a class="btn btn-primary" href="/admin/categories/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
+    })
+</script>
