@@ -198,22 +198,22 @@
                                 $('#provenienza').attr('readonly', function (_, attr) {
                                     return !attr
                                 }).attr('disabled', true);
-                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible" role="alert">' +
+                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                     response['success'] + '</div>');
                             } else if (response['error']) {
-                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                     response['error'] + '</div>');
                             } else {
-                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible" role="alert">' +
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                     response['warning'] + '</div>');
                             }
                         }
                     });
                 } else {
-                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                         'Compilare tutti i campi correttamente' + '</div>');
                 }

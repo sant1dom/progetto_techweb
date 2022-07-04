@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$request = $_SERVER['REQUEST_URI'];
+$request = strtok($_SERVER["REQUEST_URI"], '?');
 const __CONTROLLERS__ = __DIR__.'/controllers/';
 global $mysqli;
 $query = "SELECT * FROM services where '".$request."' like url ORDER BY LENGTH(url) DESC LIMIT 1;";

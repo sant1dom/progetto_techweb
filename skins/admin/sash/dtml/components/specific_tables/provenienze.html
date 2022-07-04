@@ -1,6 +1,6 @@
 <[foreach]>
 <tr>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/provenances/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -9,38 +9,20 @@
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/provenances/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[nome]>
+                    <[nazione]>
                 </h6>
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/provenances/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[cognome]>
-                </h6>
-            </div>
-        </div>
-    </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
-        <div class="d-flex">
-            <div class="mt-0 mt-sm-3 d-block">
-                <h6 class="mb-0 fs-14 fw-semibold">
-                    <[email]>
-                </h6>
-            </div>
-        </div>
-    </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
-        <div class="d-flex">
-            <div class="mt-0 mt-sm-3 d-block">
-                <h6 class="mb-0 fs-14 fw-semibold">
-                    <[telefono]>
+                    <[regione]>
                 </h6>
             </div>
         </div>
@@ -50,20 +32,31 @@
             <a class="btn text-primary btn-sm"
                data-bs-toggle="tooltip"
                data-bs-original-title="Edit"
-               href="/admin/users/<[id]>/edit"><span
+               href="/admin/provenances/<[id]>"><span
                     class="fe fe-edit fs-14"></span></a>
             <a class="btn text-danger btn-sm"
                data-bs-toggle="modal"
                data-bs-target="#deleteconfirmation"
                data-bs-original-title="Delete"
-               data-id="/admin/users/<[id]>/delete"
-               href="/admin/users/<[id]>/delete"><span
+               data-id="/admin/provenances/<[id]>/delete"
+               href="/admin/provenances/<[id]>/delete"><span
                     class="fe fe-trash-2 fs-14"></span></a>
         </div>
     </td>
 </tr>
 <[/foreach]>
-
+<div class="modal fade" id="error">
+    <div class="modal-dialog modal-dialog-centered text-center " role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body text-center p-4 pb-5">
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <i class="icon icon-close fs-70 text-red lh-1 my-5 d-inline-block"></i>
+                <h4 class="text-danger tx-semibold"></h4>
+                <button aria-label="Procedi" class="btn btn-danger pd-x-25 font-weight-bold" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $(".clickable-row").css("cursor", "pointer");
@@ -85,6 +78,7 @@
                 url: delid,
                 type: 'POST',
                 success: function(data) {
+                    console.log(data);
                     $('#deleteconfirmation').modal('hide');
                     let response = JSON.parse(data);
                     if (response['success']) {
@@ -97,4 +91,10 @@
             });
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.card-header').append('<a class="btn btn-primary" href="/admin/provenances/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
+    })
 </script>

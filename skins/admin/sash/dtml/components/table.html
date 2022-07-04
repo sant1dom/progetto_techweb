@@ -30,7 +30,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <[sptable]>
+                                                    <[sptable]>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -76,5 +76,17 @@
             "order": [[0, "asc"]]
         });
     });
+</script>
+
+<script>
+    $(document).ready(function (){
+        const params = new URLSearchParams(location.search);
+        if (params.has('success')) {
+            $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                '<strong>Successo!</strong> Il record è stato eliminato con successo.</div>'
+            );
+        }
+    })
 </script>
 <!-- END Table -->

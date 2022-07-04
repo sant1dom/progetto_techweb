@@ -97,12 +97,19 @@
                     $('#deleteconfirmation').modal('hide');
                     let response = JSON.parse(data);
                     if (response['success']) {
-                        window.location.reload();
+                        window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
                     } else {
-                        alert(response['error']);
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
                     }
                 }
             });
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.card-header').append('<a class="btn btn-primary" href="/admin/products/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
+    })
 </script>
