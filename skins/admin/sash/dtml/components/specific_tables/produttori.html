@@ -1,6 +1,6 @@
 <[foreach]>
 <tr>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -9,34 +9,34 @@
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[nome]>
+                    <[ragione_sociale]>
                 </h6>
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[cognome]>
+                    <[partita_iva]>
                 </h6>
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[email]>
+                    <[provenienza]>
                 </h6>
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -45,19 +45,37 @@
             </div>
         </div>
     </td>
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[email]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/producers/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[sito_web]>
+                </h6>
+            </div>
+        </div>
+    </td>
     <td>
         <div class="g-2">
             <a class="btn text-primary btn-sm"
                data-bs-toggle="tooltip"
-               data-bs-original-title="Modifica"
-               href="/admin/users/<[id]>/edit"><span
+               data-bs-original-title="Edit"
+               href="/admin/producers/<[id]>/edit"><span
                     class="fe fe-edit fs-14"></span></a>
             <a class="btn text-danger btn-sm"
                data-bs-toggle="modal"
                data-bs-target="#deleteconfirmation"
                data-bs-original-title="Cancella"
-               data-id="/admin/users/<[id]>/delete"
-               href="/admin/users/<[id]>/delete"><span
+               data-id="/admin/producers/<[id]>/delete"
+               href="/admin/producers/<[id]>/delete"><span
                     class="fe fe-trash-2 fs-14"></span></a>
         </div>
     </td>
@@ -97,4 +115,10 @@
             });
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.card-header').append('<a class="btn btn-primary" href="/admin/producers/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
+    })
 </script>
