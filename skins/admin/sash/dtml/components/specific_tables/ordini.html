@@ -1,6 +1,6 @@
 <[foreach]>
-<tr class="border-bottom">
-    <td>
+<tr>
+    <td class="clickable-row" data-href="/admin/orders/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -9,7 +9,25 @@
             </div>
         </div>
     </td>
-    <td>
+    <td class="clickable-row" data-href="/admin/orders/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                   <[numero_ordine]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/orders/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[utente]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/orders/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -36,24 +54,33 @@
             </div>
         </div>
     </td>
-    <td>
+    <!--<td>
+      <div class="d-flex">
+           <div class="mt-0 mt-sm-3 d-block">
+               <h6 class="mb-0 fs-14 fw-semibold">
+                   <[indirizzo_spedizione]>
+               </h6>
+           </div>
+       </div>
+   </td>-->
+   <!-- <td>
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[utente]>
+                    <[indirizzo_fatturazione]>
                 </h6>
             </div>
         </div>
-    </td>
+    </td>-->
     <td>
         <div class="g-2">
             <a class="btn text-primary btn-sm"
                data-bs-toggle="tooltip"
-               data-bs-original-title="Modifica"><span
+               data-bs-original-title="Edit"><span
                     class="fe fe-edit fs-14"></span></a>
             <a class="btn text-danger btn-sm"
                data-bs-toggle="tooltip"
-               data-bs-original-title="Cancella"><span
+               data-bs-original-title="Delete"><span
                     class="fe fe-trash-2 fs-14"></span></a>
         </div>
     </td>

@@ -1,0 +1,195 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h4 class="card-title">Ordine</h4>
+                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
+                        <span class="fe fe-edit fs-14"></span> Modifica ordine </button>
+                    <button class="btn btn-primary btn-sm mx-3" id="accettaOrdine" name="accettaOrdine" value="accettaOrdine" type="submit">
+                        <span class="fe fe-edit fs-14"></span> Accetta l'ordine </button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" value="<[id]>" name="id" id="id" required aria-required="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Numero ordine: </label>
+                                       <!-- [if] <[numero_ordine]> -->
+                                        <label ><[numero_ordine]></label>
+                                       <!-- [else]
+                                        <label class="text-danger">L'ordine non è stato ancora accettato</label>
+                                        [/if]-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Totale: </label>
+                                        <label ><[totale]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Data: </label>
+                                        <label ><[data]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="stato">Stato</label>
+                                        <select disabled class="form-control select2-show-search form-select" id="stato" name="stato" readonly required aria-required="true">
+                                            <option value="<[stato]>"><[stato]></option>
+                                            <option value="SPEDITO">Spedito</option>
+                                            <option value="SOSPESO">Sospeso</option>
+                                            <option value="ANNULLATO">Annullato</option>
+                                            <option value="IN CONSEGNA">In consegna</option>
+                                            <option value="CONSEGNATO">Consegnato</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Indirizzo di spedizione: </label>
+                                        <label ><[indirizzo_spedizione]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Indirizzo di fatturazione: </label>
+                                        <label ><[indirizzo_fatturazione]></label>
+                                    </div>
+                                </div>
+                            </div>
+                                <div >
+                                    <[table]>
+                                </div>
+
+                            <h6 class="card-title">Utente</h6>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Nome: </label>
+                                        <label ><[nome_utente]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Cognome: </label>
+                                        <label ><[cognome_utente]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Email: </label>
+                                        <label ><[email_utente]></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="fs-15 fw-semibold">Telefono: </label>
+                                        <label ><[utente_telefono]></label>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- INTERNAL WYSIWYG Editor JS -->
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/wysiwyag.js"></script>
+<script>
+    var x = document.getElementById("stato").value;
+    if((x ==='NUOVO')){
+        $('#accettaOrdine').show();
+        $('#edit').hide();
+    }
+    else {
+        $('#accettaOrdine').hide();
+        $('#edit').show();
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('#accettaOrdine').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: '/admin/orders/<[id]>/accetta_ordine',
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('select').select2().attr('disabled', true);
+        $('#edit').click(function () {
+            if ($(this).val() === 'edit') {
+                $('body').find('.alert').remove();
+                $('#stato').attr('readonly', function (_, attr) {
+                    return !attr
+                }).attr('disabled', false);
+                $(this).val('save');
+                $(this).html('<span class="fe fe-check fs-14"></span> Salva modifiche');
+            } else {
+                // Controllo che serve a vedere se tutti gli input sono riempiti
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/products/<[id]>/edit',
+                        data: {
+                            'stato': $('stato').val(),
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit').val('edit');
+                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica ordine');
+                                $('#stato').attr('readonly', function (_, attr) {
+                                    return !attr
+                                }).attr('disabled', true);
+                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi correttamente' + '</div>');
+                }
+            }
+        });
+    });
+</script>

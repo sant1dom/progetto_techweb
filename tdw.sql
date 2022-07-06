@@ -158,14 +158,18 @@ CREATE TABLE `ordini` (
                           `data` varchar(45) NOT NULL,
                           `stato` varchar(45) NOT NULL,
                           `totale` float NOT NULL,
+                          `numero_ordine` varchar(45),
                           `indirizzi_fatturazione` int NOT NULL,
                           `indirizzi_spedizione` int NOT NULL,
+                          `metodi_pagamento` int NOT NULL,
                           PRIMARY KEY (`id`),
                           KEY `fk_ordini_users1_idx` (`user_id`),
                           KEY `fk_ordini_indirizzi1_idx` (`indirizzi_fatturazione`),
                           KEY `fk_ordini_indirizzi2_idx` (`indirizzi_spedizione`),
+                          KEY `fk_ordini_metodi_pagamento1_idx` (`metodi_pagamento`),
                           CONSTRAINT `fk_ordini_indirizzi1` FOREIGN KEY (`indirizzi_fatturazione`) REFERENCES `indirizzi` (`id`),
                           CONSTRAINT `fk_ordini_indirizzi2` FOREIGN KEY (`indirizzi_spedizione`) REFERENCES `indirizzi` (`id`),
+                          CONSTRAINT `fk_ordini_metodi_pagamento1` FOREIGN KEY (`metodi_pagamento`) REFERENCES `metodi_pagamento` (`id`),
                           CONSTRAINT `fk_ordini_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -189,6 +193,7 @@ DROP TABLE IF EXISTS `ordini_has_prodotti`;
 CREATE TABLE `ordini_has_prodotti` (
                                        `ordini_id` int NOT NULL,
                                        `prodotti_id` int NOT NULL,
+                                       `quantita` int NOT NULL DEFAULT '1',
                                        PRIMARY KEY (`ordini_id`,`prodotti_id`),
                                        KEY `fk_ordini_has_prodotti_prodotti1_idx` (`prodotti_id`),
                                        KEY `fk_ordini_has_prodotti_ordini1_idx` (`ordini_id`),

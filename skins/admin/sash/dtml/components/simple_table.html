@@ -1,0 +1,88 @@
+<!-- Table -->
+<div class="main-container container-fluid mt-3">
+    <div class="row">
+        <div class="col-12 col-sm-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h3 class="card-title mb-0"><[title]></h3>
+                </div>
+                <div class="card-body pt-4">
+                    <div class="grid-margin">
+                        <div class="">
+                            <div class="panel panel-primary">
+                                <div class="panel-body tabs-menu-body border-0 pt-0">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab5">
+                                            <div class="table-responsive">
+                                                <table id="data-table"
+                                                       class="table table-bordered text-nowrap mb-0">
+                                                    <thead class="border-top">
+                                                    <tr>
+                                                        <[foreach]>
+                                                        <th class="bg-transparent border-bottom-0">
+                                                            <[colname]>
+                                                        </th>
+                                                        <[/foreach]>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <[sptable]>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteconfirmation">
+    <div class="modal-dialog modal-dialog-centered text-center " role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body text-center p-4 pb-5">
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <i class="icon icon-close fs-70 text-red lh-1 my-5 d-inline-block"></i>
+                <h4 class="text-danger tx-semibold">Sei sicuro di voler cancellare?</h4>
+                <button aria-label="Annulla" class="btn btn-white pd-x-25" data-bs-dismiss="modal">Annulla</button>
+                <button aria-label="Procedi" class="btn btn-danger pd-x-25 font-weight-bold" id="remove-button">Procedi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            "language": {
+                "lengthMenu": "Mostra _MENU_ record per pagina",
+                "zeroRecords": "Nessun record trovato",
+                "info": "Pagina _PAGE_ di _PAGES_",
+                "infoEmpty": "Nessun record trovato",
+                "infoFiltered": "(filtrato da _MAX_ record totali)",
+                "search": "Cerca",
+                "paginate": {
+                    "previous": "Precedente",
+                    "next": "Successivo"
+                }
+            },
+            "order": [[0, "asc"]]
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function (){
+        const params = new URLSearchParams(location.search);
+        if (params.has('success')) {
+            $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                '<strong>Successo!</strong> Il record è stato eliminato con successo.</div>'
+            );
+        }
+    })
+</script>
+<!-- END Table -->
