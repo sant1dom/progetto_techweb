@@ -3,21 +3,22 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header justify-content-between align-items-center">
-                    <h4 class="card-title">Aggiungi un nuovo produttore</h4>
-                    <a href="/admin/producers" class="btn btn-primary btn-sm mx-3">
+                    <h4 class="card-title">Aggiungi un nuovo prodotto</h4>
+                    <a href="/admin/products" class="btn btn-primary btn-sm mx-3">
                         <span class="fe fe-arrow-left fs-14"></span> Torna indietro </a>
                 </div>
                 <div class="card-body">
+                    <input type="hidden"  name="id" id="id" required aria-required="true">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="ragione_sociale">Ragione Sociale</label>
-                                        <input type="text" class="form-control" id="ragione_sociale" name="ragione_sociale"  required aria-required="true">
+                                        <label for="nome">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome"   required aria-required="true">
                                         <div class="invalid-feedback">
                                             <span class="text-danger">
-                                                Inserisci una ragione sociale valida.
+                                                Inserisci un nome valido.
                                             </span>
                                         </div>
                                     </div>
@@ -26,11 +27,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="partita_iva">Partita Iva</label>
-                                        <input type="text" class="form-control" id="partita_iva" name="partita_iva"  required aria-required="true">
+                                        <label for="prezzo">Prezzo</label>
+                                        <input type="number" step=".01" class="form-control" id="prezzo" name="prezzo"   required aria-required="true">
                                         <div class="invalid-feedback">
                                             <span class="text-danger">
-                                                Inserisci una partita iva valida.
+                                                Inserisci un prezzo valido.
                                             </span>
                                         </div>
                                     </div>
@@ -39,11 +40,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="partita_iva">Provenienza</label>
-                                        <input type="text" class="form-control" id="provenienza" name="provenienza"  required aria-required="true">
+                                        <label for="dimensione">Dimensione</label>
+                                        <input type="number" step=".01" class="form-control" id="dimensione" name="dimensione"   required aria-required="true">
                                         <div class="invalid-feedback">
                                             <span class="text-danger">
-                                                Inserisci una provenienza valida.
+                                                Inserisci una dimensione valida.
                                             </span>
                                         </div>
                                     </div>
@@ -52,11 +53,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="telefono">Telefono</label>
-                                        <input type="tel" class="form-control" id="telefono" name="telefono"  required aria-required="true">
+                                        <label for="quantita_disponibile">Quantità Disponibile</label>
+                                        <input type="number" step=".01" class="form-control" id="quantita_disponibile" name="quantita_disponibile"   required aria-required="true">
                                         <div class="invalid-feedback">
                                             <span class="text-danger">
-                                                Inserisci un numero di telefono valido.
+                                                Inserisci una quantità valida.
                                             </span>
                                         </div>
                                     </div>
@@ -65,66 +66,88 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email"  required aria-required="true">
-                                        <div class="invalid-feedback">
-                                            <span class="text-danger">
-                                                Inserisci una mail valida.
-                                            </span>
-                                        </div>
+                                        <label for="descrizione">Descrizione</label>
+                                        <textarea class="form-control" id="descrizione" name="descrizione"  required aria-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="sito_web">Sito Web</label>
-                                        <input type="url" class="form-control" id="sito_web" name="sito_web"  required aria-required="true">
-                                        <div class="invalid-feedback">
-                                            <span class="text-danger">
-                                                Inserisci un Sito Web valido.
-                                            </span>
-                                        </div>
+                                        <label for="categoria">Categoria</label>
+                                        <select  class="form-control select2-show-search form-select" id="categoria" name="categoria"  required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[categoria_id]>"><[categoria]></option>
+                                            <[/foreach]>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="produttore">Produttore</label>
+                                        <select  class="form-control select2-show-search form-select" id="produttore" name="produttore"  required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[produttore_id]>"><[produttore]></option>
+                                            <[/foreach]>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="provenienza">Provenienza</label>
+                                        <select  class="form-control select2-show-search form-select" id="provenienza" name="provenienza"  required aria-required="true">
+                                            <[foreach]>
+                                            <option value="<[provenienza_id]>"><[nazione]>, <[regione]></option>
+                                            <[/foreach]>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary" id="add" name="add" value="add" type="submit">
-                        <span class="fe fe-save fs-14"></span> Aggiungi
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<!-- INTERNAL WYSIWYG Editor JS -->
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/wysiwyag.js"></script>
 <script>
     $(document).ready(function() {
+        $('select').select2();
+
         $('#add').click(function() {
             // Controllo che serve a vedere se tutti gli input sono riempiti
             if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
                 // Faccio la chiamata e in base al risultato lo mostro a schermo
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/producers/create',
+                    url: '/admin/products/create',
                     data: {
-                        'ragione_sociale': $('#ragione_sociale').val(),
-                        'partita_iva': $('#partita_iva').val(),
-                        'provenienza': $('#provenienza').val(),
-                        'telefono': $('#telefono').val(),
-                        'email': $('#email').val(),
-                        'sito_web': $('#sito_web').val()
+                        'nome': $('#nome').val(),
+                        'prezzo': $('#prezzo').val(),
+                        'dimensione': $('#dimensione').val(),
+                        'quantita_disponibile': $('#quantita_disponibile').val(),
+                        'descrizione': $('#descrizione').val(),
+                        'categoria': $('#categoria').val(),
+                        'produttore': $('#produttore').val(),
+                        'provenienza': $('#provenienza').val()
                     },
                     success: function (data) {
                         let response = JSON.parse(data);
                         if (response['success']) {
-                            $('#nazione').val('');
-                            $('#regione').val('');
+                            $('input').val('');
+                            $('textarea').val('');
+                            $('select').val('').trigger('change');
                             $('.card-header').after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['success'] + '</div>');
-                        } else if (response['error']) {
+                        } else {
                             $('#add').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['error'] + '</div>');
@@ -132,7 +155,7 @@
                     }
                 });
             } else {
-                $('#add').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Compilare tutti i campi correttamente' + '</div>');
             }
@@ -148,5 +171,12 @@
                 $(this).parent().find('.invalid-feedback').show();
             }
         });
+
+        $('#descrizione').richText({"imageUpload":false,
+            "fileUpload":false,
+            "videoEmbed":false,
+            "code":false,
+            "table":false,
+            "urls":false});
     });
 </script>

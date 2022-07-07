@@ -11,7 +11,7 @@ function index()
     );
 
     $oid = $mysqli->query("SELECT id, nazione, regione FROM tdw_ecommerce.provenienze");
-    $main = setupMain();
+    $main = setupMainAdmin();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -44,7 +44,7 @@ function show()
         header("Location: /admin/provenances");
     } else {
         $provenienza = $provenienza->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainAdmin();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/provenances/show.html");
         foreach ($provenienza as $key => $value) {
             $show->setContent($key, $value);
@@ -110,7 +110,7 @@ function create(){
         }
         exit(json_encode($response));
     } else {
-        $main = setupMain();
+        $main = setupMainAdmin();
         $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/provenances/create.html");
         $main->setContent("content", $create->get());
         $main->close();

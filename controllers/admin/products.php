@@ -11,7 +11,7 @@ function index(){
         "Descrizione"
     );
     $oid = $mysqli->query("SELECT id, nome, prezzo, dimensione, quantita_disponibile, CONCAT(SUBSTR(descrizione, 1, 40),'...') as descrizione FROM tdw_ecommerce.prodotti");
-    $main = setupMain();
+    $main = setupMainAdmin();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -37,43 +37,17 @@ function index(){
 function show(){
     global $mysqli;
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];
-    $prodotto = $mysqli->query("SELECT prodotti.id, prodotti.nome, prezzo, dimensione, quantita_disponibile, SUBSTR(descrizione, 1, 15) as descrizione, c.nome as categoria_selected, p.ragione_sociale as produttore_selected, p2.nazione as nazione_selected, p2.regione as regione_selected FROM tdw_ecommerce.prodotti JOIN tdw_ecommerce.categorie c on c.id = prodotti.categorie_id JOIN tdw_ecommerce.produttori p on p.id = prodotti.produttori_id JOIN tdw_ecommerce.provenienze p2 on p2.id = prodotti.provenienze_id WHERE prodotti.id = $id");
+    $prodotto = $mysqli->query("SELECT prodotti.id, prodotti.nome, prezzo, dimensione, quantita_disponibile, descrizione, c.nome as categoria_selected, p.ragione_sociale as produttore_selected, p2.nazione as nazione_selected, p2.regione as regione_selected FROM tdw_ecommerce.prodotti JOIN tdw_ecommerce.categorie c on c.id = prodotti.categorie_id JOIN tdw_ecommerce.produttori p on p.id = prodotti.produttori_id JOIN tdw_ecommerce.provenienze p2 on p2.id = prodotti.provenienze_id WHERE prodotti.id = $id");
     if ($prodotto->num_rows == 0) {
         header("Location: /admin/products");
     } else {
         $prodotto = $prodotto->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainAdmin();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/products/show.html");
         foreach ($prodotto as $key => $value) {
             $show->setContent($key, $value);
         }
-        $oid = $mysqli->query("SELECT id as produttore_id, ragione_sociale as produttore FROM tdw_ecommerce.produttori");
-        do {
-            $produttori = $oid->fetch_assoc();
-            if ($produttori) {
-                foreach ($produttori as $key => $value) {
-                    $show->setContent($key, $value);
-                }
-            }
-        } while ($produttori);
-        $oid = $mysqli->query("SELECT id as categoria_id, nome as categoria FROM tdw_ecommerce.categorie");
-        do {
-            $categorie = $oid->fetch_assoc();
-            if ($categorie) {
-                foreach ($categorie as $key => $value) {
-                    $show->setContent($key, $value);
-                }
-            }
-        } while ($categorie);
-        $oid = $mysqli->query("SELECT id as provenienza_id, nazione, regione FROM tdw_ecommerce.provenienze");
-        do {
-            $provenienze = $oid->fetch_assoc();
-            if ($provenienze) {
-                foreach ($provenienze as $key => $value) {
-                    $show->setContent($key, $value);
-                }
-            }
-        } while ($provenienze);
+        populateSelectProduct($mysqli, $show);
         $show->setContent("categoria_selected", $prodotto['categoria_selected']);
         $show->setContent("produttore_selected", $prodotto['produttore_selected']);
         $show->setContent("nazione_selected", $prodotto['nazione_selected']);
@@ -83,7 +57,75 @@ function show(){
         $main->close();
     }
 }
-function create(){}
+function create(){
+    global $mysqli;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST["nome"];
+        $prezzo = $_POST["prezzo"];
+        $dimensione = $_POST["dimensione"];
+        $quantita_disponibile = $_POST["quantita_disponibile"];
+        $descrizione = $_POST["descrizione"];
+        $categoria = $_POST["categoria"];
+        $produttore = $_POST["produttore"];
+        $provenienza = $_POST["provenienza"];
+        $response = array();
+        if ($nome !== "" && $prezzo !== "" && $dimensione !== "" && $quantita_disponibile !== "" && $descrizione !== "" && $categoria !== "" && $produttore !== "" && $provenienza !== "") {
+            $mysqli->query("INSERT INTO tdw_ecommerce.prodotti (nome, prezzo, dimensione, quantita_disponibile, descrizione, categorie_id, produttori_id, provenienze_id) VALUES ('$nome', $prezzo, '$dimensione', $quantita_disponibile, '$descrizione', $categoria, $produttore, $provenienza)");
+            if ($mysqli->affected_rows == 1) {
+                $response['success'] = "Prodotto creato con successo";
+            } elseif ($mysqli->affected_rows == 0) {
+                $response['warning'] = "Nessun dato modificato";
+            } else {
+                $response['error'] = "Errore nella creazione del prodotto";
+            }
+        } else {
+            $response['error'] = "Errore nella creazione del prodotto";
+        }
+        exit(json_encode($response));
+    } else {
+        $main = setupMainAdmin();
+        $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/products/create.html");
+        populateSelectProduct($mysqli, $create);
+        $main->setContent("content", $create->get());
+        $main->close();
+    }
+}
+
+/**
+ * @param mysqli $mysqli
+ * @param Template $template
+ * @return void
+ */
+function populateSelectProduct(mysqli $mysqli, Template $template): void {
+    $oid = $mysqli->query("SELECT id as produttore_id, ragione_sociale as produttore FROM tdw_ecommerce.produttori ORDER BY ragione_sociale");
+    do {
+        $produttori = $oid->fetch_assoc();
+        if ($produttori) {
+            foreach ($produttori as $key => $value) {
+                $template->setContent($key, $value);
+            }
+        }
+    } while ($produttori);
+    $oid = $mysqli->query("SELECT id as categoria_id, nome as categoria FROM tdw_ecommerce.categorie ORDER BY nome");
+    do {
+        $categorie = $oid->fetch_assoc();
+        if ($categorie) {
+            foreach ($categorie as $key => $value) {
+                $template->setContent($key, $value);
+            }
+        }
+    } while ($categorie);
+    $oid = $mysqli->query("SELECT id as provenienza_id, nazione, regione FROM tdw_ecommerce.provenienze ORDER BY nazione, regione");
+    do {
+        $provenienze = $oid->fetch_assoc();
+        if ($provenienze) {
+            foreach ($provenienze as $key => $value) {
+                $template->setContent($key, $value);
+            }
+        }
+    } while ($provenienze);
+}
+
 function edit(){
     global $mysqli;
     $id = $_POST["id"];

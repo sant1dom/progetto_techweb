@@ -45,20 +45,29 @@
             </div>
         </div>
     </td>
+    <td class="clickable-row" data-href="/admin/users/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold ban">
+                    <[ban]>
+                </h6>
+            </div>
+        </div>
+    </td>
     <td>
         <div class="g-2">
             <a class="btn text-primary btn-sm"
                data-bs-toggle="tooltip"
                data-bs-original-title="Modifica"
-               href="/admin/users/<[id]>/edit"><span
+               href="/admin/users/<[id]>"><span
                     class="fe fe-edit fs-14"></span></a>
             <a class="btn text-danger btn-sm"
                data-bs-toggle="modal"
                data-bs-target="#deleteconfirmation"
-               data-bs-original-title="Cancella"
+               data-bs-original-title="Modifica Status"
                data-id="/admin/users/<[id]>/delete"
                href="/admin/users/<[id]>/delete"><span
-                    class="fe fe-trash-2 fs-14"></span></a>
+                    class="fe fe-user-x fs-14"></span></a>
         </div>
     </td>
 </tr>
@@ -88,13 +97,23 @@
                     $('#deleteconfirmation').modal('hide');
                     let response = JSON.parse(data);
                     if (response['success']) {
-                        window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
+                        window.location.href = window.location.pathname+"?"+$.param({'success':'true', 'utente':'true'});
                     } else {
                         $('#error .modal-body .text-danger').text(response['error']);
                         $('#error').modal('show');
                     }
                 }
             });
+        });
+        $('.ban').each(function() {
+            console.log($(this).text());
+            if ($(this).text().includes('1')) {
+                $(this).text('DISABILITATO');
+                $(this).addClass('text-danger');
+            } else {
+                $(this).text('ATTIVO');
+                $(this).addClass('text-success');
+            }
         });
     });
 </script>

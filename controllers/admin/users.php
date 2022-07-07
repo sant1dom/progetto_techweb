@@ -7,11 +7,12 @@ function index(){
         "Nome",
         "Cognome",
         "Email",
-        "Telefono"
+        "Telefono",
+        "Status"
     );
 
-    $oid = $mysqli->query("SELECT id, nome, cognome, email, telefono FROM tdw_ecommerce.users");
-    $main = setupMain();
+    $oid = $mysqli->query("SELECT id, nome, ban, cognome, email, telefono FROM tdw_ecommerce.users");
+    $main = setupMainAdmin();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -43,7 +44,7 @@ function show(){
         header("Location: /admin/users");
     } else {
         $utente = $utente->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainAdmin();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/users/show.html");
         foreach ($utente as $key => $value) {
             $show->setContent($key, $value);
@@ -56,14 +57,19 @@ function show(){
 // Per il momento non funziona dobbiamo parlare di cosa succede se cancelliamo un utente
 function delete(){
     global $mysqli;
-    echo "DELETE";
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];
-    $mysqli->query("DELETE FROM tdw_ecommerce.users WHERE id = $id");
+    $ban = $mysqli->query("SELECT ban FROM tdw_ecommerce.users WHERE id = $id");
+    $ban = $ban->fetch_assoc();
+    if ($ban['ban'] == 0) {
+        $mysqli->query("UPDATE tdw_ecommerce.users SET ban = 1 WHERE id = $id");
+    } else {
+        $mysqli->query("UPDATE tdw_ecommerce.users SET ban = 0 WHERE id = $id");
+    }
     $response = array();
     if($mysqli->affected_rows == 1){
-        $response['success'] = "Utente eliminato con successo";
+        $response['success'] = "Status modificato con successo";
     } else {
-        $response['error'] = "Errore nell'eliminazione dell'utente";
+        $response['error'] = "Errore nella modifica dello status dell'utente";
     }
     exit(json_encode($response));
 }

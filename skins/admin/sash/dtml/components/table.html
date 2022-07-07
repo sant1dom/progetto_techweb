@@ -51,7 +51,7 @@
             <div class="modal-body text-center p-4 pb-5">
                 <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                 <i class="icon icon-close fs-70 text-red lh-1 my-5 d-inline-block"></i>
-                <h4 class="text-danger tx-semibold">Sei sicuro di voler cancellare?</h4>
+                <h4 class="text-danger tx-semibold" id="delete_modal_text"></h4>
                 <button aria-label="Annulla" class="btn btn-white pd-x-25" data-bs-dismiss="modal">Annulla</button>
                 <button aria-label="Procedi" class="btn btn-danger pd-x-25 font-weight-bold" id="remove-button">Procedi</button>
             </div>
@@ -81,11 +81,25 @@
 <script>
     $(document).ready(function (){
         const params = new URLSearchParams(location.search);
-        if (params.has('success')) {
-            $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                '<strong>Successo!</strong> Il record è stato eliminato con successo.</div>'
-            );
+        const url = new URL(location.href);
+        if (!params.has('utente')) {
+            if (params.has('success')) {
+                $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    '<strong>Successo!</strong> Il record è stato eliminato con successo.</div>'
+                );
+            }
+            $("#delete_modal_text").text("Sei sicuro di voler eliminare questo record?");
+        } else {
+            if (params.has('success')) {
+                $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    '<strong>Successo!</strong> Status utente modificato con successo.</div>'
+                );
+            }
+        }
+        if(url.toString().includes("users")){
+            $("#delete_modal_text").text("Sei sicuro di voler disabilitare/riabilitare l'utente ?");
         }
     })
 </script>
