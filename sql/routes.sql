@@ -8,6 +8,7 @@ INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visual
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza ordini', '/admin/orders', 'admin/orders.php', 'index');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza singolo ordine', '/admin/orders/%', 'admin/orders.php', 'show');
+INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Accetta un ordine', '/admin/orders/%/accetta_ordine', 'admin/orders.php', 'accetta_ordine');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Modifica ordine', '/admin/orders/%/edit', 'admin/orders.php', 'edit');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Cancella ordine', '/admin/orders/%/delete', 'admin/orders.php', 'delete');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza utenti', '/admin/users', 'admin/users.php', 'index');
