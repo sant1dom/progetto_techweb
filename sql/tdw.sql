@@ -1,3 +1,4 @@
+
 CREATE DATABASE  IF NOT EXISTS `tdw_ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `tdw_ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)

@@ -2,15 +2,12 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
 require $_SERVER['DOCUMENT_ROOT'] . "/include/auth.inc.php";
 require "include/dbms.inc.php";
 global $mysqli;
 
+checkSession();
 
 /**
  * Metodo per la gestione della pagina di accesso.
@@ -86,7 +83,6 @@ function register(): void
  */
 #[NoReturn] function redirect(): void
 {
-
     if (isset($_SESSION['referrer'])) {                 //se è stato impostato un referrer reindirizza
         $referrer = $_SESSION['referrer'];
         unset($_SESSION['referrer']);
