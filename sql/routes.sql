@@ -5,6 +5,10 @@ INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visual
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Effettua logout', '/logout', 'auth/access.php', 'logout');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Effettua registrazione', '/register', 'auth/access.php', 'register');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza carrello', '/cart', 'cart.php', 'cart');
+INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza ordini', '/orders', '/user/orders.php', 'index');
+INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza ordine', '/orders/%', '/user/orders.php', 'show');
+INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza prodotti', '/products', '/user/products.php', 'index');
+INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza prodotto', '/products/%', '/user/products.php', 'show');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza ordini', '/admin/orders', 'admin/orders.php', 'index');
 INSERT INTO services (id, username, url, script, callback) VALUES (NULL, 'Visualizza singolo ordine', '/admin/orders/%', 'admin/orders.php', 'show');

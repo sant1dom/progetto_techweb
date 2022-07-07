@@ -1,6 +1,6 @@
 <?php
 
-function setupMain()
+function setupMainAdmin()
 {
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/main.html");
 // Default set delle parti statiche
