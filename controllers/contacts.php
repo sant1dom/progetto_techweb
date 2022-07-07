@@ -3,7 +3,7 @@ require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
 //require "include/dbms.inc.php";
 //global $mysqli;
 
-$main = setupMainWizym();
+$main = setupMainUser();
 $body = new Template($_SERVER['DOCUMENT_ROOT']."/skins/wizym/dtml/contacts.html");
 /*$oid = $mysqli->query("");
 if(!$oid) {

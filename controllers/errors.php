@@ -9,7 +9,7 @@ if(!str_starts_with($_SERVER['REQUEST_URI'], "/admin/")){
     $title = "Pagina non trovata";
     $description = "La pagina che stai cercando non esiste";
 
-    $main = setupMainWizym();
+    $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/error.html");
     $data = array(
         "error" => $error,

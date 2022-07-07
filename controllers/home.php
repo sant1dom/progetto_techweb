@@ -12,7 +12,7 @@ if(!$oid) {
 
 function home(): void
 {
-    $main = setupMainWizym();
+    $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT']."/skins/wizym/dtml/home.html");
 
     $data = array(
