@@ -9,7 +9,7 @@ if(!str_starts_with($_SERVER['REQUEST_URI'], "/admin/")){
     $title = "Pagina non trovata";
     $description = "La pagina che stai cercando non esiste";
 
-    $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/main.html");
+    $main = setupMainWizym();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/error.html");
     $data = array(
         "error" => $error,
@@ -21,8 +21,6 @@ if(!str_starts_with($_SERVER['REQUEST_URI'], "/admin/")){
         $body->setContent($key, $value);
     }
 
-    $main->setContent("header", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/header.html"))->get());
-    $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html"))->get());
     $main->setContent("content", $body->get());
     $main->close();
 } else {

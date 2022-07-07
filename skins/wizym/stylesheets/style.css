@@ -5597,6 +5597,7 @@ footer.style3 {
 	background-image: url(../image/footer.jpg);
 	height: 300px;
 	max-height: 300px;
+	width: 100%;
 }
 
 footer.style3 .container {
