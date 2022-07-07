@@ -15,6 +15,13 @@ function setupMainUser()
     checkSession();
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/main.html");
     // Default set delle parti statiche
+    if (isset($_SESSION['user'])) {
+        $logged = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/user/logged.html");
+        $main->setContent("user_bar", $logged->get());
+    } else {
+        $unlogged = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/user/unlogged.html");
+        $main->setContent("user_bar", $unlogged->get());
+    }
     $main->setContent("header", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/header.html"))->get());
     $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html"))->get());
     return $main;
@@ -66,8 +73,9 @@ function checkSession(): void
 function debug_to_console($data): void
 {
     $output = $data;
-    if (is_array($output))
+    if(is_array($output)){
         $output = implode(',', $output);
+    }
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
