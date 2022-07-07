@@ -17,7 +17,7 @@ function admin(){
         "utente" => "Cliente"
     );
 
-    $main = setupMain();
+    $main = setupMainSash();
 // Creazione del contenuto
     $home = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/home.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");

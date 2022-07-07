@@ -10,7 +10,7 @@ function index()
     );
 
     $oid = $mysqli->query("SELECT id, nome FROM tdw_ecommerce.categorie");
-    $main = setupMain();
+    $main = setupMainSash();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -43,7 +43,7 @@ function show()
         header("Location: /admin/categories");
     } else {
         $categoria = $categoria->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainSash();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/categories/show.html");
         foreach ($categoria as $key => $value) {
             $show->setContent($key, $value);
@@ -107,7 +107,7 @@ function create(){
         }
         exit(json_encode($response));
     } else {
-        $main = setupMain();
+        $main = setupMainSash();
         $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/categories/create.html");
         $main->setContent("content", $create->get());
         $main->close();

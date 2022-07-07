@@ -11,7 +11,7 @@ function index(){
         "Descrizione"
     );
     $oid = $mysqli->query("SELECT id, nome, prezzo, dimensione, quantita_disponibile, CONCAT(SUBSTR(descrizione, 1, 40),'...') as descrizione FROM tdw_ecommerce.prodotti");
-    $main = setupMain();
+    $main = setupMainSash();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -42,7 +42,7 @@ function show(){
         header("Location: /admin/products");
     } else {
         $prodotto = $prodotto->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainSash();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/products/show.html");
         foreach ($prodotto as $key => $value) {
             $show->setContent($key, $value);

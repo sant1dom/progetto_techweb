@@ -13,8 +13,8 @@ INSERT INTO `categorie` (`id`, `nome`) VALUES (12, 'Brandy');
 INSERT INTO `categorie` (`id`, `nome`) VALUES (13, 'Passito');
 INSERT INTO `categorie` (`id`, `nome`) VALUES (14, 'Tequila');
 
-INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (1, 'Armand', 'Stehr', 'brendon66@example.net', '2d622a7a71ad85baacd1a18e56e741a06b589bf2', '1-794-200-8436x57134');
-INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (2, 'Judy', 'Kunze', 'ahmad.ratke@example.net', '7dd4ec7735cd539b9f1ec645feaa2e7272d02d24', '441-990-9675x233');
+INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (1, 'Davide', 'De Acetis', 'admin@example.net', '696d29e0940a4957748fe3fc9efd22a3', '3276789898');
+INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (2, 'Davide', 'De Acetis', 'user@example.net', '696d29e0940a4957748fe3fc9efd22a3', '3276789898');
 INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (3, 'Steve', 'Hodkiewicz', 'qparker@example.org', 'ce37ec3809a9fb5c74dedff9ecde883382921716', '023-044-8841');
 INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (4, 'Claire', 'Mayert', 'jayden.emard@example.net', 'f0378ac91700d50ec52d8a2086de641fb33a3800', '(468)455-4609x2612');
 INSERT INTO `users` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES (5, 'Willie', 'Rodriguez', 'dora87@example.com', '0d7eb6898f5922df969fee2b1e5f1f77b8c4d8ab', '425-440-8619x37639');
