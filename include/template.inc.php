@@ -714,11 +714,8 @@ Class Template {
 		
 		if (isset($_SESSION['user'])) {
 		
-			$this->setContent("user.username", $_SESSION['user']['username']);
-			$this->setContent("user.name", $_SESSION['user']['name']);
-			$this->setContent("user.surname", $_SESSION['user']['surname']);
-			$this->setContent("user.lastlogin", $_SESSION['user']['lastlogin']);
-		
+			$this->setContent("user.nome", $_SESSION['user']['nome']);
+			$this->setContent("user.cognome", $_SESSION['user']['cognome']);
 			$this->setContent("user.email", $_SESSION['user']['email']);
 		}
 

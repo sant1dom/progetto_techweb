@@ -11,7 +11,7 @@ function index(){
     );
 
     $oid = $mysqli->query("SELECT id, nome, cognome, email, telefono FROM tdw_ecommerce.users");
-    $main = setupMain();
+    $main = setupMainSash();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/table.html");
@@ -43,7 +43,7 @@ function show(){
         header("Location: /admin/users");
     } else {
         $utente = $utente->fetch_assoc();
-        $main = setupMain();
+        $main = setupMainSash();
         $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/users/show.html");
         foreach ($utente as $key => $value) {
             $show->setContent($key, $value);
