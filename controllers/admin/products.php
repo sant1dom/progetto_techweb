@@ -152,4 +152,15 @@ function edit(){
     }
     exit(json_encode($response));
 }
-function delete(){}
+function delete(){
+    global $mysqli;
+    $id = explode('/', $_SERVER['REQUEST_URI'])[3];
+    $mysqli->query("DELETE FROM tdw_ecommerce.prodotti WHERE id = $id AND id NOT IN (SELECT prodotti_id FROM tdw_ecommerce.ordini_has_prodotti)");
+    $response = array();
+    if ($mysqli->affected_rows == 1) {
+        $response['success'] = "Prodotto eliminato con successo";
+    } else {
+        $response['error'] = "Impossibile cancellare un prodotto con ordini associati";
+    }
+    exit(json_encode($response));
+}
