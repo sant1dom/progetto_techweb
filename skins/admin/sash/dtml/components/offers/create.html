@@ -1,0 +1,162 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h4 class="card-title">Aggiungi una nuova offerta</h4>
+                    <a href="/admin/offers" class="btn btn-primary btn-sm mx-3">
+                        <span class="fe fe-arrow-left fs-14"></span> Torna indietro </a>
+                </div>
+                <div class="card-body">
+                    <input type="hidden"  name="id" id="id" required aria-required="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="percentuale">Percentuale</label>
+                                        <input type="number" step="1" class="form-control" id="percentuale" name="percentuale" required aria-required="true">
+                                        <div class="invalid-feedback wrong-date-format">
+                                            <span class="text-danger">
+                                                Inserisci una percentuale valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group date">
+                                        <label for="data_inizio">Data Inizio</label>
+                                        <input type="datetime-local" class="form-control" id="data_inizio" name="data_inizio" required aria-required="true">
+                                        <div class="invalid-feedback wrong-date-format">
+                                            <span class="text-danger">
+                                                Inserisci una data d'inizio offerta valida.
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback wrong-date">
+                                            <span class="text-danger">
+                                                La data d'inizio offerta deve essere precedente alla data di fine offerta.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group date">
+                                        <label for="data_fine">Data Fine</label>
+                                        <input type="datetime-local" class="form-control" id="data_fine" name="data_fine"   required aria-required="true">
+                                        <div class="invalid-feedback wrong-date-format">
+                                            <span class="text-danger">
+                                                Inserisci una data di fine offerta valida.
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback wrong-date">
+                                            <span class="text-danger">
+                                                La data di fine offerta deve essere successiva alla data d'inizio offerta.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="prodotto">Prodotto</label>
+                                            <select  class="form-control select2-show-search form-select" id="prodotto" name="prodotto"  required aria-required="true">
+                                                <option value="">Seleziona un prodotto</option>
+                                                <[foreach]>
+                                                <option value="<[id]>"><[nome]>, <[prezzo]></option>
+                                                <[/foreach]>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="add" name="add" value="add" type="submit">
+                        <span class="fe fe-save fs-14"></span> Aggiungi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('select').select2();
+
+        $('#add').click(function() {
+            $('body').find('.alert').remove();
+            // Controllo che serve a vedere se tutti gli input sono riempiti
+            if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length
+                && ($('#data_inizio').val() < $('#data_fine').val() && $('#data_fine').val() > $('#data_inizio').val())) {
+                // Faccio la chiamata e in base al risultato lo mostro a schermo
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/offers/create',
+                    data: {
+                        'percentuale': $('#percentuale').val(),
+                        'data_inizio': $('#data_inizio').val(),
+                        'data_fine': $('#data_fine').val(),
+                        'prodotto': $('#prodotto').val()
+                    },
+                    success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response['success']) {
+                            $('input').val('');
+                            $('select').val('').trigger('change');
+                            $('.card-header').after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['success'] + '</div>');
+                        } else {
+                            $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['error'] + '</div>');
+                        }
+                    }
+                });
+            } else {
+                $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'Compilare tutti i campi correttamente' + '</div>');
+            }
+        });
+
+
+        $('input').on('propertychange change click keyup input paste', function() {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.wrong-date-format').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.wrong-date-format').show();
+            }
+        });
+
+        $('#data_inizio').change(function(){
+            if ($(this).val() > $('#data_fine').val() && $('#data_fine').val() !== '') {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.wrong-date').show();
+            } else {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.wrong-date').hide();
+            }
+        });
+
+        $('#data_fine').change(function(){
+            if ($(this).val() < $('#data_inizio').val() && $('#data_inizio').val() !== '') {
+                if($(this).css('border-color') === 'rgb(206, 212, 218)') {
+                    $(this).css('border-color', '#dc3545');
+                }
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.wrong-date').show();
+            } else {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.wrong-date').hide();
+            }
+        });
+    });
+</script>
+

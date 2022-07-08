@@ -452,6 +452,30 @@ LOCK TABLES `users_has_groups` WRITE;
 /*!40000 ALTER TABLE `users_has_groups` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_has_groups` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `offerte`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE offerte (
+                              `id` int NOT NULL AUTO_INCREMENT,
+                              `percentuale` int unsigned NOT NULL,
+                              `data_inizio` datetime NOT NULL,
+                              `data_fine` datetime NOT NULL,
+                              `prodotti_id` int NOT NULL,
+                              PRIMARY KEY (`id`),
+                              KEY `fk_offerte_prodotti1_idx` (`prodotti_id`),
+                              CONSTRAINT `fk_offerte_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offerte`
+--
+LOCK TABLES `offerte` WRITE;
+/*!40000 ALTER TABLE `offerte` DISABLE KEYS */;
+/*!40000 ALTER TABLE `offerte` ENABLE KEYS */;
+UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

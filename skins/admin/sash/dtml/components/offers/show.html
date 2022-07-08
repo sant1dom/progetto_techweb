@@ -1,0 +1,156 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h4 class="card-title">Offerta</h4>
+                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
+                        <span class="fe fe-edit fs-14"></span> Modifica Offerta </button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" value="<[id]>" name="id" id="id" required aria-required="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="percentuale">Percentuale</label>
+                                        <input type="number" step=".01" class="form-control" id="percentuale" name="percentuale" value="<[percentuale]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una percentuale valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="data_inizio">Data Inizio</label>
+                                        <input type="datetime-local" class="form-control" id="data_inizio" name="data_inizio" value="<[data_inizio]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una data di inizio offerta valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="data_fine">Data fine</label>
+                                        <input type="datetime-local" class="form-control" id="data_fine" name="data_fine" value="<[data_fine]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una data fine offerta valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Prodotto</label>
+                                        <p><a href="/products/<[prodotto_id]>"><[prodotto]></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Prezzo</label>
+                                        <p><[prezzo]></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- INTERNAL WYSIWYG Editor JS -->
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/wysiwyag.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').select2().attr('disabled', true);
+        $('#edit').click(function() {
+            if ($(this).val() === 'edit') {
+                $('body').find('.alert').remove();
+                $('#percentuale').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#data_inizio').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#data_fine').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $(this).val('save');
+                $(this).html('<span class="fe fe-check fs-14"></span> Salva modifiche');
+            } else {
+                // Controllo che serve a vedere se tutti gli input sono riempiti
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/offers/<[id]>/edit',
+                        data: {
+                            'id': $('#id').val(),
+                            'percentuale': $('#percentuale').val(),
+                            'data_inizio': $('#data_inizio').val(),
+                            'data_fine': $('#data_fine').val()
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit').val('edit');
+                                $('#edit').html('<span class="fe fe-edit fs-14"></span> Modifica offerta');
+                                $('#percentuale').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#data_inizio').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#data_fine').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#edit').parent().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi correttamente' + '</div>');
+                }
+            }
+        });
+
+
+        $('input').on('propertychange change click keyup input paste', function() {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.invalid-feedback').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.invalid-feedback').show();
+            }
+        });
+    });
+</script>

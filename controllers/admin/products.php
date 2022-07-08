@@ -10,7 +10,7 @@ function index(){
         "Quantità disponibile",
         "Descrizione"
     );
-    $oid = $mysqli->query("SELECT id, nome, prezzo, dimensione, quantita_disponibile, CONCAT(SUBSTR(descrizione, 1, 40),'...') as descrizione FROM tdw_ecommerce.prodotti");
+    $oid = $mysqli->query("SELECT id, nome, prezzo, dimensione, quantita_disponibile, descrizione FROM tdw_ecommerce.prodotti");
     $main = setupMainAdmin();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");
@@ -84,7 +84,7 @@ function create(){
         exit(json_encode($response));
     } else {
         $main = setupMainAdmin();
-        $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/products/create.html");
+        $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/offers/create.html");
         populateSelectProduct($mysqli, $create);
         $main->setContent("content", $create->get());
         $main->close();
@@ -152,6 +152,7 @@ function edit(){
     }
     exit(json_encode($response));
 }
+
 function delete(){
     global $mysqli;
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];

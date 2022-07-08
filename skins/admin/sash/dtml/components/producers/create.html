@@ -125,14 +125,14 @@
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['success'] + '</div>');
                         } else if (response['error']) {
-                            $('#add').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                            $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['error'] + '</div>');
                         }
                     }
                 });
             } else {
-                $('#add').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Compilare tutti i campi correttamente' + '</div>');
             }

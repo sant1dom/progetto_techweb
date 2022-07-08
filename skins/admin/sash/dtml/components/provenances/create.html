@@ -54,6 +54,7 @@
 <script>
     $(document).ready(function() {
         $('#add').click(function() {
+            $('body').find('.alert').remove();
             // Controllo che serve a vedere se tutti gli input sono riempiti
             if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
                 // Faccio la chiamata e in base al risultato lo mostro a schermo
@@ -80,7 +81,7 @@
                     }
                 });
             } else {
-                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Compilare tutti i campi correttamente' + '</div>');
             }

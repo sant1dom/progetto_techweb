@@ -1,6 +1,6 @@
 <[foreach]>
 <tr>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
+    <td class="clickable-row" data-href="/admin/offers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -9,47 +9,47 @@
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
+    <td class="clickable-row" data-href="/admin/offers/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
-                    <[nome]>
+                    <[percentuale]>%
                 </h6>
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
+    <td class="clickable-row" data-href="/admin/offers/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[data_inizio::format_datetime library="Format"]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/offers/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[data_fine::format_datetime library="Format"]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[prodotto_id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[prodotto]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/products/<[prodotto_id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
                     <[prezzo]>
-                </h6>
-            </div>
-        </div>
-    </td>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
-        <div class="d-flex">
-            <div class="mt-0 mt-sm-3 d-block">
-                <h6 class="mb-0 fs-14 fw-semibold">
-                    <[dimensione]>
-                </h6>
-            </div>
-        </div>
-    </td>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
-        <div class="d-flex">
-            <div class="mt-0 mt-sm-3 d-block">
-                <h6 class="mb-0 fs-14 fw-semibold">
-                    <[quantita_disponibile]>
-                </h6>
-            </div>
-        </div>
-    </td>
-    <td class="clickable-row" data-href="/admin/products/<[id]>">
-        <div class="d-flex">
-            <div class="mt-0 mt-sm-3 d-block">
-                <h6 class="mb-0 fs-14 fw-semibold">
-                    <[descrizione::truncate length="40" library="Format"]>
                 </h6>
             </div>
         </div>
@@ -59,14 +59,14 @@
             <a class="btn text-primary btn-sm"
                data-bs-toggle="tooltip"
                data-bs-original-title="Modifica"
-               href="/admin/products/<[id]>"><span
+               href="/admin/offers/<[id]>"><span
                     class="fe fe-edit fs-14"></span></a>
             <a class="btn text-danger btn-sm"
                data-bs-toggle="modal"
                data-bs-target="#deleteconfirmation"
                data-bs-original-title="Cancella"
-               data-id="/admin/products/<[id]>/delete"
-               href="/admin/products/<[id]>/delete"><span
+               data-id="/admin/offers/<[id]>/delete"
+               href="/admin/offers/<[id]>/delete"><span
                     class="fe fe-trash-2 fs-14"></span></a>
         </div>
     </td>
@@ -110,6 +110,6 @@
 
 <script>
     $(document).ready(function() {
-        $('.card-header').append('<a class="btn btn-primary" href="/admin/products/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
+        $('.card-header').append('<a class="btn btn-primary" href="/admin/offers/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
     })
 </script>

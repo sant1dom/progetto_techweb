@@ -55,10 +55,14 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione immagini', 'Visualizza singola immagine', '/admin/products/%/images/%', 'admin/images.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione immagini', 'Modifica immagini', '/admin/products/%/images/edit', 'admin/images.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione immagini', 'Cancella immagini', '/admin/products/%/images/%/delete', 'admin/images.php', 'delete');
-
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione prodotto', 'Aggiungi prodotto', '/admin/products/create', 'admin/products.php', 'create');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione produttore', 'Aggiungi produttore', '/admin/producers/create', 'admin/producers.php', 'create');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione provenienza', 'Aggiungi provenienza', '/admin/provenances/create', 'admin/provenances.php', 'create');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione servizi', 'Aggiungi servizio', '/admin/services/create', 'admin/services.php', 'create');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione immagini', 'Aggiungi immagine', '/admin/products/%/images/create', 'admin/images.php', 'create');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione categorie', 'Aggiungi categoria', '/admin/categories/create', 'admin/categories.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Visualizza offerte', '/admin/offers', 'admin/offers.php', 'index');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Visualizza singola offerta', '/admin/offers/%', 'admin/offers.php', 'show');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Modifica offerta', '/admin/offers/%/edit', 'admin/offers.php', 'edit');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Cancella offerta', '/admin/offers/%/delete', 'admin/offers.php', 'delete');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Aggiungi offerta', '/admin/offers/create', 'admin/offers.php', 'create');
