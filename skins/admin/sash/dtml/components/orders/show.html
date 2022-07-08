@@ -57,11 +57,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="motivazione_sospensione">
+                            <div class="row" id="motivazione_sospensione" >
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="motivazione">Motivazione</label>
-                                        <textarea class="form-control" id="motivazione" name="motivazione" readonly required aria-required="true"><[descrizione]></textarea>
+                                        <textarea class="form-control" id="motivazione" name="motivazione" readonly required aria-required="true"><[motivazione]></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -140,11 +140,13 @@
         $('#accettaOrdine').hide();
         $('#edit').show();
     }
-    if((x ==='SOSPESO')){
-        $('#motivazione_sospensione').show();
-    }
-    else {
+    if(!(x ==='SOSPESO' || x ==='ANNULLATO')){
         $('#motivazione_sospensione').hide();
+    }
+    if(x ==='ANNULLATO'){
+        $('#edit').parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' + 'Non puoi modificare lo stato dell\'ordine dopo l\'annullamento' + '</div>');
+        $('#edit').attr('disabled', true);
     }
 </script>
 
@@ -175,35 +177,42 @@
             } else {
                 var x = document.getElementById("stato").value;
                 console.log(x);
-                if (x === 'SOSPESO') {
+                if (x === 'SOSPESO'|| x === 'ANNULLATO') {
                     var motivazione = document.getElementById("motivazione");
                     console.log(motivazione.value.length);
-                    if (motivazione.value.length === 15) {
+                    if (motivazione.value.length === 0) {
                         $('#stato').attr('readonly', function (_, attr) {
                             return !attr
                         }).attr('disabled', false);
                         $(this).val('save');
                         $(this).html('<span class="fe fe-check fs-14"></span> Salva lo stato');
-                        alert('Devi inserire una motivazione per la sospensione');
+                        if(x === 'SOSPESO') {
+                            $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' + 'Devi inserire una motivazione per la sospensione' + '</div>');
+                        }
+                        else {
+                            $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' + 'Devi inserire una motivazione per l\'annullamento' + '</div>');
+                        }
                     } else {
                         $.ajax({
                             type: 'POST',
                             url: '/admin/orders/<[id]>/edit',
                             data: {
-                                'stato': $('stato').val(),
+                                'stato': $('#stato').val(),
                                 'motivazione': $('#motivazione').val()
                             },
                             success: function () {
-                                //location.reload();
+                                location.reload();
                             }
                         });
                     }
                 } else {
                     $.ajax({
                         type: 'POST',
-                        url: '/admin/products/<[id]>/edit',
+                        url: '/admin/orders/<[id]>/edit',
                         data: {
-                            'stato': $('stato').val(),
+                            'stato': $('#stato').val(),
                         },
                         success: function (data) {
                             location.reload();
@@ -216,20 +225,14 @@
 
     $('select').change(function() {
         var x = document.getElementById("stato").value;
-        if (x === 'SOSPESO') {
+        if (x === 'SOSPESO' || x === 'ANNULLATO') {
             $('#motivazione_sospensione').show();
             if ($('#edit').val() === 'save') {
-                $('#motivazione').richText({
-                    "imageUpload": false,
-                    "fileUpload": false,
-                    "videoEmbed": false,
-                    "code": false,
-                    "table": false,
-                    "urls": false
-                });
+                $('#motivazione').attr('readonly', false);
             }
         } else {
             $('#motivazione_sospensione').hide();
         }
     });
+
 </script>

@@ -49,7 +49,7 @@ function show()
     );
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];
     $ordine= $mysqli-> query("SELECT ordini.id, u.email as email_utente, u.nome as nome_utente, u.cognome as cognome_utente, u.telefono as utente_telefono, m.numero_carta as carta_utente, m.nome_proprietario as nome_carta,
-       m.scadenza_carta as scadenza_carta, m.cvv as cvv, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
+       m.scadenza_carta as scadenza_carta, m.cvv as cvv, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, ordini.motivazione, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
         CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione FROM tdw_ecommerce.ordini 
             JOIN tdw_ecommerce.users as u on u.id=ordini.user_id JOIN tdw_ecommerce.indirizzi as isp on isp.id= ordini.indirizzi_spedizione JOIN tdw_ecommerce.indirizzi as ifa on ifa.id= ordini.indirizzi_fatturazione
             JOIN tdw_ecommerce.metodi_pagamento as m on m.id=ordini.metodi_pagamento WHERE ordini.id=".$id);
@@ -112,31 +112,43 @@ exit(json_encode($response));
 function edit_stato()
 {
     global $mysqli;
-    $id = $_POST["id"];
-    $nome = $_POST["nome"];
-    $prezzo = $_POST["prezzo"];
-    $dimensione = $_POST["dimensione"];
-    $quantita_disponibile = $_POST["quantita_disponibile"];
-    $descrizione = $_POST["descrizione"];
-    $categoria = $_POST["categoria"];
-    $produttore = $_POST["produttore"];
-    $provenienza = $_POST["provenienza"];
-    $response = array();
-    if ($id != "" && $nome != "" && $prezzo != "" && $dimensione != "" && $quantita_disponibile != "" && $descrizione != "" && $categoria != "" && $produttore != "" && $provenienza != "") {
-        $mysqli->query("UPDATE tdw_ecommerce.prodotti SET nome = '$nome', prezzo = '$prezzo', dimensione = '$dimensione', quantita_disponibile = '$quantita_disponibile', descrizione = '$descrizione', categorie_id = '$categoria', produttori_id = '$produttore', provenienze_id = '$provenienza' WHERE id = '$id'");
+    $id = explode('/', $_SERVER['REQUEST_URI'])[3];
+    $stato = $_POST["stato"];
+    if ($_POST["motivazione"] != "") {
+        $motivazione = $_POST["motivazione"];
+        if ($stato == "SOSPESO") {
+            $mysqli->query("UPDATE tdw_ecommerce.ordini SET stato='$stato', motivazione='$motivazione' WHERE id=".$id);
+            $response = array();
+            if ($mysqli->affected_rows == 1) {
+                $response['success'] = "Stato dell'ordine modificato con successo";
+            } elseif ($mysqli->affected_rows == 0) {
+                $response['warning'] = "Nessun dato modificato";
+            } else {
+                $response['error'] = "Errore nella modifica dello stato dell'ordine";
+            }
+        }if($stato=="ANNULLATO"){
+            $mysqli->query("UPDATE tdw_ecommerce.ordini SET stato='$stato', motivazione='$motivazione' WHERE id=".$id);
+            $oid= $mysqli-> query("SELECT p.id as id_prodotto, op.quantita as quantita_prodotto FROM tdw_ecommerce.ordini_has_prodotti as op JOIN tdw_ecommerce.prodotti as p on p.id=op.prodotti_id WHERE op.ordini_id=".$id);
+            $prodotti = $oid->fetch_assoc();
+            if($prodotti){
+                do {
+                    $mysqli->query("UPDATE tdw_ecommerce.prodotti SET quantita_disponibile=quantita_disponibile+".$prodotti['quantita_prodotto']." WHERE id=".$prodotti['id_prodotto']);
+                } while ($prodotti = $oid->fetch_assoc());
+            }
+        }
+    }else{
+        $mysqli->query("UPDATE tdw_ecommerce.ordini SET stato='$stato' WHERE id = '$id'");
+        $response = array();
         if ($mysqli->affected_rows == 1) {
-            $response['success'] = "Prodotto modificato con successo";
+            $response['success'] = "Stato dell'ordine modificato con successo";
         } elseif ($mysqli->affected_rows == 0) {
             $response['warning'] = "Nessun dato modificato";
         } else {
-            $response['error'] = "Errore nella modifica del prodotto";
+            $response['error'] = "Errore nella modifica dello stato dell'ordine";
         }
-    } else {
-        $response['error'] = "Errore nella modifica del prodotto";
+        exit(json_encode($response));
     }
-    exit(json_encode($response));
 }
-
 function delete()
 {
 }

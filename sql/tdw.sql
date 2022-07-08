@@ -163,7 +163,7 @@ CREATE TABLE `ordini` (
                           `indirizzi_fatturazione` int NOT NULL,
                           `indirizzi_spedizione` int NOT NULL,
                           `metodi_pagamento` int NOT NULL,
-                          `motivazione_sospensione` text,
+                          `motivazione` text,
                           PRIMARY KEY (`id`),
                           KEY `fk_ordini_users1_idx` (`user_id`),
                           KEY `fk_ordini_indirizzi1_idx` (`indirizzi_fatturazione`),
