@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 
 $request = strtok($_SERVER["REQUEST_URI"], '?');
 const __CONTROLLERS__ = __DIR__ . '/controllers/';
-const __PUBLIC_DIRS__ = ["/", "/about", "/contacts", "/login", "/logout", "/register", "/cart"];
+const __PUBLIC_DIRS__ = ["/", "/about", "/contacts", "/login", "/logout", "/register"];
 global $mysqli;
 
 $query = "SELECT * FROM services where '" . $request . "' like url ORDER BY LENGTH(url) DESC LIMIT 1;";

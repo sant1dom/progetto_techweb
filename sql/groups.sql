@@ -32,11 +32,11 @@ DROP PROCEDURE IF EXISTS service_has_groups_admin;
 DELIMITER //
 CREATE PROCEDURE service_has_groups_admin()
     BEGIN
-        DECLARE i INT DEFAULT (SELECT count(id) FROM services WHERE url LIKE '%admin%'); # numero di pagine di admin
-        DECLARE j INT DEFAULT (SELECT id FROM services WHERE url LIKE '%admin%' LIMIT 1); # id della prima pagina di admin
+        DECLARE i INT DEFAULT (SELECT count(id) FROM services WHERE services.script LIKE '%admin%'); # numero di pagine di admin
+        DECLARE j INT DEFAULT (SELECT id FROM services WHERE services.script LIKE '%admin%' LIMIT 1); # id della prima pagina di admin
 
         WHILE (i) > 0 DO
-            INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE url LIKE '%admin%' AND id = j), 1);
+            INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE url LIKE '%/admin/%' AND id = j), 1);
             SET J = J + 1; # prossima pagina di admin
             SET i = i - 1; # decremento il numero di pagine da processare
         END WHILE;
@@ -50,9 +50,8 @@ DROP PROCEDURE IF EXISTS service_has_groups_user;
 DELIMITER //
 CREATE PROCEDURE service_has_groups_user()
 BEGIN
-    DECLARE pagine_pubbliche INT DEFAULT 4; # Numero di pagine pubbliche in testa alla tabella.
-    DECLARE i INT DEFAULT (SELECT count(id) FROM services WHERE url NOT LIKE '%admin%') - pagine_pubbliche; # numero di pagine di utente
-    DECLARE j INT DEFAULT pagine_pubbliche + 1; #prima pagina non pubblica dell'utente
+    DECLARE i INT DEFAULT (SELECT count(id) FROM services WHERE services.script LIKE 'user/%'); # numero di pagine di utente
+    DECLARE j INT DEFAULT (SELECT id FROM services WHERE services.script LIKE 'user/%' LIMIT 1); # id della prima pagina di utente
 
     WHILE (i) > 0 DO
         INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE url NOT LIKE '%admin%' AND id = j), 2);
