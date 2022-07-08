@@ -100,7 +100,7 @@ function doRegister(): void
                 trigger_error("Generic error, level 21", E_USER_ERROR);
             }
 
-            $oid = $mysqli->query("SELECT  nome, cognome, email, telefono FROM users WHERE email = '{$_POST['email']}'");
+            $oid = $mysqli->query("SELECT id, nome, cognome, email, telefono FROM users WHERE email = '{$_POST['email']}'");
 
             if (!$oid) {
                 trigger_error("Generic error, level 21", E_USER_ERROR);
@@ -109,6 +109,11 @@ function doRegister(): void
             if ($oid->num_rows > 0) {
                 //Ottiene i dati dell'utente
                 $user = $oid->fetch_assoc();
+                //Da all'utente i permessi da user
+                $oid = $mysqli->query("INSERT INTO users_has_groups (users_id, groups_id) VALUES ({$user['id']}, 2);");
+                if (!$oid) {
+                    trigger_error("Generic error, level 21", E_USER_ERROR);
+                }
                 createSession($user, $mysqli);
             }
         }

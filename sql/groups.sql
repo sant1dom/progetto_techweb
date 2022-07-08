@@ -6,6 +6,7 @@ INSERT INTO `groups` (id, group_name) VALUES (NULL, 'UTENTE');
 # ADMIN:    admin@example.net     password
 # UTENTE:   utente@example.net    password
 INSERT INTO `users_has_groups` (users_id, groups_id) VALUES (1, 1);
+INSERT INTO `users_has_groups` (users_id, groups_id) VALUES (1, 2);
 INSERT INTO `users_has_groups` (users_id, groups_id) VALUES (2, 2);
 INSERT INTO `users_has_groups` (users_id, groups_id) VALUES (3, 2);
 INSERT INTO `users_has_groups` (users_id, groups_id) VALUES (4, 2);
@@ -36,7 +37,7 @@ CREATE PROCEDURE service_has_groups_admin()
         DECLARE j INT DEFAULT (SELECT id FROM services WHERE services.script LIKE '%admin%' LIMIT 1); # id della prima pagina di admin
 
         WHILE (i) > 0 DO
-            INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE url LIKE '%/admin/%' AND id = j), 1);
+            INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE services.script LIKE 'admin/%' AND id = j), 1);
             SET J = J + 1; # prossima pagina di admin
             SET i = i - 1; # decremento il numero di pagine da processare
         END WHILE;
@@ -54,7 +55,7 @@ BEGIN
     DECLARE j INT DEFAULT (SELECT id FROM services WHERE services.script LIKE 'user/%' LIMIT 1); # id della prima pagina di utente
 
     WHILE (i) > 0 DO
-        INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE url NOT LIKE '%admin%' AND id = j), 2);
+        INSERT INTO `services_has_groups` (services_id, groups_id) VALUES ((SELECT id FROM services WHERE services.script LIKE 'user/%' AND id = j), 2);
         SET J = J + 1; # prossima pagina di utente
         SET i = i - 1; # decremento il numero di pagine da processare
     END WHILE;
