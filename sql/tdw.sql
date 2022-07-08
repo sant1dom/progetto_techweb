@@ -353,7 +353,8 @@ DROP TABLE IF EXISTS `services`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services` (
                             `id` int NOT NULL AUTO_INCREMENT,
-                            `username` varchar(45) NOT NULL,
+                            `tag` varchar(45) NOT NULL,
+                            `description` varchar(255) NOT NULL,
                             `url` varchar(255) NOT NULL,
                             `script` varchar(255) NOT NULL,
                             `callback` varchar(255) NOT NULL,

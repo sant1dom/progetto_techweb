@@ -1,0 +1,36 @@
+<div class="columns" style="max-height: 35rem;">
+    <[foreach]>
+    <dl>
+        <dt class="mb-0 fs-14 fw-semibold mt-1">
+            <p><[tag]></p>
+        </dt>
+        <div style="display: block">
+        <[power]>
+        </div>
+    </dl>
+    <[/foreach]>
+</div>
+<style>
+    .columns {
+        position: relative;
+        -webkit-columns: 4 15rem;
+        -moz-columns: 4 15rem;
+        columns: 4 15rem;
+        margin: auto;
+        overflow: scroll;
+        break-inside: avoid;
+    }
+
+    @media (max-width: 700px) {
+        .columns {
+            position: relative;
+            -webkit-columns: unset;
+            -moz-columns: unset;
+            columns: unset;
+            margin: auto;
+            overflow-y: scroll;
+            break-inside: avoid;
+        }
+    }
+</style>
+
