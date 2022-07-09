@@ -384,8 +384,8 @@ CREATE TABLE `services_has_groups` (
                                        PRIMARY KEY (`services_id`,`groups_id`),
                                        KEY `fk_services_has_groups_groups1_idx` (`groups_id`),
                                        KEY `fk_services_has_groups_services1_idx` (`services_id`),
-                                       CONSTRAINT `fk_services_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`),
-                                       CONSTRAINT `fk_services_has_groups_services1` FOREIGN KEY (`services_id`) REFERENCES `services` (`id`)
+                                       CONSTRAINT `fk_services_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+                                       CONSTRAINT `fk_services_has_groups_services1` FOREIGN KEY (`services_id`) REFERENCES `services` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -439,7 +439,7 @@ CREATE TABLE `users_has_groups` (
                                     PRIMARY KEY (`users_id`,`groups_id`),
                                     KEY `fk_users_has_groups_groups1_idx` (`groups_id`),
                                     KEY `fk_users_has_groups_users1_idx` (`users_id`),
-                                    CONSTRAINT `fk_users_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`),
+                                    CONSTRAINT `fk_users_has_groups_groups1` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
                                     CONSTRAINT `fk_users_has_groups_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;

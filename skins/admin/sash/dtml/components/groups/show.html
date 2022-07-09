@@ -4,9 +4,7 @@
             <div class="card">
                 <div class="card-header justify-content-between align-items-center">
                     <h4 class="card-title">Gruppo</h4>
-                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
-                        <span class="fe fe-edit fs-14"></span> Modifica gruppo
-                    </button>
+                    <[edit]>
                 </div>
                 <div class="card-body">
                     <input type="hidden" value="<[id]>" name="id" id="id" required aria-required="true">
@@ -111,38 +109,6 @@
                 $(this).css('border-color', '#dc3545');
                 $(this).parent().find('.invalid-feedback').show();
             }
-        });
-
-
-        $(".clickable-row").css("cursor", "pointer");
-        $(".clickable-row").click(function () {
-            window.location = $(this).data("href");
-        });
-
-
-        let delid = ''; //global variable
-        $('#deleteconfirmation').on('show.bs.modal', function (e) {
-            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
-        });
-
-        $('#remove-button').click(function () {
-            $.ajax({
-                url: delid,
-                type: 'POST',
-                success: function (data) {
-                    $('#deleteconfirmation').modal('hide');
-                    let response = JSON.parse(data);
-                    if (response['success']) {
-                        window.location.href = window.location.pathname + "?" + $.param({
-                            'success': 'true',
-                            'utente': 'true'
-                        });
-                    } else {
-                        $('#error .modal-body .text-danger').text(response['error']);
-                        $('#error').modal('show');
-                    }
-                }
-            });
         });
     });
 

@@ -1,0 +1,89 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h4 class="card-title">Gruppo</h4>
+                    <button class='btn btn-primary btn-sm mx-3' id='edit' name='edit' value='edit' type='submit'>
+                        <span class='fe fe-edit fs-14'></span> Crea gruppo
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nome">Nome gruppo</label>
+                                        <input type="text" class="form-control" id="nome" name="nome"
+                                               required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un nome valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Poteri</label>
+                                    <div class="form-group">
+                                        <[powers]>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const edit = $('#edit');
+        $('input[name="powers[]"]:disabled').prop('disabled', false);
+        edit.click(function () {
+            // Controllo che serve a vedere se tutti gli input sono riempiti
+            if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                // Faccio la chiamata e in base al risultato lo mostro a schermo
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/groups/create',
+                    data: {
+                        'nome': $('#nome').val(),
+                        'powers': $('input[name="powers[]"]:checked').map(function () {
+                            return this.value;
+                        }).get()
+                    },
+                    success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response['redirect']) {
+                            window.location = response['redirect'];
+                        } else if (response['error']) {
+                            edit.parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['error'] + '</div>');
+                        } else {
+                            edit.parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['warning'] + '</div>');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('input').on('propertychange change click keyup input paste', function () {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.invalid-feedback').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.invalid-feedback').show();
+            }
+        });
+    });
+</script>
