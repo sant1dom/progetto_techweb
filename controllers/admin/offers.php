@@ -14,7 +14,7 @@ function index() {
     $oid = $mysqli->query("SELECT offerte.id, percentuale, data_inizio, data_fine, p.id as prodotto_id, nome as prodotto, prezzo 
                                     FROM tdw_ecommerce.offerte 
                                         JOIN tdw_ecommerce.prodotti p on p.id = offerte.prodotti_id
-                                    WHERE data_fine >= CURDATE()");
+                                    WHERE data_fine >= NOW()");
     $main = setupMainAdmin();
     // Creazione del contenuto
     $crud = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/crud.html");

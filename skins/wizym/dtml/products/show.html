@@ -59,7 +59,8 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </div>
-                        <h2 class="dolar">€<[prezzo]></h2>
+                        <h2 class="dolar"><[prezzo]>€</h2>
+                        <p class="timer"></p>
                         <div class="info-content">
                             <ul>
                                 <li>
@@ -306,5 +307,33 @@
     </section> <!-- /flat-products-->
 </div>
 
+<script>
+    $(document).ready(function(){
+        let prezzo_base = $('.dolar').text().slice(0, -1);
+        let prezzo_scontato = prezzo_base * ((100-'<[percentuale]>')/100);
+        if('<[percentuale]>' !== ''){
+            $('.dolar').html('<p style="color: #c02323;">-<[percentuale]>%</p>' + prezzo_scontato.toFixed(2) + '€');
+            $('.dolar').after('<p>Prezzo consigliato: <s>' + parseFloat(prezzo_base).toFixed(2) + '€</s></p>');
+            // Per il countdown
+            let countDownDate = new Date('<[data_fine]>').getTime();
+            // Aggiorna una volta al secondo
+            let x = setInterval(function() {
+                // Data di oggi
+                let now = new Date().getTime();
+
+                // Trovo la distanza
+                let distance = countDownDate - now;
+
+                // Calcolo per i giorni, ore, minuti e secondi
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                $('.timer').html('<p><strong style="color: #c02323;">Scade tra:</strong> ' + days + ' giorni ' + hours + ' ore ' + minutes + ' minuti ' + seconds + ' secondi</p>');
+            }, 1000);
+        }
+    });
+</script>
 
 
