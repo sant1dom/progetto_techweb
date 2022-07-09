@@ -1,0 +1,32 @@
+
+<[foreach]>
+<tr>
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+        <[indirizzo]>
+    </td>
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+        <[citta]>
+    </td>
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+        <[cap]>
+    </td>
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+        <[provincia]>
+    </td>
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+        <[nazione]>
+    </td >
+    <td class="clickable-row" data-href="/addresses/<[id]>">
+      Modifica
+    </td >
+</tr>
+<[/foreach]>
+
+<script>
+    $(document).ready(function () {
+        $(".clickable-row").css("cursor", "pointer");
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
