@@ -29,10 +29,6 @@ function show(){
                                         JOIN tdw_ecommerce.provenienze p2 on prodotti.provenienze_id = p2.id
                                         JOIN tdw_ecommerce.categorie c on c.id = prodotti.categorie_id
                                     WHERE prodotti.id = $id;");
-    $offerta = $mysqli->query("SELECT percentuale, data_inizio, data_fine
-                                    FROM tdw_ecommerce.offerte
-                                    WHERE prodotti_id = $id AND data_fine >= NOW() AND data_inizio <= NOW()");
-    $offerta = $offerta->fetch_assoc();
 
     if ($prodotto->num_rows == 0) {
         header("Location: /user/products");
@@ -43,11 +39,24 @@ function show(){
         }
         $body->setContent("disponibilita", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
     }
+
+    $offerta = $mysqli->query("SELECT percentuale, data_inizio, data_fine
+                                    FROM tdw_ecommerce.offerte
+                                    WHERE prodotti_id = $id AND data_fine >= NOW() AND data_inizio <= NOW()");
+    $offerta = $offerta->fetch_assoc();
     if ($offerta) {
         $body->setContent("percentuale", $offerta['percentuale']);
         $body->setContent("data_fine", $offerta['data_fine']);
     }
 
+    $recensioni = $mysqli->query("SELECT ROUND(AVG(voto),1) as voto_medio, COUNT(*) as numero
+                                    FROM tdw_ecommerce.recensioni
+                                    WHERE prodotti_id = $id");
+    $recensioni = $recensioni->fetch_assoc();
+    if ($recensioni) {
+        $body->setContent("voto_medio", $recensioni['voto_medio']);
+        $body->setContent("numero_recensioni", $recensioni['numero']);
+    }
 
     $main->setContent("content", $body->get());
     $main->close();
