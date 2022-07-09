@@ -12,6 +12,8 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Visualizza ordine', '/orders/%', 'user/orders.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Annulla ordine', '/orders/annulla', 'user/orders.php', 'annulla');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Prodotti', 'Visualizza prodotti', '/products', 'user/products.php', 'index');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzi', '/addresses', 'user/addresses.php', 'index');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%', 'user/addresses.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Prodotti', 'Visualizza prodotto', '/products/%', 'user/products.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione ordini', 'Visualizza ordini', '/admin/orders', 'admin/orders.php', 'index');
