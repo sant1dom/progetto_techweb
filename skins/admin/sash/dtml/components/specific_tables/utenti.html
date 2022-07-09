@@ -48,6 +48,15 @@
     <td class="clickable-row" data-href="/admin/users/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[groups]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/admin/users/<[id]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold ban">
                     <[ban]>
                 </h6>
@@ -106,7 +115,6 @@
             });
         });
         $('.ban').each(function() {
-            console.log($(this).text());
             if ($(this).text().includes('1')) {
                 $(this).text('DISABILITATO');
                 $(this).addClass('text-danger');

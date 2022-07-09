@@ -8,6 +8,7 @@ function index(){
         "Cognome",
         "Email",
         "Telefono",
+        "Gruppi",
         "Status"
     );
 
@@ -28,6 +29,21 @@ function index(){
             foreach ($users as $key => $value) {
                 $utenti_table->setContent($key, $value);
             }
+
+            //Ottiene tutti i gruppi dell'utente e li inserisce nella tabella
+            $groups = $mysqli->query("SELECT group_name FROM tdw_ecommerce.`groups`
+                                                JOIN users_has_groups uhg on `groups`.id = uhg.groups_id
+                                                JOIN users u on uhg.users_id = u.id
+                                                WHERE u.id = " . $users["id"]);
+            $groups_string = "";
+            do {
+                $group_result = $groups->fetch_assoc();
+                if ($group_result) {
+                    $groups_string = $groups_string . $group_result["group_name"] . ", "; //concatena i gruppi
+                }
+            } while ($group_result);
+            $groups_string = substr($groups_string, 0, -2); //rimuove virgola finale
+            $utenti_table->setContent("groups", $groups_string);
         }
     } while ($users);
     $table->setContent("sptable", $utenti_table->get());
@@ -49,6 +65,34 @@ function show(){
         foreach ($utente as $key => $value) {
             $show->setContent($key, $value);
         }
+
+        $groups = $mysqli->query("SELECT `groups`.id, group_name FROM tdw_ecommerce.`groups`");
+        $user_groups = $mysqli->query("SELECT group_name FROM tdw_ecommerce.`groups`
+                                                JOIN users_has_groups uhg on `groups`.id = uhg.groups_id
+                                                JOIN users u on uhg.users_id = u.id
+                                                WHERE u.id = " . $id);
+
+        $user_groups_array = array();
+        do {
+            $user_group = $user_groups->fetch_assoc();
+            if ($user_group) {
+                $user_groups_array[] = $user_group["group_name"];
+            }
+        } while ($user_group);
+
+        do {
+            $group = $groups->fetch_assoc();
+            if ($group) {
+                if (!in_array($group["group_name"], $user_groups_array)) {
+                    $show->setContent("select", "unselected");
+                } else {
+                    $show->setContent("select", "selected");
+                }
+                $show->setContent("group_id", $group["id"]);
+                $show->setContent("group_name", $group["group_name"]);
+            }
+        } while ($group);
+
         $main->setContent("content", $show->get());
         $main->close();
     }
@@ -91,6 +135,15 @@ function edit(){
         } else {
             $response['error'] = "Errore nella modifica dell'utente";
         }
+
+        if (isset($_POST["gruppi"])) {
+            $groups = $_POST["gruppi"];
+            $mysqli->query("DELETE FROM tdw_ecommerce.users_has_groups WHERE users_id = $id");
+            foreach ($groups as $group) {
+                $mysqli->query("INSERT INTO tdw_ecommerce.users_has_groups (users_id, groups_id) VALUES ($id, $group)");
+            }
+        }
+
     } else {
         $response['error'] = "Errore nella modifica dell'utente";
     }
