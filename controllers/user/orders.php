@@ -52,6 +52,17 @@ function show(){
     foreach ($ordine as $key => $value) {
         $show->setContent($key, $value);
     }
+    $table_prodotti= new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/prodotti_ordine.html");
+    $oid = $mysqli->query("SELECT p.nome as nome_prodotto,p.id as id, p.prezzo as prezzo_prodotto, op.quantita as quantita_prodotto FROM tdw_ecommerce.ordini_has_prodotti as op JOIN tdw_ecommerce.prodotti as p on p.id=op.prodotti_id WHERE op.ordini_id=".$id);
+    do {
+        $prodotti = $oid->fetch_assoc();
+        if ($prodotti) {
+            foreach ($prodotti as $key => $value) {
+                $table_prodotti->setContent($key, $value);
+            }
+        }
+    } while ($prodotti);
+    $show->setContent("table_prodotti", $table_prodotti->get());
     $body->setContent("content", $show->get());
     $main->setContent("title", "Ordine n°" . $ordine['numero_ordine']);
     $main->setContent("content", $body->get());

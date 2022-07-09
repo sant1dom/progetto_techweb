@@ -3,10 +3,18 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="container border-0 mx-0" style="width: 100%">
                     <div class="container border-0 p-4 " style="width: auto">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 11px" id="annullamento" hidden>L'ordine è stato annullato per il seguente motivo: <[motivazione]></p>
+                            <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 11px" id="sospensione" hidden>L'ordine è stato sospeso per il seguente motivo: <[motivazione]>. Puoi procedere
+                            con l'annullamento o con la modifica dell'ordine</p>
+                            </div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <p class="lead fw-normal mb-0" style="color:#c02323;" id="titolo">Prodotti</p>
+                            <p class="lead fw-normal mb-0 text-left" style="color:#c02323;" id="titolo">Prodotti</p><br>
                             <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="annulla" name="annulla" value="annulla" hidden>
                                Annulla l'ordine
+                            </button>
+                            <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="modifica" name="modifica" value="modifica" hidden>
+                                Modifica l'ordine
                             </button>
                         </div>
                         <!--Modal-->
@@ -20,33 +28,7 @@
                             </div>
 
                         </div>
-                       <!-- <[table_prodotti]>-->
-                       <div class="card shadow-0 border mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src=""
-                                             class="img-fluid" alt="prodotto">
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0">Samsung Galaxy</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0 small">White</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0 small">Capacity: 64GB</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0 small">Qty: 1</p>
-                                    </div>
-                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        <p class="text-muted mb-0 small">$499</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                       <[table_prodotti]>
                         <div class="d-flex justify-content-between pt-2">
                             <p class="fw-bold mb-0 title_information" style="font-size: large">Dettagli dell'ordine</p>
                         </div>
@@ -82,11 +64,17 @@
     <script>
         let x= document.getElementById("stato").value;
         $(document).ready(function () {
-        if(x==="MEMORIZZATO") {
+        if(x==="MEMORIZZATO" || x==="SOSPESO"){
             $("#annulla").removeAttr("hidden");
         }
     });
-
+    if(x==="ANNULLATO") {
+        $("#annullamento").removeAttr("hidden");
+    }
+    if(x==="SOSPESO") {
+        $("#sospensione").removeAttr("hidden");
+        $("#modifica").removeAttr("hidden");
+    }
     // Get the modal
     var modal = document.getElementById("dialog");
 
@@ -130,6 +118,11 @@
                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                 'Non puoi annullare l\'ordine' + '</div>');
         }
+        });
+    });
+    $(document).ready(function(){
+        $("#modifica").click(function () {
+            location.href = "/orders/modifica/" + $("#id").val();
         });
     });
     </script>
