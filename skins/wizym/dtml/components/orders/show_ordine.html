@@ -1,0 +1,135 @@
+
+    <div class="container px-0" style="width: auto">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="container border-0 mx-0" style="width: 100%">
+                    <div class="container border-0 p-4 " style="width: auto">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="lead fw-normal mb-0" style="color:#c02323;" id="titolo">Prodotti</p>
+                            <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="annulla" name="annulla" value="annulla" hidden>
+                               Annulla l'ordine
+                            </button>
+                        </div>
+                        <!--Modal-->
+                        <div id="dialog" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content text-center">
+                                <span class="close text-left">&times;</span>
+                                <p>Sei sicuro di voler annullare l'ordine?</p>
+                                <button class="btn btn-primary profile-button" type="submit" id="conferma" name="conferma" value="conferma">
+                                   Sì</button>
+                            </div>
+
+                        </div>
+                       <!-- <[table_prodotti]>-->
+                       <div class="card shadow-0 border mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src=""
+                                             class="img-fluid" alt="prodotto">
+                                    </div>
+                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0">Samsung Galaxy</p>
+                                    </div>
+                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0 small">White</p>
+                                    </div>
+                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0 small">Capacity: 64GB</p>
+                                    </div>
+                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0 small">Qty: 1</p>
+                                    </div>
+                                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0 small">$499</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="fw-bold mb-0 title_information" style="font-size: large">Dettagli dell'ordine</p>
+                        </div>
+                        <div class="d-flex pt-2">
+                            <p class="mb-0 title_information">Stato : </p> <p><[stato]></p>
+                            <input type="hidden" name="stato" id="stato" value="<[stato]>">
+                        </div>
+                        <div class="d-flex pt-2">
+                            <p class="mb-0 title_information">Numero ordine : </p><p><[numero_ordine]></p>
+                        </div>
+                        <div class="d-flex pt-1">
+                            <p class="mb-0 title_information">Data : </p><p><[data]></p>
+                        </div>
+                        <div class="d-flex pt-1">
+                            <p class="mb-0 title_information">Indirizzo di spedizione : </p><p><[indirizzo_spedizione]></p>
+                        </div>
+                        <div class="d-flex pt-1">
+                            <p class=" mb-0 title_information">Indirizzo di fatturazione : </p><p><[indirizzo_fatturazione]></p>
+                        </div>
+                        <div class="d-flex pt-1">
+                            <p class="  title_information">Metodo di pagamento : bla bla</p>
+                        </div>
+
+                    </div>
+                    <div class="card-footer border-0 px-4 py-5 style3"
+                         style=" border-bottom-left-radius: 2px; border-bottom-right-radius: 2px;">
+                        <h5 class="d-flex align-items-center justify-content-end text-uppercase mb-0" style="color: #c02323 ">Totale : <span class="h2 mb-0 ms-2"><[totale]>€</span></h5>
+                    </div>
+                </div>
+            </div>
+        <input type="hidden" name="id" id="id" value="<[id]>">
+    </div>
+    <script>
+        let x= document.getElementById("stato").value;
+        $(document).ready(function () {
+        if(x==="MEMORIZZATO") {
+            $("#annulla").removeAttr("hidden");
+        }
+    });
+
+    // Get the modal
+    var modal = document.getElementById("dialog");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("annulla");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    $(document).ready(function(){
+        $("#conferma").click(function () {
+        if(x==="MEMORIZZATO") {
+                $.ajax({
+                    type: "POST",
+                    url: "/orders/annulla",
+                    data: {
+                        id: $("#id").val()
+                    },
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+        }else{
+            $('#titolo').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                'Non puoi annullare l\'ordine' + '</div>');
+        }
+        });
+    });
+    </script>

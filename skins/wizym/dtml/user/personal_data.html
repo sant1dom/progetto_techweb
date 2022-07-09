@@ -25,6 +25,7 @@
                 <input type="text" class="form-control" id="email" name="email" value="<[email]>" required readonly>
             </div>
 
+
         <button class="btn btn-primary profile-button" style="font-size: 12px" type="submit" id="edit_p" name="edit_p" value="edit_p" >
             Modifica la password
         </button>
@@ -37,6 +38,9 @@
             <label class="labels">Conferma la nuova password</label>
             <input type="password" class="form-control" id="password_c" name="password" value=" ">
         </div>
+        <button class="btn btn-primary profile-button" style="font-size: 12px" type="annulla" id="annulla_p" name="annulla" value="annulla" hidden >
+           Annulla
+        </button>
     </div>
     <script>
         $(document).ready(function(){
@@ -111,6 +115,7 @@
                     $("#password_n").removeAttr("readonly");
                     $("#password_c").removeAttr("readonly");
                     $("#edit").hide();
+                    $("#annulla_p").removeAttr("hidden");
                     $(this).val('save_p');
                     $(this).html('<span class="fe fe-check fs-14"></span> Salva la password</m>');
                 }else{
@@ -131,15 +136,7 @@
                                     $('#edit_p').val('edit_p');
                                     $('#edit').show();
                                     $('#edit_p').html('<span class="fe fe-edit fs-14"></span> Modifica la password');
-                                    $('#password_v').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#password_n').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#password_c').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
+                                    $('#cambio_password').attr("hidden",true);
                                     $('#edit').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
                                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
                                         response['success'] + '</div>');
@@ -162,4 +159,13 @@
                 }
             });
             })
+        $(document).ready(function(){
+            $("#annulla_p").click(function(){
+                $("#cambio_password").attr("hidden",true);
+                $("#edit_p").html('<span class="fe fe-edit fs-14"></span> Modifica la password');
+                $("#edit_p").val('edit_p');
+                $("#annulla_p").attr("hidden",true);
+                $("#edit").show();
+            });
+        });
     </script>
