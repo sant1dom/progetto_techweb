@@ -10,6 +10,7 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Cart', 'Visualizza carrello', '/cart', 'user/cart.php', 'cart');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Visualizza ordini', '/orders', 'user/orders.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Visualizza ordine', '/orders/%', 'user/orders.php', 'show');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Annulla ordine', '/orders/annulla', 'user/orders.php', 'annulla');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Prodotti', 'Visualizza prodotti', '/products', 'user/products.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Prodotti', 'Visualizza prodotto', '/products/%', 'user/products.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
