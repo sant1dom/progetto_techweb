@@ -29,7 +29,7 @@ function edit(){
     $email_u= $_SESSION['user']['email'];
     $response = array();
     if ($numero_telefono!= "" && $nome != "" && $cognome != "" && $email != "") {
-        $mysqli->query("UPDATE tdw_ecommerce.users SET nome = '$nome', cognome = '$cognome', email = '$email', email = '$email' WHERE email = '$email_u'");
+        $mysqli->query("UPDATE tdw_ecommerce.users SET nome = '$nome', cognome = '$cognome', email = '$email', email = '$email', telefono='$numero_telefono' WHERE email = '$email_u'");
         $_SESSION['user']['email'] = $email;
         if($mysqli->affected_rows == 1){
             $response['success'] = "Profilo modificato con successo";
@@ -45,18 +45,19 @@ function edit(){
 }
 function cambio_password(){
     global $mysqli;
-    $password_vecchia = $_POST["password_vecchia"];
-    $password_nuova = $_POST["password_nuova"];
-    $password_nuova_conferma = $_POST["password_nuova_conferma"];
+    $password_vecchia = $_POST["password_v"];
+    $password_nuova = $_POST["password_n"];
+    $password_nuova_conferma = $_POST["password_c"];
     $email_u= $_SESSION['user']['email'];
     $response = array();
     if ($password_nuova != "" && $password_nuova_conferma != "" && $password_vecchia != "") {
         $oid = $mysqli->query("SELECT * FROM tdw_ecommerce.users WHERE email = '$email_u'");
         $utente= $oid->fetch_assoc();
         if($utente){
-            if(password_verify($password_vecchia, $utente['password'])){
+            $password_vecchia=crypto($password_vecchia);
+            if($password_vecchia=== $utente['password']){
                 if($password_nuova == $password_nuova_conferma){
-                    $mysqli->query("UPDATE tdw_ecommerce.users SET password = '" . password_hash($password_nuova, PASSWORD_DEFAULT) . "' WHERE email = '$email_u'");
+                    $mysqli->query("UPDATE tdw_ecommerce.users SET password = '" . crypto($password_nuova) . "' WHERE email = '$email_u'");
                     if($mysqli->affected_rows == 1){
                         $response['success'] = "Password modificata con successo";
                     } elseif($mysqli->affected_rows == 0) {
@@ -78,4 +79,8 @@ function cambio_password(){
     }
     exit(json_encode($response));
 
+}
+function crypto($pass): string
+{
+    return md5(md5($pass));
 }

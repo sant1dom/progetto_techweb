@@ -471,7 +471,7 @@ Class Template {
 			}
 			for($i=0;$i<count($finalContent[0]);$i++){
 				$currentParsedContentName = $finalContent[0][$i];
-				$currentParsedContentValue = $finalContent[1][$i];
+				$currentParsedContentValue = $finalContent[1][$i] ?: "";
 				$buffer = preg_replace("~{$this->escaped_tags['open']}$currentParsedContentName{$this->escaped_tags['close']}~Us",$currentParsedContentValue,$buffer,1);
 			}
 		} 
@@ -1630,7 +1630,7 @@ Class Skin extends Template {
 		
 		if ((basename($_SERVER['SCRIPT_FILENAME']) != "error.php") and (!isset($_REQUEST['nocache']))) {
 			
-			if ($GLOBALS['config']['cache_mode'] == NONE) { 
+			if ($GLOBALS['config']['cache_mode'] == 'NONE') {
 				$result = true;
 			} elseif ($this->private) {
 				$result = true;

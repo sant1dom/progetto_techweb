@@ -1,22 +1,30 @@
 <[foreach]>
 <tr>
-    <td>
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[numero_ordine]>
     </td>
-    <td>
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[data]>
     </td>
-    <td>
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[stato]>
     </td>
-    <td>
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[totale]>
     </td>
-    <td>
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[indirizzo_spedizione]>
-    </td>
-    <td>
+    </td >
+    <td class="clickable-row" data-href="/orders/<[id]>">
         <[indirizzo_fatturazione]>
     </td>
 </tr>
 <[/foreach]>
+<script>
+    $(document).ready(function () {
+        $(".clickable-row").css("cursor", "pointer");
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
