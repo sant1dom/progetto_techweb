@@ -79,36 +79,3 @@ function cambio_password(){
     exit(json_encode($response));
 
 }
-function index_ordini(){
-    global $mysqli;
-    $main = setupMainUser();
-    $main->setContent("title", "I miei ordini");
-    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/my_account.html");
-    global $mysqli;
-    $colnames = array(
-        "Numero ordine",
-        "Data",
-        "Stato",
-        "Totale",
-        "Indirizzo di spedizione",
-        "Indirizzo di fatturazione"
-    );
-    $content=new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/table.html");
-    foreach($colnames as $colname){
-        $content->setContent("colname", $colname);
-    }
-    $table= new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/table_row.html");
-
-
-    $email= $_SESSION['user']['email'];
-    $oid = $mysqli->query("SELECT * FROM tdw_ecommerce.orders WHERE email = '$email'");
-    $ordini= $oid->fetch_all(MYSQLI_ASSOC);
-    if($ordini){
-        foreach($ordini as $key => $value){
-            $content->setContent("ordini", $value);
-        }
-    }
-    $body->setContent("content", $content->get());
-    $main->setContent("content", $body->get());
-    $main->close();
-}
