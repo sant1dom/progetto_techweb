@@ -1,0 +1,18 @@
+<[foreach]>
+<tr>
+  <input type="hidden" value="<[id]>" name="products[]">
+  <td class="text-center image"><img src="skins/wizym/image/homepage132.png" alt="image"></td>
+  <td class="list text"><[nome]></td>
+  <td class="text-center list price"><[prezzo]></td>
+  <td class="text-center list quantity">
+    <ul class="quantity-menu">
+      <li><i class="fa fa-minus-circle" aria-hidden="true"></i></li>
+      <li><[quantity]></li>
+      <li><i class="fa fa-plus-circle" aria-hidden="true"></i></li>
+    </ul>
+  </td>
+  <td class="text-center list price"><[dimensione]>Kg</td>
+  <td class="text-center list price">totale</td>
+  <td class="text-center delete">×</td>
+</tr>
+<[/foreach]>

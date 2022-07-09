@@ -453,6 +453,34 @@ LOCK TABLES `users_has_groups` WRITE;
 /*!40000 ALTER TABLE `users_has_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart` (
+                                    `users_id` int NOT NULL,
+                                    `products_id` int NOT NULL,
+                                    `quantity` int NOT NULL DEFAULT 1,
+                                    PRIMARY KEY (`users_id`,`products_id`),
+                                    KEY `fk_prodotti_idx` (`products_id`),
+                                    KEY `fk_users_idx` (`users_id`),
+                                    CONSTRAINT `fk_prodotti_idx` FOREIGN KEY (`products_id`) REFERENCES `prodotti` (`id`) ON DELETE CASCADE,
+                                    CONSTRAINT `fk_users_idx` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_has_groups`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
 DROP TABLE IF EXISTS `offerte`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
