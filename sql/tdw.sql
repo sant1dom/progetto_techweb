@@ -73,7 +73,10 @@ DROP TABLE IF EXISTS `immagini`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `immagini` (
                             `id` int NOT NULL AUTO_INCREMENT,
-                            `nome_file` varchar(45) NOT NULL,
+                            `nome_file` varchar(255) NOT NULL,
+                            `prodotto_id` int NOT NULL,
+                            KEY `prodotto_id` (`prodotto_id`),
+                            CONSTRAINT `immagini_ibfk_1` FOREIGN KEY (`prodotto_id`) REFERENCES `prodotti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -248,19 +251,6 @@ LOCK TABLES `prodotti` WRITE;
 /*!40000 ALTER TABLE `prodotti` DISABLE KEYS */;
 /*!40000 ALTER TABLE `prodotti` ENABLE KEYS */;
 UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `prodotti_has_immagini`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `prodotti_has_immagini` (
-                                         `prodotti_id` int NOT NULL,
-                                         `immagini_id` int NOT NULL,
-                                         PRIMARY KEY (`prodotti_id`,`immagini_id`),
-                                         KEY `fk_prodotti_has_immagini_immagini1_idx` (`immagini_id`),
-                                         KEY `fk_prodotti_has_immagini_prodotti1_idx` (`prodotti_id`),
-                                         CONSTRAINT `fk_prodotti_has_immagini_immagini1` FOREIGN KEY (`immagini_id`) REFERENCES `immagini` (`id`),
-                                         CONSTRAINT `fk_prodotti_has_immagini_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `produttori`
