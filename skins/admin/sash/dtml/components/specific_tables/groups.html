@@ -1,6 +1,6 @@
 <[foreach]>
 <tr>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/groups/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -9,7 +9,7 @@
             </div>
         </div>
     </td>
-    <td class="clickable-row" data-href="/admin/users/<[id]>">
+    <td class="clickable-row" data-href="/admin/groups/<[id]>">
         <div class="d-flex">
             <div class="mt-0 mt-sm-3 d-block">
                 <h6 class="mb-0 fs-14 fw-semibold">
@@ -19,20 +19,7 @@
         </div>
     </td>
     <td>
-        <div class="g-2">
-            <a class="btn text-primary btn-sm"
-               data-bs-toggle="tooltip"
-               data-bs-original-title="Modifica"
-               href="/admin/groups/<[id]>"><span
-                    class="fe fe-edit fs-14"></span></a>
-            <a class="btn text-danger btn-sm"
-               data-bs-toggle="modal"
-               data-bs-target="#deleteconfirmation"
-               data-bs-original-title="Elimina"
-               data-id="/admin/groups/<[id]>/delete"
-               href="/admin/groups/<[id]>/delete"><span
-                    class="fe fe-user-x fs-14"></span></a>
-        </div>
+        <[actions]>
     </td>
 </tr>
 <[/foreach]>

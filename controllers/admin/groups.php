@@ -22,8 +22,11 @@ function index()
     do {
         $groups = $oid->fetch_assoc();
         if ($groups) {
+            debug_to_console($groups);
             foreach ($groups as $key => $value) {
+                debug_to_console($value);
                 $groups_table->setContent($key, $value);
+
             }
         }
     } while ($groups);
@@ -52,7 +55,7 @@ function show()
         $show->setContent("group_name", $group['group_name']);
 
         //recupero tutti i tag dei servizi (eccetto i pubblici)
-        $tags = $mysqli->query("SELECT DISTINCT services.tag FROM services WHERE services.tag NOT LIKE 'Public'");
+        $tags = $mysqli->query("SELECT DISTINCT services.tag FROM services WHERE services.tag NOT LIKE 'Public' AND services.tag NOT LIKE 'Gestione gruppi'");
 
         if ($tags->num_rows > 0) {
             //templete per la lista dei tag e dei loro poteri
@@ -65,7 +68,8 @@ function show()
                         $powers = $mysqli->query("
                             SELECT services.id, services.description
                             FROM services
-                            WHERE services.tag = '{$value}';");
+                            WHERE services.tag = '{$value}';"
+                        );
 
                         $powers_tmp->setContent("tag", $group_tags['tag']); //inserisco il tag nel template come titolo
                         //templete per la lista dei poteri di un tag
@@ -105,6 +109,7 @@ function show()
         }
     }
 }
+
 //da creare la create
 //da completare
 function delete()

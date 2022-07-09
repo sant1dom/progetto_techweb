@@ -112,5 +112,38 @@
                 $(this).parent().find('.invalid-feedback').show();
             }
         });
+
+
+        $(".clickable-row").css("cursor", "pointer");
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+
+
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function (e) {
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+
+        $('#remove-button').click(function () {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function (data) {
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        window.location.href = window.location.pathname + "?" + $.param({
+                            'success': 'true',
+                            'utente': 'true'
+                        });
+                    } else {
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
+                    }
+                }
+            });
+        });
     });
+
 </script>
