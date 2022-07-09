@@ -193,3 +193,10 @@ insert into offerte (id, percentuale, data_inizio, data_fine, prodotti_id) value
 insert into offerte (id, percentuale, data_inizio, data_fine, prodotti_id) values (NULL, 20, '2022-01-01', '2022-12-31', 2);
 insert into offerte (id, percentuale, data_inizio, data_fine, prodotti_id) values (NULL, 35, '2022-01-01', '2022-12-31', 3);
 insert into offerte (id, percentuale, data_inizio, data_fine, prodotti_id) values (NULL, 30, '2022-01-01', '2022-12-31', 4);
+
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 5, 'Lorem ipsum', 1, 1);
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 4, 'Lorem ipsum', 1, 2);
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 4, 'Lorem ipsum', 2, 1);
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 3, 'Lorem ipsum', 3, 1);
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 5, 'Lorem ipsum', 4, 1);
+insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 5, 'Lorem ipsum', 5, 1);

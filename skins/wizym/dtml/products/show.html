@@ -52,13 +52,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="content-wrap">
                         <h2 class="heading"><a href=""><[nome]></a></h2>
-                        <div class="post-rating">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </div>
+                        <div id="stars"></div>
                         <h2 class="dolar"><[prezzo]>€</h2>
                         <p class="timer"></p>
                         <div class="info-content">
@@ -333,7 +327,18 @@
                 $('.timer').html('<p><strong style="color: #c02323;">Scade tra:</strong> ' + days + ' giorni ' + hours + ' ore ' + minutes + ' minuti ' + seconds + ' secondi</p>');
             }, 1000);
         }
+
     });
+    let voto_medio = parseFloat('<[voto_medio]>');
+    $('#stars').raty({
+        score: voto_medio,
+        readOnly: true,
+        starOff: 'fa fa-star-o',
+        starOn: 'fa fa-star',
+        starHalf: 'fa fa-star-half-o',
+        starType: 'i'
+    });
+    $('#stars').after('<p> <[numero_recensioni]> recensioni</p>');
 </script>
 
 

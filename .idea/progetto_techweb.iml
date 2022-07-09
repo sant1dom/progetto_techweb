@@ -6,5 +6,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap-select" level="application" />
     <orderEntry type="library" name="bootstrap-datetimepicker" level="application" />
+    <orderEntry type="library" name="raty" level="application" />
+    <orderEntry type="library" name="jquery-raty-js" level="application" />
   </component>
 </module>
