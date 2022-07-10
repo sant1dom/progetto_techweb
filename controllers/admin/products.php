@@ -72,6 +72,12 @@ function create(){
         if ($nome !== "" && $prezzo !== "" && $dimensione !== "" && $quantita_disponibile !== "" && $descrizione !== "" && $categoria !== "" && $produttore !== "" && $provenienza !== "") {
             $mysqli->query("INSERT INTO tdw_ecommerce.prodotti (nome, prezzo, dimensione, quantita_disponibile, descrizione, categorie_id, produttori_id, provenienze_id) VALUES ('$nome', $prezzo, '$dimensione', $quantita_disponibile, '$descrizione', $categoria, $produttore, $provenienza)");
             if ($mysqli->affected_rows == 1) {
+                $id = $mysqli->insert_id;
+                foreach ($_FILES["immagini"]["tmp_name"] as $key => $value) {
+                    $filename = basename($value). "." . substr($_FILES["immagini"]["name"][$key], strpos($_FILES["immagini"]["name"][$key], ".") + 1);
+                    $mysqli->query("INSERT INTO tdw_ecommerce.immagini (id, nome_file, prodotto_id) VALUES (NULL, '$filename', $id)");
+                    move_uploaded_file($value, $_SERVER['DOCUMENT_ROOT'] . "/uploads/".$filename);
+                }
                 $response['success'] = "Prodotto creato con successo";
             } elseif ($mysqli->affected_rows == 0) {
                 $response['warning'] = "Nessun dato modificato";
@@ -84,7 +90,7 @@ function create(){
         exit(json_encode($response));
     } else {
         $main = setupMainAdmin();
-        $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/offers/create.html");
+        $create = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/products/create.html");
         populateSelectProduct($mysqli, $create);
         $main->setContent("content", $create->get());
         $main->close();

@@ -58,6 +58,18 @@ function show(){
         $body->setContent("numero_recensioni", $recensioni['numero']);
     }
 
+    $immagini = $mysqli->query("SELECT nome_file
+                                    FROM tdw_ecommerce.immagini
+                                    WHERE prodotto_id = $id");
+    do {
+        $immagine = $immagini->fetch_assoc();
+        if ($immagine) {
+            foreach ($immagine as $key => $value) {
+                $body->setContent($key, "/uploads/".$value);
+            }
+        }
+    } while ($immagine);
+
     $main->setContent("content", $body->get());
     $main->close();
 }

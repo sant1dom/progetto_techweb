@@ -107,8 +107,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="immagini" class="form-label">Immagini</label>
+                                        <input class="form-control"
+                                               type="file"
+                                               id="immagini"
+                                               multiple
+                                               accept="image/*"
+                                               required aria-required="true">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <button class="btn btn-primary" id="add" name="add" value="add" type="submit">
+                        <span class="fe fe-save fs-14"></span> Aggiungi
+                    </button>
                 </div>
             </div>
         </div>
@@ -124,20 +140,26 @@
         $('#add').click(function() {
             // Controllo che serve a vedere se tutti gli input sono riempiti
             if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                let images = $('#immagini')[0].files;
+                let formData = new FormData();
+                for (let i = 0; i < images.length; i++) {
+                    formData.append('immagini[]', images[i]);
+                }
+                formData.append('nome', $('#nome').val());
+                formData.append('prezzo', $('#prezzo').val());
+                formData.append('dimensione', $('#dimensione').val());
+                formData.append('quantita_disponibile', $('#quantita_disponibile').val());
+                formData.append('descrizione', $('#descrizione').val());
+                formData.append('categoria', $('#categoria').val());
+                formData.append('produttore', $('#produttore').val());
+                formData.append('provenienza', $('#provenienza').val());
                 // Faccio la chiamata e in base al risultato lo mostro a schermo
                 $.ajax({
                     type: 'POST',
                     url: '/admin/products/create',
-                    data: {
-                        'nome': $('#nome').val(),
-                        'prezzo': $('#prezzo').val(),
-                        'dimensione': $('#dimensione').val(),
-                        'quantita_disponibile': $('#quantita_disponibile').val(),
-                        'descrizione': $('#descrizione').val(),
-                        'categoria': $('#categoria').val(),
-                        'produttore': $('#produttore').val(),
-                        'provenienza': $('#provenienza').val()
-                    },
+                    processData: false,
+                    contentType: false,
+                    data: formData,
                     success: function (data) {
                         let response = JSON.parse(data);
                         if (response['success']) {
