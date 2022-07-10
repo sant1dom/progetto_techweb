@@ -1,3 +1,4 @@
+<span id="cart-msg"></span>
 <table class="table table-bordered">
   <thead>
   <tr>
@@ -8,7 +9,173 @@
     <[/foreach]>
   </tr>
   </thead>
-  <tbody>
+  <tbody id="cart-table-body">
   <[specific_table]>
   </tbody>
 </table>
+
+<style>
+  li, .no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Edge, Opera and Firefox */
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    const msg_span = $('#cart-msg');
+
+    const tab_description_btn = $('#tab-description-btn');
+    const tab_review_btn = $('#tab-review-btn');
+    const tab_order_btn = $('#tab-order-btn');
+
+
+    tab_review_btn.attr('data-id', 'nulla')
+    tab_order_btn.attr('data-id', 'nulla')
+
+    const thead = $('thead');
+
+    $.each($('li[id^="quantity"]'), function (index, value) {
+      let id = $(value).attr('id').toString().replace('quantity', '');
+      let dimensioneOriginale = parseFloat($('#dimensioneOriginale' + id).val()).toFixed(2);
+      let dimensione = $('#dimensione' + id);
+      let quantity = parseInt($(value).text()).toFixed(2);
+      let totale = $('#totale' + id);
+      let prezzo = parseFloat($('#prezzo' + id).text()).toFixed(2);
+
+      totale.text((parseFloat(prezzo) * quantity).toFixed(2));
+      dimensione.text((dimensioneOriginale * quantity).toFixed(2) + "Kg");
+    });
+
+    updateTotal();
+
+    $('td[id^="remove"]').click(function () {
+      let id = $(this).attr('id').toString().replace('remove', '');
+      remove(id);
+    });
+
+    $('#clear-cart-btn').click(function () {
+      $('div.alert').alert('close');
+      $.each($('td[id^="remove"]'), function (index, value) {
+        let id = $(value).attr('id').toString().replace('remove', '');
+        remove(id);
+      });
+      thead.children().remove();
+      thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+    })
+
+    $('li i').click(function () {
+      $('div.alert').alert('close');
+
+      let button = $(this);
+      let id = button.attr('id').toString();
+      if (~id.indexOf("qplus")) {
+        id = id.replace('qplus', '');
+      } else {
+        id = id.replace('qminus', '');
+      }
+      let dimensioneOriginale = parseFloat($('#dimensioneOriginale' + id).val()).toFixed(2);
+      let dimensione = $('#dimensione' + id);
+      let quantity = $('#quantity' + id);
+      let totale = $('#totale' + id);
+      let prezzo = parseFloat($('#prezzo' + id).text()).toFixed(2);
+      let oldQ = parseInt(quantity.text());
+      let newQ = 0;
+
+      if (button.attr("id") === ("qplus" + id)) {
+        newQ = oldQ + 1;
+      } else if (button.attr("id") === ("qminus" + id)) {
+        // Don't allow decrementing below zero
+        if (oldQ > 0 && oldQ !== 1) {
+          newQ = oldQ - 1;
+        }
+      }
+
+      if (newQ > 0) {
+        $.ajax({
+          url: '/cart/' + id + '/edit',
+          type: 'POST',
+          data: {
+            id: id,
+            quantity: newQ,
+          },
+          success: function (data) {
+            let response = JSON.parse(data);
+            if (response['success']) {
+              quantity.text(newQ);
+              totale.text((parseFloat(prezzo) * newQ).toFixed(2));
+              dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "Kg");
+              updateTotal();
+            } else if (response['error']) {
+              msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                      response['error'] + '</div>');
+            } else {
+              msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                      response['warning'] + '</div>');
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
+      } else {
+        msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                'La quanti&agrave; deve essere superiore a 0' + '</div>');
+      }
+
+    });
+
+    function remove (id) {
+      $('div.alert').alert('close');
+      $.ajax({
+        url: '/cart/' + id + '/remove',
+        type: 'POST',
+        data: {
+          id: id,
+        },
+        success: function (data) {
+          let response = JSON.parse(data);
+          let msg_span = $('#cart-msg');
+          if (response['success']) {
+            $('#tr' + id).remove();
+            if ($('#cart-table-body').children().length === 0) {
+              thead.children().remove();
+              thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+            }
+
+          } else if (response['error']) {
+            msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    response['error'] + '</div>');
+          } else {
+            msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    response['warning'] + '</div>');
+          }
+          updateTotal();
+        },
+        error: function (data) {
+          console.log(data);
+        }
+      });
+    }
+  });
+
+  function updateTotal() {
+    let total = 0.00;
+    $.each($('td[id^="totale"]'), function (index, value) {
+      total += parseFloat($(value).text());
+    });
+    $('#cart-total').html(total.toFixed(2));
+  }
+
+</script>

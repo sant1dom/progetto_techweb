@@ -200,3 +200,7 @@ insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL,
 insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 3, 'Lorem ipsum', 3, 1);
 insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 5, 'Lorem ipsum', 4, 1);
 insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL, 5, 'Lorem ipsum', 5, 1);
+
+insert into cart (users_id, products_id, quantity) values (2, 1, 1);
+insert into cart (users_id, products_id, quantity) values (2, 2, 2);
+insert into cart (users_id, products_id, quantity) values (2, 3, 3);

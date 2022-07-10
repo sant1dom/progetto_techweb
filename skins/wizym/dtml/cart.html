@@ -5,15 +5,13 @@
                 <div class="col-lg-12">
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs">
-                            <li><a class="tab active" data-id='#tab-description' href="#"><i class="  icon_bag"
-                                                                                             aria-hidden="true"></i>SHOPPING
-                                CART</a></li>
-                            <li><a class="tab" data-id='#tab-reviews' href="#"><i class=" icon_ribbon"
+                            <li><a class="tab active" id="tab-description-btn" data-id='#tab-description' href="#"><i class="icon_bag"
+                                                                                             aria-hidden="true"></i>CARRELLO</a></li>
+                            <li><a class="tab" id="tab-reviews-btn" data-id='#tab-reviews'><i class=" icon_ribbon"
                                                                                   aria-hidden="true"></i>CHECK OUT</a>
                             </li>
-                            <li><a class="tab" data-id='#tab-order' href="#"><i class="arrow_carrot-down_alt"
-                                                                                aria-hidden="true"></i>ORDER
-                                COMPLETE</a></li>
+                            <li><a class="tab" id="tab-order-btn" data-id='#tab-order' href="#"><i class="arrow_carrot-down_alt"
+                                                                                aria-hidden="true"></i>COMPLETA ORDINE</a></li>
                         </ul>
                         <div class="cart-wrap">
                             <div id="tab-description" class="tab-content">
@@ -23,25 +21,16 @@
                                 <div class="cart-btn">
                                     <div class="btn-continue">
                                         <div class="elm-btn">
-                                            <a href="#"
-                                               class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">CONTINUE
-                                                SHOPPING</a>
+                                            <a href="/products"
+                                               class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">CONTINUA
+                                                LO SHOPPING</a>
                                         </div>
                                     </div>
                                     <div class="btn-clear">
                                         <ul>
                                             <li>
-                                                <div class="elm-btn">
-                                                    <a href="#"
-                                                       class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">CLEAR
-                                                        CART</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="elm-btn">
-                                                    <a href="#"
-                                                       class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">UPDATE
-                                                        CART</a>
+                                                <div class="elm-btn" id="clear-cart-btn">
+                                                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">SVUOTA CARRELLO</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -49,70 +38,17 @@
                                 </div>
                                 <div class="wrap-discount-estimate-cart">
                                     <div class="row">
-                                        <div class="col-lg-4 col-12 discount">
-                                            <h2 class="discount-heading"><a href="#">Discount Codes</a></h2>
-                                            <p class="discount-text">Enter your coupin if you have one</p>
-                                            <input type="text" name="discount-codes">
-                                            <div class="elm-btn">
-                                                <a href="#"
-                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">submit</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-12 estimate">
-                                            <h2 class="estimate-heading"><a href="#">Estimate Shipping</a></h2>
-                                            <p class="estimate-text">Enter your destination to get shipping</p>
-                                            <div class="estimate-select country">
-                                                <div class="title-select">
-                                                    <p>COUNTRY</p>
-                                                </div>
-                                                <div class="select">
-                                                    <select>
-                                                        <option value="volvo">United States</option>
-                                                        <option value="saab">Saab</option>
-                                                        <option value="opel">Opel</option>
-                                                        <option value="audi">Audi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="estimate-select postal">
-                                                <div class="title-select">
-                                                    <p>POSTAL CODE/ZIP'</p>
-                                                </div>
-                                                <div class="selectt">
-                                                    <select>
-                                                        <option value="volvo">01234567</option>
-                                                        <option value="saab">Saab</option>
-                                                        <option value="opel">Opel</option>
-                                                        <option value="audi">Audi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="elm-btn">
-                                                <a href="#"
-                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">GET
-                                                    A QUOTE</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-12 cart">
+                                        <div class="cart">
                                             <h2 class="cart-heading"><a href="#">Cart Total</a></h2>
                                             <div class="wrap-cart">
                                                 <div class="sub-total">
-                                                    <span>SUB TOTAL</span>
-                                                    <p class="price">$320.00</p>
-                                                </div>
-                                                <div class="shipping">
-                                                    <span>SHIPPING</span>
-                                                    <p class="price">Free</p>
-                                                </div>
-                                                <div class="totall">
                                                     <span>TOTAL</span>
-                                                    <p class="price">$320.00</p>
+                                                    <p class="price" id="cart-total">0.00</p>
                                                 </div>
                                             </div>
                                             <div class="elm-btn">
                                                 <a href="#"
-                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">PROCEED
-                                                    TO CHECK OUR</a>
+                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">PROCEDI AL CHECK OUT</a>
                                             </div>
                                         </div>
                                     </div>

@@ -73,6 +73,7 @@
                             }).get()
                         },
                         success: function (data) {
+                            $('div.alert').alert('close');
                             let response = JSON.parse(data);
                             if (response['success']) {
                                 edit.val('edit');
@@ -111,5 +112,4 @@
             }
         });
     });
-
 </script>

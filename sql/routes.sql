@@ -8,6 +8,8 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Profilo','Modifica profilo', '/myAccountEdit', 'user/profile.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Profilo','Modifica password', '/myAccountPassword', 'user/profile.php', 'cambio_password');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Cart', 'Visualizza carrello', '/cart', 'user/cart.php', 'cart');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Cart', 'Aggiorna quantità', '/cart/%/edit', 'user/cart.php', 'edit');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Cart', 'Rimuovi articolo', '/cart/%/remove', 'user/cart.php', 'remove');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Visualizza ordini', '/orders', 'user/orders.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Visualizza ordine', '/orders/%', 'user/orders.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Annulla ordine', '/orders/annulla', 'user/orders.php', 'annulla');
