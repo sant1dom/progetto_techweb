@@ -31,11 +31,15 @@ function show(){
                                     WHERE prodotti.id = $id;");
 
     if ($prodotto->num_rows == 0) {
-        header("Location: /user/products");
+        header("Location: /products");
     } else {
         $prodotto = $prodotto->fetch_assoc();
         foreach ($prodotto as $key => $value) {
-            $body->setContent($key, $value);
+            if ($key !== "id") {
+                $body->setContent($key, $value);
+            } else {
+                $likebutton->setContent($key, $value);
+            }
         }
         $body->setContent("disponibilita", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
     }
@@ -82,7 +86,35 @@ function show(){
             }
         }
     } while ($immagine);
+    if (isset($_SESSION['user'])) {
+        $like = $mysqli->query("SELECT * 
+                             FROM tdw_ecommerce.users_has_prodotti_preferiti 
+                                WHERE users_id = ".$_SESSION['user']["id"]." 
+                                    AND prodotti_id = $id");
+        if ($like->num_rows == 0) {
+            $likebutton->setContent("start_value", "fa fa-heart-o");
+        } else {
+            $likebutton->setContent("start_value", "fa fa-heart");
+        }
+        $body->setContent("like", $likebutton->get());
+    } else {
+        $body->setContent("like", "");
+    }
 
     $main->setContent("content", $body->get());
     $main->close();
+}
+function like() {
+    global $mysqli;
+    $id = explode('/', $_SERVER['REQUEST_URI'])[3];
+    $user = $_SESSION['user']['id'];
+    $response = array();
+    if( $_POST['like'] === "0") {
+        $mysqli->query("DELETE FROM tdw_ecommerce.users_has_prodotti_preferiti WHERE users_id = $user AND prodotti_id = $id");
+        $response['success'] = 'Dislike';
+    } else {
+        $mysqli->query("INSERT INTO tdw_ecommerce.users_has_prodotti_preferiti (users_id, prodotti_id) VALUES ($user, $id)");
+        $response['success'] = 'Like';
+    }
+    exit(json_encode($response));
 }
