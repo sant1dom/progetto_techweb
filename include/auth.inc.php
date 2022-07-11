@@ -44,7 +44,7 @@ function doLogin(): void
 
         //Ottiene l'utente dalla tabella users
         $oid = $mysqli->query("
-            SELECT nome, cognome, email, telefono
+            SELECT id, nome, cognome, email, telefono
             FROM users 
             WHERE email = '" . $_POST['email'] . "'
             AND password = '" . crypto($_POST['password']) . "'");
