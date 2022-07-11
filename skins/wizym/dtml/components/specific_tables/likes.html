@@ -1,0 +1,67 @@
+<[foreach]>
+<tr>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[nome]>
+    </td>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[prezzo]>
+    </td>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[disponibilità]>
+    </td>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[categoria]>
+    </td>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[produttore]>
+    </td>
+    <td class="clickable-row" data-href="/products/<[id]>">
+        <[provenienza]>
+    </td>
+    <td>
+        <div class="heart mg-item-ct" style="cursor: pointer" data-id="<[id]>">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+        </div>
+    </td>
+</tr>
+<[/foreach]>
+<script>
+    $(document).ready(function() {
+        $(".clickable-row")
+            .css("cursor", "pointer")
+            .click(function () {
+            window.location = $(this).data("href");
+        });
+        $('.heart').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: '/products/' + $(this).data('id') + '/like',
+                data: {
+                    'like': 0
+                },
+                success: function (data) {
+                    let response = JSON.parse(data);
+                    if (response['success'] === 'Dislike') {
+                        location.reload();
+                    }
+                }
+            });
+        });
+
+        $('.table').DataTable({
+            "language": {
+                "lengthMenu": "Mostra _MENU_ record per pagina",
+                "zeroRecords": "Nessun record trovato",
+                "info": "Pagina _PAGE_ di _PAGES_",
+                "infoEmpty": "Nessun record trovato",
+                "infoFiltered": "(filtrato da _MAX_ record totali)",
+                "search": "Cerca",
+                "paginate": {
+                    "previous": "Precedente",
+                    "next": "Successivo"
+                }
+            },
+            "order": [[0, "asc"]]
+        });
+    });
+</script>

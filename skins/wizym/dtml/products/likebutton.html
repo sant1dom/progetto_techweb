@@ -8,7 +8,7 @@
             let i = $(this).find('i');
             $.ajax({
                 type: 'POST',
-                url: 'products/<[id]>/like',
+                url: '/products/<[id]>/like',
                 data: {
                     'like': i.hasClass('fa-heart') ? 0 : 1
                 },

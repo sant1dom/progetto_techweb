@@ -175,3 +175,12 @@ insert into cart (users_id, products_id, quantity) values (2, 2, 2);
 insert into cart (users_id, products_id, quantity) values (2, 3, 3);
 
 insert into indirizzi (id, indirizzo, citta, cap, provincia, nazione, users_id) values (NULL, 'Via delle Fontane', 'Milano', '20100', 'MI', 'IT', 2);
+
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,1);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,2);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,3);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,4);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,5);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,6);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,7);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,8);

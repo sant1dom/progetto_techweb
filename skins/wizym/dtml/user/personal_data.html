@@ -1,174 +1,173 @@
-
-   <div id="modifica-button"></div>
-    <div class="d-flex justify-content-between align-items-center mb-3" >
-        <h2 class="text-right">Informazioni personali</h2>
-        <div class="mt-3 text-center d-flex justify-content-end align-items-end" id="modifica-button" >
-            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="edit" name="edit" value="edit">
-                MODIFICA LE INFORMAZIONI
-            </button>
-        </div>
+<div id="modifica-button"></div>
+<div class="d-flex justify-content-between align-items-center mb-3" >
+    <h2 class="text-right">Informazioni personali</h2>
+    <div class="mt-3 text-center d-flex justify-content-end align-items-end" id="modifica-button" >
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="edit" name="edit" value="edit">
+            MODIFICA LE INFORMAZIONI
+        </button>
     </div>
-    <div class="row mt-auto">
-        <div class="col-md-6">
-            <label class="labels">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="<[nome]>" required readonly></div>
-        <div class="col-md-6">
-            <label class="labels">Cognome</label>
-            <input type="text" class="form-control"  id="cognome" name="cognome" value="<[cognome]>" required readonly></div>
+</div>
+<div class="row mt-auto">
+    <div class="col-md-6">
+        <label class="labels">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="<[nome]>" required readonly></div>
+    <div class="col-md-6">
+        <label class="labels">Cognome</label>
+        <input type="text" class="form-control"  id="cognome" name="cognome" value="<[cognome]>" required readonly></div>
+</div>
+<div class="row mt-auto">
+    <div class="col-md-12">
+        <label class="labels">Numero di telefono</label>
+        <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" value="<[telefono]>" required readonly>
     </div>
-    <div class="row mt-auto">
-        <div class="col-md-12">
-            <label class="labels">Numero di telefono</label>
-            <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" value="<[telefono]>" required readonly>
-        </div>
-            <div class="col-md-12">
-                <label class="labels">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="<[email]>" required readonly>
-            </div>
-        <div class="d-flex justify-content-end align-items-end">
-            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 12px" type="annulla" id="annulla_p" name="annulla" value="annulla" hidden >
-                ANNULLA
-            </button>
-        </div>
-        <div class="col-md-12" id="cambio_password" hidden>
-            <label class="labels">Inserisci la vecchia password</label>
-            <input type="password" class="form-control" id="password_v" name="password" value=" " >
-            <label class="labels">Inserisci la nuova password</label>
-            <input type="password" class="form-control" id="password_n" name="password" value=" " >
-            <label class="labels">Conferma la nuova password</label>
-            <input type="password" class="form-control" id="password_c" name="password" value=" ">
-        </div>
-        <div class="d-flex justify-content-start align-items-start">
+    <div class="col-md-12">
+        <label class="labels">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="<[email]>" required readonly>
+    </div>
+    <div class="d-flex justify-content-end align-items-end">
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 12px" type="annulla" id="annulla_p" name="annulla" value="annulla" hidden >
+            ANNULLA
+        </button>
+    </div>
+    <div class="col-md-12" id="cambio_password" hidden>
+        <label class="labels">Inserisci la vecchia password</label>
+        <input type="password" class="form-control" id="password_v" name="password" value=" " >
+        <label class="labels">Inserisci la nuova password</label>
+        <input type="password" class="form-control" id="password_n" name="password" value=" " >
+        <label class="labels">Conferma la nuova password</label>
+        <input type="password" class="form-control" id="password_c" name="password" value=" ">
+    </div>
+    <div class="d-flex justify-content-start align-items-start">
         <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"  style="font-size: 12px" type="submit" id="edit_p" name="edit_p" value="edit_p" >
             MODIFICA LA PASSWORD
         </button>
-            </div>
     </div>
-    <script>
-        $(document).ready(function(){
-            $("#edit").click(function(){
-                if($(this).val()==='edit') {
-                    $("#nome").removeAttr("readonly");
-                    $("#cognome").removeAttr("readonly");
-                    $("#numero_telefono").removeAttr("readonly");
-                    $("#email").removeAttr("readonly");
-                    $("#edit_p").hide();
-                    $(this).val('save');
-                    $(this).html('<span class="fe fs-14"></span> SALVA</m>');
-                }else{
-                    if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
-                        // Faccio la chiamata e in base al risultato lo mostro a schermo
-                        $.ajax({
-                            type: 'POST',
-                            url: '/myAccountEdit',
-                            data: {
-                                'nome': $('#nome').val(),
-                                'cognome': $('#cognome').val(),
-                                'numero_telefono': $('#numero_telefono').val(),
-                                'email': $('#email').val(),
-                            },
-                            success: function (data) {
-                                let response = JSON.parse(data);
-                                if (response['success']) {
-                                    $('#edit').val('edit');
-                                    $('#edit_p').show();
-                                    $('#edit').html('<span class="fe fs-14"></span> MODIFICA LE INFORMAZIONI');
-                                    $('#nome').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#cognome').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#numero_telefono').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#email').attr('readonly', function (_, attr) {
-                                        return !attr
-                                    });
-                                    $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+</div>
+<script>
+    $(document).ready(function(){
+        $("#edit").click(function(){
+            if($(this).val()==='edit') {
+                $("#nome").removeAttr("readonly");
+                $("#cognome").removeAttr("readonly");
+                $("#numero_telefono").removeAttr("readonly");
+                $("#email").removeAttr("readonly");
+                $("#edit_p").hide();
+                $(this).val('save');
+                $(this).html('<span class="fe fs-14"></span> SALVA</m>');
+            }else{
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccountEdit',
+                        data: {
+                            'nome': $('#nome').val(),
+                            'cognome': $('#cognome').val(),
+                            'numero_telefono': $('#numero_telefono').val(),
+                            'email': $('#email').val(),
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit').val('edit');
+                                $('#edit_p').show();
+                                $('#edit').html('<span class="fe fs-14"></span> MODIFICA LE INFORMAZIONI');
+                                $('#nome').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#cognome').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#numero_telefono').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#email').attr('readonly', function (_, attr) {
+                                    return !attr
+                                });
+                                $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['success'] + '</div>');
-                                } else if (response['error']) {
-                                    $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['error'] + '</div>');
-                                } else {
-                                    $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['warning'] + '</div>');
-                                }
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                    response['warning'] + '</div>');
                             }
-                        });
-                    } else {
-                        $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                            'Compilare tutti i campi correttamente' + '</div>');
-                    }
+                        }
+                    });
+                } else {
+                    $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi correttamente' + '</div>');
                 }
-            });
-            })
-    </script>
-    <script>
-        $(document).ready(function(){
-            $("#edit_p").click(function(){
-                if($(this).val()==='edit_p') {
-                    $("#cambio_password").attr("hidden",false);
-                    $("#password_v").removeAttr("readonly");
-                    $("#password_n").removeAttr("readonly");
-                    $("#password_c").removeAttr("readonly");
-                    $("#edit").hide();
-                    $("#annulla_p").removeAttr("hidden");
-                    $(this).val('save_p');
-                    $(this).html('<span class="fe fs-14"></span> SALVA</m>');
-                }else{
-                    if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
-                        // Faccio la chiamata e in base al risultato lo mostro a schermo
-                        $.ajax({
-                            type: 'POST',
-                            url: '/myAccountPassword',
-                            data: {
-                                'password_v': $('#password_v').val(),
-                                'password_n': $('#password_n').val(),
-                                'password_c': $('#password_c').val(),
-                            },
-                            success: function (data) {
-                                let response = JSON.parse(data);
-                                if (response['success']) {
-                                    $('#edit_p').val('edit_p');
-                                    $('#edit').show();
-                                    $('#edit_p').removeAttr("hidden");
-                                    $('#edit_p').html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD</m>');
-                                    $('#cambio_password').attr("hidden",true);
-                                    $('#annulla_p').attr("hidden",true);
-                                    $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['success'] + '</div>');
-                                } else if (response['error']) {
-                                    $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['error'] + '</div>');
-                                } else {
-                                    $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                        response['warning'] + '</div>');
-                                }
-                            }
-                        });
-                    } else {
-                        $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                            'Compilare tutti i campi correttamente' + '</div>');
-                    }
-                }
-            });
-            })
-        $(document).ready(function(){
-            $("#annulla_p").click(function(){
-                $("#cambio_password").attr("hidden",true);
-                $("#edit_p").html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD');
-                $("#edit_p").val('edit_p');
-                $("#annulla_p").attr("hidden",true);
-                $("#edit").show();
-            });
+            }
         });
-    </script>
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        $("#edit_p").click(function(){
+            if($(this).val()==='edit_p') {
+                $("#cambio_password").attr("hidden",false);
+                $("#password_v").removeAttr("readonly");
+                $("#password_n").removeAttr("readonly");
+                $("#password_c").removeAttr("readonly");
+                $("#edit").hide();
+                $("#annulla_p").removeAttr("hidden");
+                $(this).val('save_p');
+                $(this).html('<span class="fe fs-14"></span> SALVA</m>');
+            }else{
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccountPassword',
+                        data: {
+                            'password_v': $('#password_v').val(),
+                            'password_n': $('#password_n').val(),
+                            'password_c': $('#password_c').val(),
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#edit_p').val('edit_p');
+                                $('#edit').show();
+                                $('#edit_p').removeAttr("hidden");
+                                $('#edit_p').html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD</m>');
+                                $('#cambio_password').attr("hidden",true);
+                                $('#annulla_p').attr("hidden",true);
+                                $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi correttamente' + '</div>');
+                }
+            }
+        });
+    })
+    $(document).ready(function(){
+        $("#annulla_p").click(function(){
+            $("#cambio_password").attr("hidden",true);
+            $("#edit_p").html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD');
+            $("#edit_p").val('edit_p');
+            $("#annulla_p").attr("hidden",true);
+            $("#edit").show();
+        });
+    });
+</script>
