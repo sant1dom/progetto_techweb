@@ -1,0 +1,34 @@
+<div class="heart mg-item-ct" style="cursor: pointer">
+    <i class="<[start_value]>" aria-hidden="true"></i>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.heart').click(function() {
+            let i = $(this).find('i');
+            $.ajax({
+                type: 'POST',
+                url: 'products/<[id]>/like',
+                data: {
+                    'like': i.hasClass('fa-heart') ? 0 : 1
+                },
+                success: function (data) {
+                    let response = JSON.parse(data);
+                    if (response['success'] === 'Like') {
+                        i.removeClass('fa-heart-o').addClass('fa-heart');
+                        i.parent().after('<p id="response" style="display: inline">' + response['success'] + '</p>');
+                        setTimeout(function() {
+                            $('#response').remove();
+                        }, 2000);
+                    } else if (response['success'] === 'Dislike') {
+                        i.removeClass('fa-heart').addClass('fa-heart-o');
+                        i.parent().after('<p id="response" style="display: inline">' + response['success'] + '</p>');
+                        setTimeout(function() {
+                            $('#response').remove();
+                        }, 2000);
+                    }
+                }
+            });
+        });
+    });
+</script>

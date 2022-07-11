@@ -494,6 +494,29 @@ LOCK TABLES `offerte` WRITE;
 /*!40000 ALTER TABLE `offerte` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `users_has_prodotti_preferiti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_has_prodotti_preferiti` (
+                                    `users_id` int NOT NULL,
+                                    `prodotti_id` int NOT NULL,
+                                    PRIMARY KEY (`users_id`,`prodotti_id`),
+                                    KEY `fk_users_has_prodotti_prodotti1_idx` (`prodotti_id`),
+                                    KEY `fk_users_has_prodotti_users1_idx` (`users_id`),
+                                    CONSTRAINT `fk_users_has_prodotti_prodotti1` FOREIGN KEY (`prodotti_id`) REFERENCES `prodotti` (`id`) ON DELETE CASCADE,
+                                    CONSTRAINT `fk_users_has_prodotti_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_has_prodotti_preferiti`
+--
+
+LOCK TABLES `users_has_prodotti_preferiti` WRITE;
+/*!40000 ALTER TABLE `users_has_prodotti_preferiti` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users_has_prodotti_preferiti` ENABLE KEYS */;
+UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
