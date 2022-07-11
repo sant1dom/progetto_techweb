@@ -85,10 +85,10 @@
                             <li><a class="tab active" data-id='#tab-description' href="#">Description</a></li>
                             <li><a class="tab" data-id='#tab-reviews' href="#">Reviews (<[numero_recensioni]>)</a></li>
                         </ul>
-                        <div id="tab-description" class="tab-content">
+                        <div id="tab-description" class="tab-content" style="padding: 2rem">
                             <p><[descrizione]></p>
                         </div>
-                        <div id="tab-reviews" class="tab-content">
+                        <div id="tab-reviews" class="tab-content" style="padding: 2rem">
                             <div id="reviews" class="woocommerce-Reviews">
                                 <[foreach]>
                                 <div class="post-bottom-second post-bottom mb-4">
@@ -281,14 +281,19 @@
     $('#stars').after('<p> <[numero_recensioni]> recensioni</p>');
 
     $('.post-rating-stars').each(function(){
-        $(this).raty({
-            score: $(this).attr('data-rating'),
-            readOnly: true,
-            starOff: 'fa fa-star-o',
-            starOn: 'fa fa-star text-warning',
-            starHalf: 'fa fa-star-half-o text-warning',
-            starType: 'i',
-        });
+        if ($(this).attr('data-rating') !== "") {
+            $(this).raty({
+                score: $(this).attr('data-rating'),
+                readOnly: true,
+                starOff: 'fa fa-star-o',
+                starOn: 'fa fa-star text-warning',
+                starHalf: 'fa fa-star-half-o text-warning',
+                starType: 'i',
+
+            });
+        } else {
+            $(this).html('<h2>Nessuna recensione</h2>');
+        }
     })
 </script>
 

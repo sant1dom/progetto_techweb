@@ -52,6 +52,7 @@
  *  Core Owl Carousel CSS File
  */
 .owl-carousel {
+    padding-left: 7rem;
   display: none;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -303,3 +304,9 @@
 .owl-theme .owl-controls .owl-nav div.owl-next:before {    
     content: "\f105";    
 }  
+
+@media (max-width: 1200px) {
+    .owl-carousel {
+        padding-left: 0;
+    }
+}
