@@ -3,25 +3,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="woocommerce-tabs wc-tabs-wrapper">
+                    <div class="woocommerce-tabs wc-tabs-wrapper mb-4">
                         <ul class="tabs">
-                            <li><a class="tab active" id="tab-description-btn" data-id='#tab-description' href="#"><i class="icon_bag"
-                                                                                             aria-hidden="true"></i>CARRELLO</a></li>
-                            <li><a class="tab" id="tab-reviews-btn" data-id='#tab-reviews'><i class=" icon_ribbon"
-                                                                                  aria-hidden="true"></i>CHECK OUT</a>
+                            <li style="width: 50%;">
+                                <a class="tab active" id="tab-description-btn" data-id='#tab-description' href="#">
+                                    <i class="icon_bag" aria-hidden="true"></i>CARRELLO
+                                </a>
                             </li>
-                            <li><a class="tab" id="tab-order-btn" data-id='#tab-order' href="#"><i class="arrow_carrot-down_alt"
-                                                                                aria-hidden="true"></i>COMPLETA ORDINE</a></li>
+                            <li style="width: 50%">
+                                <a class="tab" id="tab-reviews-btn" data-id='#tab-reviews' href="#"
+                                   style="pointer-events: none">
+                                    <i class=" icon_ribbon" aria-hidden="true"></i>CHECK OUT
+                                </a>
+                            </li>
                         </ul>
                         <div class="cart-wrap">
-                            <div id="tab-description" class="tab-content">
-
+                            <div class="tab-content my-3" id="tab-description">
+                                <div class="wrap-discount-estimate-cart my-3">
+                                    <div class="row">
+                                        <div class="cart my-3">
+                                            <div class="wrap-cart">
+                                                <div class="flex justify-content-between align-items-center">
+                                                    <span>TOTAL</span>
+                                                    <p class="price mb-0" id="cart-total">0.00</p>
+                                                </div>
+                                            </div>
+                                            <div class="elm-btn">
+                                                <a id="check-out-btn"
+                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">PROCEDI
+                                                    AL CHECK OUT</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <[cart_table]>
 
                                 <div class="cart-btn">
                                     <div class="btn-continue">
                                         <div class="elm-btn">
-                                            <a href="/products"
+                                            <a href="/home"
                                                class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">CONTINUA
                                                 LO SHOPPING</a>
                                         </div>
@@ -30,235 +50,106 @@
                                         <ul>
                                             <li>
                                                 <div class="elm-btn" id="clear-cart-btn">
-                                                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">SVUOTA CARRELLO</a>
+                                                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">SVUOTA
+                                                        CARRELLO</a>
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div>
-                                </div>
-                                <div class="wrap-discount-estimate-cart">
-                                    <div class="row">
-                                        <div class="cart">
-                                            <h2 class="cart-heading"><a href="#">Cart Total</a></h2>
-                                            <div class="wrap-cart">
-                                                <div class="sub-total">
-                                                    <span>TOTAL</span>
-                                                    <p class="price" id="cart-total">0.00</p>
-                                                </div>
-                                            </div>
-                                            <div class="elm-btn">
-                                                <a href="#"
-                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">PROCEDI AL CHECK OUT</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div id="tab-reviews" class="tab-content">
-                                <div class="check-out">
-                                    <h3 class="heading-check">Billing Address</h3>
-                                    <form class="form-checkout ">
-                                        <div class="row-input-wrap clearfix">
-                                            <div class="input-wrap float-left-50 pd-right-10">
-                                                <label>First name<span> *</span></label>
-                                                <input type="text" name="name" required="" class="width-100">
-                                            </div>
-                                            <div class="input-wrap float-right-50 pd-left-10">
-                                                <label>Last name<span> *</span></label>
-                                                <input type="text" name="name" required="" class="width-100">
-                                            </div>
-                                        </div>
-                                        <div class="input-wrap">
-                                            <label>Company Name <span> *</span></label>
-                                            <input type="text" required="" class="width-100">
-                                        </div>
-                                        <div class="input-wrap">
-                                            <label>Country<span> *</span></label>
-                                            <input type="text" required="" placeholder="United States"
-                                                   class="width-100">
-                                        </div>
-                                        <div class="input-wrap">
-                                            <label>Address<span> *</span></label>
-                                            <input type="text" class="mg-bottom-25 width-100" required=""
-                                                   placeholder="100A 8th St, Los Angeles, CA 90014">
-                                        </div>
-                                        <div class="input-wrap">
-                                            <label>POSTCODE/ZIP<span> *</span></label>
-                                            <input type="text" class="mg-bottom-25 width-100" required="">
-                                        </div>
-                                        <div class="input-wrap">
-                                            <label>TOWN/CITY<span> *</span></label>
-                                            <input type="text" class="mg-bottom-25 width-100" required="">
-                                        </div>
-                                        <div class="row-input-wrap clearfix">
-                                            <div class="input-wrap float-left-50 pd-right-10">
-                                                <label>Email Address <span> *</span></label>
-                                                <input type="text" class="mg-bottom-25 width-100" required="">
-                                            </div>
-                                            <div class="input-wrap float-right-50 pd-left-10">
-                                                <label>Phone Number <span> *</span></label>
-                                                <input type="text" class="mg-bottom-25 width-100" required="">
-                                            </div>
-                                        </div>
-                                        <div class="row-check clearfix">
-                                            <div class="input-wrap ">
-                                                <input type="checkbox" name="check-ship" class="mg-right-15">Create an
-                                                account?
-                                            </div>
-                                            <div class="input-wrap ">
-                                                <input type="checkbox" name="check-create" class="mg-right-15"> Ship to
-                                                different address?
-                                            </div>
-                                        </div>
-                                        <div class="input-wrap ">
-                                            <label>Order note <span> *</span></label>
-                                            <textarea name="messages" required=""></textarea>
-                                        </div>
-                                    </form>
-                                </div>
+
                                 <div class="review-order">
-                                    <h3>Your Order</h3>
-                                    <table class="order-table">
+                                    <h3>Il tuo ordine</h3>
+                                    <table class="order-table" style="width: 100%;">
                                         <tbody>
-                                        <tr class="cart-subtotal cart-title-details">
-                                            <td class="product-name">Product</td>
-                                            <td class="total" data-title="Subtotal"><span
+                                        <tr class="order-recap-row" id="order-recap">
+                                            <td style="width: 12rem;">Prodotti</td>
+                                            <td>Quantit&agrave;</td>
+                                            <td data-title="Subtotal"><span
                                                     class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol"></span>Total</span></td>
+                                                    class="woocommerce-Price-currencySymbol"></span>Prezzo</span>
+                                            </td>
                                         </tr>
-                                        <tr class="cart-subtotal">
-                                            <td class="product-name">Bougrier Rose d'Anjou</td>
-                                            <td class="total" data-title="Subtotal"><span
-                                                    class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29.99</span></td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td class="product-name">Olema Rose Cotes De</td>
-                                            <td class="total" data-title="Total"><span
-                                                    class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>36.89</span></td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td class="product-name">Total</td>
-                                            <td class="total text-d90000 font-weight-500" data-title="Total"><span
-                                                    class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol ">$</span>66.88</span></td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td class="product-name">Shipping</td>
-                                            <td class="total" data-title="Total"> Free Shipping</td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td class="title product-name">ORDER TOTAL</td>
-                                            <td class="total text-d90000 font-weight-500" data-title="Total"><span
-                                                    class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>66.88</span></td>
+
+                                        <tr class="order-recap-row">
+                                            <td class="text-start py-2">TOTALE</td>
+                                            <td class="text-center py-2" data-title="Quanti&agrave;"></td>
+                                            <td class="text-d90000 font-weight-500 woocommerce-Price-amount amount py-2"
+                                                data-title="Total" id="order-recap-total">0.00&euro;
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div class="wrap-check mg-top-20">
-                                        <div class="input-wrap mg-bottom-15">
-                                            <input type="checkbox" name="bank"> DIRECT BANK TRANSFER
+                                </div>
+                                <form method="POST" action="/orders/create">
+                                    <div class="check-out">
+                                        <h3 class="heading-check">Indirizzi di spedizione</h3>
+                                        <div class="py-2 px-2" id="address-list">
+                                            <[foreach]>
+                                            <div class="address address-saved">
+                                                <input class="mx-4 my-3" type="radio" name="address"
+                                                       value="<[address_id]>">
+                                                <[indirizzo]>, <[citta]> (<[provincia]>), <[cap]>, <[nazione]>
+                                            </div>
+                                            <[/foreach]>
+                                            <div class="address address-new">
+                                                <input class="mx-4 my-3" type="radio" name="address" value="0"
+                                                       id="new-address-radio">
+                                                Aggiungi indirizzo di spedizione
+                                            </div>
                                         </div>
-                                        <div class="wrap-check-text">
-                                            <p>Make your payment directly into our bank account. Please use your Order
-                                                ID as the pay ments reference. Your order will not be shipped until the
-                                                funds have cleared in our account.</p>
-                                        </div>
-                                        <div class="input-wrap mg-bottom-15 ">
-                                            <input type="checkbox" name="payment"> CHECK PAYMENTS
-                                        </div>
-                                        <div class="input-wrap mg-bottom-15">
-                                            <input type="checkbox" name="paypal"> PAYPAL<img src="image/homepage136.png"
-                                                                                             alt="image">
-                                        </div>
-
-                                        <div class="wc-proceed-to-checkout text-center pd-top-20">
-                                            <div class="elm-btn">
-                                                <a href="#"
-                                                   class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">PROCEED
-                                                    TO CHECK OUR</a>
+                                        <div class="py-2 px-2" id="new-address-form">
+                                            <div class="flex flex-wrap justify-content-between align-items-center w-100">
+                                                <div class="input-wrap px-1" style="width: 25%">
+                                                    <label>Nazione<span> *</span></label>
+                                                    <input type="text" name="nazione" placeholder="Italia"
+                                                           class="width-100">
+                                                </div>
+                                                <div class="input-wrap" style="width: 25%">
+                                                    <label>Citt&agrave;<span> *</span></label>
+                                                    <input type="text" name="citta" class="mg-bottom-25 width-100">
+                                                </div>
+                                                <div class="input-wrap px-1" style="width: 25%">
+                                                    <label>Provincia<span> *</span></label>
+                                                    <input type="text" name="provincia" class="mg-bottom-25 width-100">
+                                                </div>
+                                                <div class="input-wrap px-1" style="width: 25%">
+                                                    <label>CAP<span> *</span></label>
+                                                    <input type="text" name="cap" class="mg-bottom-25 width-100">
+                                                </div>
+                                            </div>
+                                            <div class="input-wrap">
+                                                <label>Indirizzo<span> *</span></label>
+                                                <input type="text" name="indirizzo"
+                                                       placeholder="100A 8th St, Los Angeles, CA 90014">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div id="tab-order" class="tab-content">
-                                <div class="order-complete">
-                                    <p class="heading-order">Thank you. Your order has been received</p>
-                                    <div class="order-wrap">
-                                        <ul class="order-menu">
-                                            <li>
-                                                <h3>Order number:</h3>
-                                                <p>1599</p>
-                                            </li>
-                                            <li>
-                                                <h3>Date:</h3>
-                                                <p>December 11, 2018</p>
-                                            </li>
-                                            <li>
-                                                <h3>Total:</h3>
-                                                <p>$88.95</p>
-                                            </li>
-                                            <li>
-                                                <h3>Payment methob:</h3>
-                                                <p>Cash on delivery</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="order-details">
-                                        <h1><a href="#">Order details</a></h1>
-                                        <div class="order-table">
-                                            <table class="order-table">
-                                                <tbody>
-                                                <tr class="cart-subtotal">
-                                                    <td class="product-name">PRODUCT</td>
-                                                    <td class="total" data-title="Subtotal"><span
-                                                            class="woocommerce-Price-amount amount"><span
-                                                            class="woocommerce-Price-currencySymbol">$</span>TOTAL</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="cart-subtotal">
-                                                    <td class="product-name">Bougrier Rose dAnjou</td>
-                                                    <td class="total" data-title="Subtotal"><span
-                                                            class="woocommerce-Price-amount amount"><span
-                                                            class="woocommerce-Price-currencySymbol">$</span>29.99</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <td class="product-name">Olema Rose Cotes De</td>
-                                                    <td class="total" data-title="Total"><span
-                                                            class="woocommerce-Price-amount amount"><span
-                                                            class="woocommerce-Price-currencySymbol">$</span>36.89</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <td class="product-name">Total</td>
-                                                    <td class="total text-d90000 font-weight-500" data-title="Total">
-                                                        <span class="woocommerce-Price-amount amount"><span
-                                                                class="woocommerce-Price-currencySymbol ">$</span>66.88</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <td class="product-name">Shipping</td>
-                                                    <td class="total" data-title="Total"> Free Shipping</td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <td class="product-name">Payment methob:</td>
-                                                    <td class="total" data-title="Total"> Cash on delivery</td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <td class="title product-name">ORDER TOTAL</td>
-                                                    <td class="total text-d90000 font-weight-500" data-title="Total">
-                                                        <span class="woocommerce-Price-amount amount"><span
-                                                                class="woocommerce-Price-currencySymbol">$</span>69.99</span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                    <div class="check-out" style="border-top: 0">
+                                        <h3 class="heading-check">Metodi di pagamento</h3>
+                                        <div class="py-2 px-2" id="payment-list">
+                                            <div class="wrap-check mg-top-20">
+                                                <div class="input-wrap flex flex-wrap align-items-center">
+                                                    <div class="address address-new">
+                                                        <input class="mx-4 my-3" type="checkbox" name="paypal" required><img
+                                                            src="skins/wizym/image/homepage136.png" alt="image">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="wc-proceed-to-checkout text-center">
+                                        <div class="elm-btn">
+                                            <button type="submit"
+                                                    class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">
+                                                COMPLETA
+                                                L'ORDINE
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -267,3 +158,308 @@
         </div>
     </section>
 </div> <!-- /main-order-tracking -->
+
+<style>
+    .order-recap-row {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #c2c2c2;
+    }
+
+    .elm-btn {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                         supported by Chrome, Edge, Opera and Firefox */
+    }
+
+    .address {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .address-new {
+        border-bottom: none;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        const msg_span = $('#cart-msg');
+        const thead = $('thead');
+        const address_form = $('#new-address-form');
+        const address_form_array = address_form.find('input');
+        address_form.hide();
+
+        console.log();
+
+        if ($('div.address-saved input[name="address"]').first().attr('value') === '') {
+            $('div.address-saved input[name="address"]').first().parent().remove()
+        }
+
+        $("input[name='address']").change(function () {
+            if ($(this).val() === '0') {
+                address_form.show();
+                $.each(address_form_array, function (index, value) {
+                    $(value).attr('required', true);
+                });
+            } else {
+                address_form.hide();
+                $.each(address_form_array, function (index, value) {
+                    $(value).attr('required', false);
+                });
+            }
+        });
+
+        $.each($('li[id^="quantity"]'), function (index, value) {
+            let id = $(value).attr('id').toString().replace('quantity', '');
+            let product_name = $('#nome' + id);
+            let dimensione = $('#dimensione' + id);
+            let totale = $('#totale' + id);
+            let order_recap = $('#order-recap');
+
+            let dimensioneOriginale = parseFloat($('#dimensioneOriginale' + id).val()).toFixed(2);
+            let quantity = parseInt($(value).text());
+            let prezzo = parseFloat($('#prezzo' + id).text()).toFixed(2);
+
+            totale.text((parseFloat(prezzo) * quantity).toFixed(2));
+
+            dimensione.text((dimensioneOriginale * quantity).toFixed(2) + "Kg");
+
+            order_recap.after(
+                '<tr class="order-recap-row">' +
+                '<td style="width: 12rem;">' + product_name.text() + '</td>' +
+                '<td class="text-center" data-title="Quantit&agrave;">' + quantity + '</td>' +
+                '<td class="woocommerce-Price-amount amount text-end" data-title="Total">' + (parseFloat(prezzo) * quantity).toFixed(2) + '&euro;</td>' +
+                '</tr>'
+            );
+        });
+
+        updateTotal();
+
+        $('td[id^="remove"]').click(function () {
+            let id = $(this).attr('id').toString().replace('remove', '');
+            remove(id);
+        });
+
+        $('#clear-cart-btn').click(function () {
+            $('div.alert').alert('close');
+            $.each($('td[id^="remove"]'), function (index, value) {
+                let id = $(value).attr('id').toString().replace('remove', '');
+                remove(id);
+            });
+            thead.children().remove();
+            thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+        })
+
+        $('li i').click(function () {
+            $('div.alert').alert('close');
+
+            let button = $(this);
+            let id = button.attr('id').toString();
+            if (~id.indexOf("qplus")) {
+                id = id.replace('qplus', '');
+            } else {
+                id = id.replace('qminus', '');
+            }
+            let dimensioneOriginale = parseFloat($('#dimensioneOriginale' + id).val()).toFixed(2);
+            let dimensione = $('#dimensione' + id);
+            let quantity = $('#quantity' + id);
+            let totale = $('#totale' + id);
+            let prezzo = parseFloat($('#prezzo' + id).text()).toFixed(2);
+            let oldQ = parseInt(quantity.text());
+            let newQ = 0;
+
+            if (button.attr("id") === ("qplus" + id)) {
+                newQ = oldQ + 1;
+            } else if (button.attr("id") === ("qminus" + id)) {
+                // Don't allow decrementing below zero
+                if (oldQ > 0 && oldQ !== 1) {
+                    newQ = oldQ - 1;
+                }
+            }
+
+            if (newQ > 0) {
+                $.ajax({
+                    url: '/cart/' + id + '/edit',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        quantity: newQ,
+                    },
+                    success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response['success']) {
+                            quantity.text(newQ);
+                            totale.text((parseFloat(prezzo) * newQ).toFixed(2));
+                            dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "Kg");
+                            updateTotal();
+                        } else if (response['error']) {
+                            msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['error'] + '</div>');
+                        } else {
+                            msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                response['warning'] + '</div>');
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            } else {
+                msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'La quanti&agrave; deve essere superiore a 0' + '</div>');
+            }
+
+        });
+
+        function remove(id) {
+            $('div.alert').alert('close');
+            $.ajax({
+                url: '/cart/' + id + '/remove',
+                type: 'POST',
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+                    let response = JSON.parse(data);
+                    let msg_span = $('#cart-msg');
+                    if (response['success']) {
+                        $('#tr' + id).remove();
+                        if ($('#cart-table-body').children().length === 0) {
+                            thead.children().remove();
+                            thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+                        }
+
+                    } else if (response['error']) {
+                        msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            response['error'] + '</div>');
+                    } else {
+                        msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            response['warning'] + '</div>');
+                    }
+                    updateTotal();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function updateTotal() {
+            let total = 0.00;
+            let cart_total = $('#cart-total');
+            $.each($('td[id^="totale"]'), function (index, value) {
+                total += parseFloat($(value).text());
+            });
+            cart_total.html(total.toFixed(2) + ' &euro;');
+            let order_recap_total = $('#order-recap-total');
+            order_recap_total.text(cart_total.text());
+        }
+
+        $('#check-out-btn').click(function () {
+            $('div.alert').alert('close');
+            if ($('#cart-table-body').children().length === 0) {
+                msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'Nessun elemento nel carrello.' + '</div>')
+            } else {
+                $('#tab-reviews-btn').trigger('click');
+            }
+        });
+    });
+</script>
+
+<!--                            <div id="tab-order" class="tab-content">-->
+<!--                                <div class="order-complete">-->
+<!--                                    <p class="heading-order">Thank you. Your order has been received</p>-->
+<!--                                    <div class="order-wrap">-->
+<!--                                        <ul class="order-menu">-->
+<!--                                            <li>-->
+<!--                                                <h3>Order number:</h3>-->
+<!--                                                <p>1599</p>-->
+<!--                                            </li>-->
+<!--                                            <li>-->
+<!--                                                <h3>Date:</h3>-->
+<!--                                                <p>December 11, 2018</p>-->
+<!--                                            </li>-->
+<!--                                            <li>-->
+<!--                                                <h3>Total:</h3>-->
+<!--                                                <p>$88.95</p>-->
+<!--                                            </li>-->
+<!--                                            <li>-->
+<!--                                                <h3>Payment methob:</h3>-->
+<!--                                                <p>Cash on delivery</p>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                    <div class="order-details">-->
+<!--                                        <h1><a href="#">Order details</a></h1>-->
+<!--                                        <div class="order-table">-->
+<!--                                            <table class="order-table">-->
+<!--                                                <tbody>-->
+<!--                                                <tr class="cart-subtotal">-->
+<!--                                                    <td class="product-name">PRODUCT</td>-->
+<!--                                                    <td class="total" data-title="Subtotal"><span-->
+<!--                                                            class="woocommerce-Price-amount amount"><span-->
+<!--                                                            class="woocommerce-Price-currencySymbol">$</span>TOTAL</span>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="cart-subtotal">-->
+<!--                                                    <td class="product-name">Bougrier Rose dAnjou</td>-->
+<!--                                                    <td class="total" data-title="Subtotal"><span-->
+<!--                                                            class="woocommerce-Price-amount amount"><span-->
+<!--                                                            class="woocommerce-Price-currencySymbol">$</span>29.99</span>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="order-total">-->
+<!--                                                    <td class="product-name">Olema Rose Cotes De</td>-->
+<!--                                                    <td class="total" data-title="Total"><span-->
+<!--                                                            class="woocommerce-Price-amount amount"><span-->
+<!--                                                            class="woocommerce-Price-currencySymbol">$</span>36.89</span>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="order-total">-->
+<!--                                                    <td class="product-name">Total</td>-->
+<!--                                                    <td class="total text-d90000 font-weight-500" data-title="Total">-->
+<!--                                                        <span class="woocommerce-Price-amount amount"><span-->
+<!--                                                                class="woocommerce-Price-currencySymbol ">$</span>66.88</span>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="order-total">-->
+<!--                                                    <td class="product-name">Shipping</td>-->
+<!--                                                    <td class="total" data-title="Total"> Free Shipping</td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="order-total">-->
+<!--                                                    <td class="product-name">Payment methob:</td>-->
+<!--                                                    <td class="total" data-title="Total"> Cash on delivery</td>-->
+<!--                                                </tr>-->
+<!--                                                <tr class="order-total">-->
+<!--                                                    <td class="title product-name">ORDER TOTAL</td>-->
+<!--                                                    <td class="total text-d90000 font-weight-500" data-title="Total">-->
+<!--                                                        <span class="woocommerce-Price-amount amount"><span-->
+<!--                                                                class="woocommerce-Price-currencySymbol">$</span>69.99</span>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->

@@ -43,6 +43,22 @@ function cart(): void
     } else {
         $table->setContent('colname', "Non ci sono prodotti nel carrello");
     }
+
+    $oid = $mysqli->query("SELECT * FROM indirizzi WHERE users_id = {$user["id"]}");
+
+    do {
+        $address = $oid->fetch_assoc();
+        if ($address) {
+            foreach ($address as $key => $value) {
+                if ($key == "id") {
+                    $body->setContent("address_id", $value);
+                } else {
+                    $body->setContent($key, $value);
+                }
+            }
+        }
+    } while ($address);
+
     $body->setContent("cart_table", $table->get());
     $main->setContent("title", "CART");
     $main->setContent("content", $body->get());
@@ -51,7 +67,7 @@ function cart(): void
 
 function edit()
 {
-    $response =  array();
+    $response = array();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['id']) && isset($_POST['quantity'])) {
             global $mysqli;
@@ -83,8 +99,9 @@ function edit()
     exit(json_encode($response));
 }
 
-function remove () {
-    $response =  array();
+function remove()
+{
+    $response = array();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['id'])) {
             global $mysqli;
