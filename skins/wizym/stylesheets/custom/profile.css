@@ -19,6 +19,18 @@ body {
     border: none;
     color: #0a0c0d;
 }
+.edit-button {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    color: #c02323;
+}
+.edit-button:hover {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    color: #0a0c0d;
+}
 .menu-style:hover {
     background: transparent;
     box-shadow: none;

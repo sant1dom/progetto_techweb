@@ -8028,6 +8028,17 @@ transition: all 1s ease;
     float: right;
     letter-spacing: 1.3px;
 }
+.margin-top-table{
+	padding: 7px 65px;
+	margin-top: 18px;
+	font-family: Marcellus;
+	font-size: 14px;
+	line-height: 30px;
+	color: #c02323;
+	border: 1px solid #c02323;
+	float: right;
+	letter-spacing: 1.3px;
+}
 
 .main-shop-cart .cart .elm-btn .margin-top-40:hover {
 	color: #fff;
