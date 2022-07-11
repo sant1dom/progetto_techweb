@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="content-wrap">
-                        <h2 class="heading"><a href=""><[nome]></a></h2>
+                        <h2 class="heading"><a href=""><[nome_prodotto]></a></h2>
                         <div id="stars"></div>
                         <h2 class="dolar"><[prezzo]>€</h2>
                         <p class="timer"></p>
@@ -83,65 +83,28 @@
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs">
                             <li><a class="tab active" data-id='#tab-description' href="#">Description</a></li>
-                            <li><a class="tab" data-id='#tab-reviews' href="#">Reviews (1)</a></li>
+                            <li><a class="tab" data-id='#tab-reviews' href="#">Reviews (<[numero_recensioni]>)</a></li>
                         </ul>
                         <div id="tab-description" class="tab-content">
                             <p><[descrizione]></p>
                         </div>
                         <div id="tab-reviews" class="tab-content">
                             <div id="reviews" class="woocommerce-Reviews">
+                                <[foreach]>
                                 <div class="post-bottom-second post-bottom">
                                     <div class="avatar">
                                         <img src="/skins/wizym/image/comment1.jpg" alt="image">
-                                        <div class="post-rating">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="post-rating-stars" data-rating="<[voto]>">
                                         </div>
                                     </div>
                                     <div class="post-comment">
-                                        <div class="comment-meta comment"><a href="#"> May 28, 2018</a></div>
-                                        <div class="comment-title comment"><a href="#">Brandon Kelley</a></div>
+                                        <div class="comment-title comment"><[nome]> <[cognome]></div>
                                         <div class="comment-text comment">
-                                            <a href="#">Vasse Felix chief executive, Paul Holmes a Court said no plans
-                                                have yet been made for the buildings on the property</a>
+                                            <[commento]>
                                         </div>
                                     </div>
-                                </div> <!-- /post-bottom-second -->
-                                <div class="comment-respond">
-                                    <form class="comment-form">
-                                        <p><a href="#">Add Preview</a></p>
-                                        <p class="comment-form-author">
-                                            <!-- <label>Name *</label> -->
-                                            <input name="author" type="text" placeholder="Name" required="required">
-                                        </p>
-                                        <p class="comment-form-email">
-                                            <!-- <label>Email *</label> -->
-                                            <input name="email" type="email" placeholder="Email" required="required">
-                                        </p>
-                                        <div class="clearfix"></div>
-                                        <p class="your-rating"><a href="#">Your Rating</a></p>
-                                        <div class="post-rating">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                        </div>
-                                        <p class="comment-form-comment">
-                                            <!-- <label>Comment</label>  -->
-                                            <textarea name="comment" placeholder="Comment"
-                                                      required="required"></textarea>
-                                        </p>
-                                        <p class="submit-form">
-                                            <button name="submit" type="submit"
-                                                    class="submit btn btn-styl hvr-shutter-out-horizontal">SUBMIT
-                                            </button>
-                                        </p>
-                                    </form>
-                                </div>  <!-- /comment-respond -->
+                                    <[/foreach]> <!-- /post-bottom-second -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -312,11 +275,22 @@
         score: voto_medio,
         readOnly: true,
         starOff: 'fa fa-star-o',
-        starOn: 'fa fa-star',
-        starHalf: 'fa fa-star-half-o',
+        starOn: 'fa fa-star text-warning',
+        starHalf: 'fa fa-star-half-o text-warning',
         starType: 'i'
     });
     $('#stars').after('<p> <[numero_recensioni]> recensioni</p>');
+
+    $('.post-rating-stars').each(function(){
+        $(this).raty({
+            score: $(this).attr('data-rating'),
+            readOnly: true,
+            starOff: 'fa fa-star-o',
+            starOn: 'fa fa-star text-warning',
+            starHalf: 'fa fa-star-half-o text-warning',
+            starType: 'i',
+        });
+    })
 </script>
 
 

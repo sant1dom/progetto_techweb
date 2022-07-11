@@ -15,7 +15,7 @@ function show(){
 
     $id = explode('/', $_SERVER['REQUEST_URI'])[2];
     $prodotto = $mysqli->query("SELECT prodotti.id,
-                                           prodotti.nome,
+                                           prodotti.nome as nome_prodotto,
                                            prezzo,
                                            dimensione,
                                            quantita_disponibile,
@@ -58,6 +58,18 @@ function show(){
         $body->setContent("numero_recensioni", $recensioni['numero']);
     }
 
+    $recensioni = $mysqli->query("SELECT voto, commento, nome, cognome
+                                    FROM tdw_ecommerce.recensioni 
+                                        JOIN tdw_ecommerce.users u on u.id = recensioni.users_id
+                                    WHERE prodotti_id = $id");
+    do {
+        $recensione = $recensioni->fetch_assoc();
+        if ($recensione) {
+            foreach ($recensione as $key => $value) {
+                $body->setContent($key, $value);
+            }
+        }
+    } while ($recensione);
     $immagini = $mysqli->query("SELECT nome_file
                                     FROM tdw_ecommerce.immagini
                                     WHERE prodotto_id = $id");
