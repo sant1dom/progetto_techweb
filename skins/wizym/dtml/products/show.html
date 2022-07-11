@@ -72,7 +72,9 @@
                                        class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontall"><i
                                             class="fa fa-shopping-cart" aria-hidden="true"></i> ADD TO CART</a>
                                 </div>
-                                <[like]>
+                                <div class="heart mg-item-ct">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -80,8 +82,8 @@
                 <div class="col-lg-11">
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs">
-                            <li><a class="tab active" data-id='#tab-description' href="#">Description</a></li>
-                            <li><a class="tab" data-id='#tab-reviews' href="#">Reviews (<[numero_recensioni]>)</a></li>
+                            <li><a class="tab active" data-id='#tab-description' href="#">Descrizione</a></li>
+                            <li><a class="tab" data-id='#tab-reviews' href="#">Recensioni (<[numero_recensioni]>)</a></li>
                         </ul>
                         <div id="tab-description" class="tab-content" style="padding: 2rem">
                             <p><[descrizione]></p>
@@ -292,9 +294,7 @@
         } else {
             $(this).html('<h2>Nessuna recensione</h2>');
         }
-    });
-
-
+    })
 </script>
 
 
