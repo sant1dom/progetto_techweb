@@ -18,6 +18,10 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Modifica ordine', '/orders/%/edit', 'user/orders.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzi', '/addresses', 'user/addresses.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%', 'user/addresses.php', 'show');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%/edit', 'user/addresses.php', 'edit');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/create', 'user/addresses.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Prodotti', 'Visualizza prodotto', '/products/%', 'user/products.php', 'show');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/orders.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione ordini', 'Visualizza ordini', '/admin/orders', 'admin/orders.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione ordini', 'Visualizza singolo ordine', '/admin/orders/%', 'admin/orders.php', 'show');

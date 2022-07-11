@@ -10,11 +10,11 @@
                             </div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <p class="lead fw-normal mb-0 text-left" style="color:#c02323;" id="titolo">Prodotti</p><br>
-                            <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="annulla" name="annulla" value="annulla" hidden>
-                               Annulla l'ordine
+                            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 12px" type="submit" id="annulla" name="annulla" value="annulla" hidden>
+                               ANNULLA L'ORDINE
                             </button>
-                            <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="modifica" name="modifica" value="modifica" hidden>
-                                Modifica l'indirizzo dell'ordine
+                            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"  style="font-size: 12px" type="submit" id="modifica" name="modifica" value="modifica" hidden>
+                               MODIFICA L'INDIRIZZO
                             </button>
                         </div>
                         <!--Modal-->
@@ -23,7 +23,7 @@
                             <div class="modal-content text-center">
                                 <span class="close text-left">&times;</span>
                                 <p>Sei sicuro di voler annullare l'ordine?</p>
-                                <button class="btn btn-primary profile-button" type="submit" id="conferma" name="conferma" value="conferma">
+                                <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="conferma" name="conferma" value="conferma">
                                    Sì</button>
                             </div>
 
@@ -59,21 +59,21 @@
             </div>
         <input type="hidden" name="id" id="id" value="<[id]>">
         <div id="modifiche_ordine" hidden>
-        <div class="d-flex flex-column justify-content-start align-items-start pl-4">
-            <button class="btn btn-primary profile-button" style="font-size: 13px;  color: #c02323" type="submit" id="indirizzo_esistente" name="indirizzo_esistente" value="indirizzo_esistente" hidden>
-            Scegli un indirizzo esistente
+        <div class="d-flex flex-column justify-content-start align-items-start ml-5">
+            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 13px" type="submit" id="indirizzo_esistente" name="indirizzo_esistente" value="indirizzo_esistente" hidden>
+            SCEGLI UN INDIRIZZO ESISTENTE
             </button>
-            <div id="table_indirizzi" hidden>
+            <div id="table_indirizzi" class="pt-3 mt-2" hidden>
                 <[selectPicker_indirizzi]>
             </div>
-            <button class="btn btn-primary profile-button" style="font-size: 13px; color: #c02323" type="submit" id="nuovo_indirizzo" name="nuovo_indirizzo" value="nuovo_indirizzo" hidden>
-                Scegli un nuovo indirizzo
+            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 13px" type="submit" id="nuovo_indirizzo" name="nuovo_indirizzo" value="nuovo_indirizzo" hidden>
+                SCEGLI UN NUOVO INDIRIZZO
             </button>
             <div id="form_indirizzo" hidden>
                 <[form_indirizzo]>
             </div>
-            <button class="btn btn-primary profile-button" style="font-size: 13px"type="submit" id="annulla_modifiche" name="annulla_modifiche" hidden>
-                Annulla
+            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 13px" type="submit" id="annulla_modifiche" name="annulla_modifiche" hidden>
+                ANNULLA
             </button>
         </div>
         </div>

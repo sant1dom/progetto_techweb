@@ -1,29 +1,44 @@
-<div class="row mt-auto">
+<div class="row mt-auto" id="form">
     <div class="col-md-6">
         <label class="labels">Indirizzo</label>
-        <input type="text" class="form-control" id="indirizzo_form" name="indirizzo_form" value="" required >
+        <input type="text" class="form-control" id="indirizzo_form" name="indirizzo_form" value="<[indirizzo]>" required >
     </div>
     <div class="col-md-6">
         <label class="labels">Città</label>
-        <input type="text" class="form-control"  id="citta" name="citta" value="" required>
+        <input type="text" class="form-control"  id="citta" name="citta" value="<[citta]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">CAP</label>
-        <input type="text" class="form-control"  id="cap" name="cap" value="" required>
+        <input type="text" class="form-control"  id="cap" name="cap" value="<[cap]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">Provincia</label>
-        <input type="text" class="form-control"  id="provincia" name="provincia" value="" required>
+        <input type="text" class="form-control"  id="provincia" name="provincia" value="<[provincia]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">Nazione</label>
-        <input type="text" class="form-control"  id="nazione" name="nazione" value="" required>
+        <input type="text" class="form-control"  id="nazione" name="nazione" value="<[nazione]>" required>
     </div>
     <input type="hidden" name="id" id="id" value="<[id_ordine]>">
-    <button class="btn btn-primary profile-button" style="font-size: 14px; color: #c02323" type="submit" id="conferma_indirizzo_nuovo"
+    <input type="hidden" name="id" id="id_indirizzo" value="<[id]>">
+    <input type="hidden" name="id" id="id_utente" value="<[id_utente]>">
+    <input type="hidden" name="id" id="controllo" value="<[controllo]>">
+    <div class="d-flex justify-content-center align-items-center">
+    <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 14px" type="submit" id="conferma_indirizzo_nuovo"
             name="conferma" value="indirizzo_nuovo">
-        Modifica e aggiungi
+        CREA E AGGIUNGI
     </button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+    <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="modifica_indirizzo"
+            name="conferma" hidden>
+        MODIFICA
+    </button>
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="crea_indirizzo"
+                name="crea_indirizzo" hidden>
+            CREA
+        </button>
+    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -45,5 +60,86 @@
                 }
             });
         });
+    });
+    $(document).ready(function () {
+        if($("#controllo").val()==="modifica indirizzo"){
+            $("#conferma_indirizzo_nuovo").attr("hidden",true);
+            $("#modifica_indirizzo").removeAttr("hidden");
+        }
+        if($("#controllo").val()==="nuovo indirizzo"){
+            $("#conferma_indirizzo_nuovo").attr("hidden",true);
+            $("#crea_indirizzo").removeAttr("hidden");
+        }
+    });
+    $(document).ready(function () {
+        ($("#modifica_indirizzo").click(function () {
+           //chiamata ajax per modificare l'indirizzo
+            $.ajax({
+                type: "POST",
+                url: "/addresses/<[id]>/edit",
+                data: {
+                    indirizzo: $("#indirizzo_form").val(),
+                    citta: $("#citta").val(),
+                    cap: $("#cap").val(),
+                    provincia: $("#provincia").val(),
+                    nazione: $("#nazione").val(),
+                },
+                success: function (data) {
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                            response['success'] + '</div>');
+                    } else if (response['error']) {
+                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                            response['error'] + '</div>');
+                    } else {
+                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                            response['warning'] + '</div>');
+                    }
+                }
+            });
+        }
+        ));
+    });
+    $(document).ready(function () {
+        ($("#crea_indirizzo").click(function () {
+                //chiamata ajax per modificare l'indirizzo
+                $.ajax({
+                    type: "POST",
+                    url: "/addresses/create",
+                    data: {
+                        indirizzo: $("#indirizzo_form").val(),
+                        citta: $("#citta").val(),
+                        cap: $("#cap").val(),
+                        provincia: $("#provincia").val(),
+                        nazione: $("#nazione").val(),
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        let response = JSON.parse(data);
+                        if (response['success']) {
+                            $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                response['success'] + '</div>');
+                            setTimeout(function(){
+                                window.location.href = '/addresses';
+                            }, 2000);
+                            $("#crea_indirizzo").attr("hidden",true);
+                        } else if (response['error']) {
+                            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                response['error'] + '</div>');
+                        } else {
+                            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                response['warning'] + '</div>');
+                        }
+                    }
+                });
+            }
+        ));
     });
 </script>
