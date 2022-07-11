@@ -39,7 +39,7 @@ function show(){
         }
         $body->setContent("disponibilita", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
     }
-
+    // Controlla se il prodotto è in offerta
     $offerta = $mysqli->query("SELECT percentuale, data_inizio, data_fine
                                     FROM tdw_ecommerce.offerte
                                     WHERE prodotti_id = $id AND data_fine >= NOW() AND data_inizio <= NOW()");
@@ -48,7 +48,7 @@ function show(){
         $body->setContent("percentuale", $offerta['percentuale']);
         $body->setContent("data_fine", $offerta['data_fine']);
     }
-
+    // Per le recensioni del prodotto
     $recensioni = $mysqli->query("SELECT ROUND(AVG(voto),1) as voto_medio, COUNT(*) as numero
                                     FROM tdw_ecommerce.recensioni
                                     WHERE prodotti_id = $id");
@@ -58,6 +58,7 @@ function show(){
         $body->setContent("numero_recensioni", $recensioni['numero']);
     }
 
+    // Per le recensioni nella tabella
     $recensioni = $mysqli->query("SELECT voto, commento, nome, cognome
                                     FROM tdw_ecommerce.recensioni 
                                         JOIN tdw_ecommerce.users u on u.id = recensioni.users_id
