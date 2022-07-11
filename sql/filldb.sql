@@ -76,37 +76,6 @@ INSERT INTO `produttori` (`id`, `ragione_sociale`, `partita_iva`, `provenienza`,
 INSERT INTO `produttori` (`id`, `ragione_sociale`, `partita_iva`, `provenienza`, `telefono`, `email`, `sito_web`) VALUES (19, 'Carter PLC', '30829242604', 'Italia', '197.575.3841x5603', 'sally42@example.com', 'http://fay.com/');
 INSERT INTO `produttori` (`id`, `ragione_sociale`, `partita_iva`, `provenienza`, `telefono`, `email`, `sito_web`) VALUES (20, 'Bartoletti, West and Farrell', '47007085889', 'Italia', '169-354-9244', 'marquis.marquardt@example.org', 'http://www.raynorcarter.org/');
 
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (1, '5306445668888481', 'Leanne Borer', '11/22', 258, 1);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (2, '4556536705164771', 'Prof. Murl Hahn', '09/23', 953, 16);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (3, '4539592845313', 'Doug Dare', '09/24', 110, 2);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (4, '4929778827231', 'Prof. Florence Watsica Jr.', '03/25', 380, 10);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (5, '6011180242103303', 'Prof. Leonel Batz', '03/25', 507, 3);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (6, '6011714604263699', 'Jaden Cremin', '02/25', 375, 1);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (7, '4485515489575', 'Tressa Schultz Jr.', '01/23', 459, 18);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (8, '4473914183080', 'Adelbert Powlowski IV', '04/23', 102, 18);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (9, '5552908348275576', 'Ms. Estelle Johns', '01/24', 660, 10);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (10, '4532994864903318', 'Taylor Kreiger', '01/25', 988, 17);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (11, '6011317263700582', 'Stephon Fritsch IV', '06/23', 371, 3);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (12, '4716089532013', 'Prof. Jaime Hoeger DVM', '03/24', 85, 17);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (13, '5302169130618330', 'Loyal Botsford', '10/24', 118, 1);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (14, '4485012315525', 'Leslie Waters', '07/22', 901, 11);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (15, '4916040501824', 'Meda McKenzie I', '03/24', 405, 12);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (16, '4024007186844', 'Darwin Wintheiser', '08/24', 196, 13);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (17, '340847708222181', 'Elise Lakin', '01/24', 718, 14);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (18, '5112825695018370', 'Maymie Jenkins', '09/22', 598, 6);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (19, '5389499319326456', 'Dr. Keshaun Lebsack', '11/22', 925, 3);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (20, '5536319543825081', 'Brenna Sanford', '12/23', 797, 5);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (21, '5124357996490563', 'Arlie Mitchell', '05/23', 670, 15);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (22, '5581320744514574', 'Miss Serenity Crooks DDS', '05/25', 758, 3);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (23, '6011437404706624', 'Stephania Cartwright Sr.', '11/22', 737, 17);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (24, '4532111771097425', 'Alexane Beier', '06/23', 406, 20);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (25, '379879689229712', 'Miss Ora O\'Connell', '01/25', 558, 15);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (26, '4485151767215', 'Dr. Robyn Keeling DDS', '03/24', 784, 9);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (27, '4532528976322826', 'Prof. Zechariah Stoltenberg Jr.', '11/22', 671, 1);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (28, '5279724158342248', 'Jaleel Kuvalis', '10/24', 589, 2);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (29, '4485518948050592', 'Mr. Luigi Schmeler', '11/22', 198, 18);
-INSERT INTO `metodi_pagamento` (`id`, `numero_carta`, `nome_proprietario`, `scadenza_carta`, `cvv`, `users_id`) VALUES (30, '5534971873488776', 'Furman Schinner', '09/24', 652, 13);
-
 INSERT INTO `indirizzi` (`id`, `indirizzo`, `citta`, `cap`, `provincia`, `nazione`, `users_id`) VALUES (1, '80467 Kuvalis Dam', 'Rodberg', '43181', 'VE', 'Italia', 3);
 INSERT INTO `indirizzi` (`id`, `indirizzo`, `citta`, `cap`, `provincia`, `nazione`, `users_id`) VALUES (2, '9723 Clemmie Summit Suite 517', 'East Johannamouth', '84649', 'PC', 'Italia', 19);
 INSERT INTO `indirizzi` (`id`, `indirizzo`, `citta`, `cap`, `provincia`, `nazione`, `users_id`) VALUES (3, '3817 Watson Loaf Apt. 541', 'South Sunny', '58565', 'VT', 'Italia', 13);
@@ -204,3 +173,5 @@ insert into recensioni (id, voto, commento, prodotti_id, users_id) values (NULL,
 insert into cart (users_id, products_id, quantity) values (2, 1, 1);
 insert into cart (users_id, products_id, quantity) values (2, 2, 2);
 insert into cart (users_id, products_id, quantity) values (2, 3, 3);
+
+insert into indirizzi (id, indirizzo, citta, cap, provincia, nazione, users_id) values (NULL, 'Via delle Fontane', 'Milano', '20100', 'MI', 'IT', 2);

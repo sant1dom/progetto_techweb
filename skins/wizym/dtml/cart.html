@@ -133,7 +133,7 @@
                                             <div class="wrap-check mg-top-20">
                                                 <div class="input-wrap flex flex-wrap align-items-center">
                                                     <div class="address address-new">
-                                                        <input class="mx-4 my-3" type="checkbox" name="paypal" required><img
+                                                        <input class="mx-4 my-3" type="checkbox" name="pagamento" value="paypal" required><img
                                                             src="skins/wizym/image/homepage136.png" alt="image">
                                                     </div>
                                                 </div>
@@ -233,9 +233,9 @@
             let quantity = parseInt($(value).text());
             let prezzo = parseFloat($('#prezzo' + id).text()).toFixed(2);
 
-            totale.text((parseFloat(prezzo) * quantity).toFixed(2));
+            totale.text((parseFloat(prezzo) * quantity).toFixed(2) + '&euro;');
 
-            dimensione.text((dimensioneOriginale * quantity).toFixed(2) + "Kg");
+            dimensione.text((dimensioneOriginale * quantity).toFixed(2) + "l");
 
             order_recap.after(
                 '<tr class="order-recap-row">' +
@@ -302,8 +302,8 @@
                         let response = JSON.parse(data);
                         if (response['success']) {
                             quantity.text(newQ);
-                            totale.text((parseFloat(prezzo) * newQ).toFixed(2));
-                            dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "Kg");
+                            totale.text((parseFloat(prezzo) * newQ).toFixed(2) + '&euro;');
+                            dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "l");
                             updateTotal();
                         } else if (response['error']) {
                             msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
@@ -370,7 +370,7 @@
             });
             cart_total.html(total.toFixed(2) + ' &euro;');
             let order_recap_total = $('#order-recap-total');
-            order_recap_total.text(cart_total.text());
+            order_recap_total.text(cart_total.text() + '&euro;');
         }
 
         $('#check-out-btn').click(function () {

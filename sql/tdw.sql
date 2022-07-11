@@ -121,35 +121,6 @@ LOCK TABLES `indirizzi` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `metodi_pagamento`
---
-
-DROP TABLE IF EXISTS `metodi_pagamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `metodi_pagamento` (
-                                    `id` int NOT NULL AUTO_INCREMENT,
-                                    `numero_carta` varchar(45) NOT NULL,
-                                    `nome_proprietario` varchar(45) NOT NULL,
-                                    `scadenza_carta` varchar(5) NOT NULL,
-                                    `cvv` int unsigned NOT NULL,
-                                    `users_id` int NOT NULL,
-                                    PRIMARY KEY (`id`),
-                                    KEY `fk_metodi_pagamento_users_idx` (`users_id`),
-                                    CONSTRAINT `fk_metodi_pagamento_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `metodi_pagamento`
---
-
-LOCK TABLES `metodi_pagamento` WRITE;
-/*!40000 ALTER TABLE `metodi_pagamento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `metodi_pagamento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `ordini`
 --
 
@@ -165,16 +136,14 @@ CREATE TABLE `ordini` (
                           `numero_ordine` varchar(45),
                           `indirizzi_fatturazione` int NOT NULL,
                           `indirizzi_spedizione` int NOT NULL,
-                          `metodi_pagamento` int NOT NULL,
+                          `metodi_pagamento` varchar(45) NOT NULL,
                           `motivazione` text,
                           PRIMARY KEY (`id`),
                           KEY `fk_ordini_users1_idx` (`user_id`),
                           KEY `fk_ordini_indirizzi1_idx` (`indirizzi_fatturazione`),
                           KEY `fk_ordini_indirizzi2_idx` (`indirizzi_spedizione`),
-                          KEY `fk_ordini_metodi_pagamento1_idx` (`metodi_pagamento`),
                           CONSTRAINT `fk_ordini_indirizzi1` FOREIGN KEY (`indirizzi_fatturazione`) REFERENCES `indirizzi` (`id`),
                           CONSTRAINT `fk_ordini_indirizzi2` FOREIGN KEY (`indirizzi_spedizione`) REFERENCES `indirizzi` (`id`),
-                          CONSTRAINT `fk_ordini_metodi_pagamento1` FOREIGN KEY (`metodi_pagamento`) REFERENCES `metodi_pagamento` (`id`),
                           CONSTRAINT `fk_ordini_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
