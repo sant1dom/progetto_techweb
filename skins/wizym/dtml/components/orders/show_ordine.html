@@ -2,7 +2,7 @@
     <div class="container px-0" style="width: auto">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="container border-0 mx-0" style="width: 100%">
-                    <div class="container border-0 p-4 " style="width: auto">
+                    <div class="container border-0 pl-4 pr-4 pt-4 pb-2 " style="width: auto">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                             <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 11px" id="annullamento" hidden>L'ordine è stato annullato per il seguente motivo: <[motivazione]></p>
                             <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 11px" id="sospensione" hidden>L'ordine è stato sospeso per il seguente motivo: <[motivazione]>. Puoi procedere
@@ -14,7 +14,7 @@
                                Annulla l'ordine
                             </button>
                             <button class="btn btn-primary profile-button" style="font-size: 12px"type="submit" id="modifica" name="modifica" value="modifica" hidden>
-                                Modifica l'ordine
+                                Modifica l'indirizzo dell'ordine
                             </button>
                         </div>
                         <!--Modal-->
@@ -42,24 +42,41 @@
                         <div class="d-flex pt-1">
                             <p class="mb-0 title_information">Data : </p><p><[data]></p>
                         </div>
-                        <div class="d-flex pt-1">
+                        <div id="indirizzi">
+                        <div class="d-flex pt-1" id="i_spe" >
                             <p class="mb-0 title_information">Indirizzo di spedizione : </p><p><[indirizzo_spedizione]></p>
                         </div>
-                        <div class="d-flex pt-1">
+                        <div class="d-flex pt-1" id="i_fatt" >
                             <p class=" mb-0 title_information">Indirizzo di fatturazione : </p><p><[indirizzo_fatturazione]></p>
                         </div>
-                        <div class="d-flex pt-1">
-                            <p class="  title_information">Metodo di pagamento : bla bla</p>
                         </div>
-
-                    </div>
                     <div class="card-footer border-0 px-4 py-5 style3"
                          style=" border-bottom-left-radius: 2px; border-bottom-right-radius: 2px;">
                         <h5 class="d-flex align-items-center justify-content-end text-uppercase mb-0" style="color: #c02323 ">Totale : <span class="h2 mb-0 ms-2"><[totale]>€</span></h5>
                     </div>
                 </div>
+                </div>
             </div>
         <input type="hidden" name="id" id="id" value="<[id]>">
+        <div id="modifiche_ordine" hidden>
+        <div class="d-flex flex-column justify-content-start align-items-start pl-4">
+            <button class="btn btn-primary profile-button" style="font-size: 13px;  color: #c02323" type="submit" id="indirizzo_esistente" name="indirizzo_esistente" value="indirizzo_esistente" hidden>
+            Scegli un indirizzo esistente
+            </button>
+            <div id="table_indirizzi" hidden>
+                <[selectPicker_indirizzi]>
+            </div>
+            <button class="btn btn-primary profile-button" style="font-size: 13px; color: #c02323" type="submit" id="nuovo_indirizzo" name="nuovo_indirizzo" value="nuovo_indirizzo" hidden>
+                Scegli un nuovo indirizzo
+            </button>
+            <div id="form_indirizzo" hidden>
+                <[form_indirizzo]>
+            </div>
+            <button class="btn btn-primary profile-button" style="font-size: 13px"type="submit" id="annulla_modifiche" name="annulla_modifiche" hidden>
+                Annulla
+            </button>
+        </div>
+        </div>
     </div>
     <script>
         let x= document.getElementById("stato").value;
@@ -122,7 +139,33 @@
     });
     $(document).ready(function(){
         $("#modifica").click(function () {
-            location.href = "/orders/modifica/" + $("#id").val();
+            $("#modifiche_ordine").attr("hidden",false);
+            $("#indirizzi").attr("hidden",true);
+            $("#indirizzo_esistente").removeAttr("hidden");
+            $("#nuovo_indirizzo").removeAttr("hidden");
+            $("#annulla_modifiche").removeAttr("hidden");
         });
     });
+        $(document).ready(function(){
+            $("#indirizzo_esistente").click(function () {
+                $("#table_indirizzi").removeAttr("hidden");
+                $("#nuovo_indirizzo").attr("hidden",true);
+            });
+        });
+        $(document).ready(function(){
+            $("#nuovo_indirizzo").click(function () {
+                $("#form_indirizzo").removeAttr("hidden");
+                $("#indirizzo_esistente").attr("hidden",true);
+            });
+        });
+        $(document).ready(function(){
+            $("#annulla_modifiche").click(function () {
+                $("#indirizzi").attr("hidden",false);
+                $("#modifiche_ordine").attr("hidden",true);
+                $("#table_indirizzi").attr("hidden",true);
+                $("#form_indirizzo").attr("hidden",true);
+            });
+        });
+
     </script>
+

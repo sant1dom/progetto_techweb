@@ -1,0 +1,49 @@
+<div class="row mt-auto">
+    <div class="col-md-6">
+        <label class="labels">Indirizzo</label>
+        <input type="text" class="form-control" id="indirizzo_form" name="indirizzo_form" value="" required >
+    </div>
+    <div class="col-md-6">
+        <label class="labels">Città</label>
+        <input type="text" class="form-control"  id="citta" name="citta" value="" required>
+    </div>
+    <div class="col-md-6">
+        <label class="labels">CAP</label>
+        <input type="text" class="form-control"  id="cap" name="cap" value="" required>
+    </div>
+    <div class="col-md-6">
+        <label class="labels">Provincia</label>
+        <input type="text" class="form-control"  id="provincia" name="provincia" value="" required>
+    </div>
+    <div class="col-md-6">
+        <label class="labels">Nazione</label>
+        <input type="text" class="form-control"  id="nazione" name="nazione" value="" required>
+    </div>
+    <input type="hidden" name="id" id="id" value="<[id_ordine]>">
+    <button class="btn btn-primary profile-button" style="font-size: 14px; color: #c02323" type="submit" id="conferma_indirizzo_nuovo"
+            name="conferma" value="indirizzo_nuovo">
+        Modifica e aggiungi
+    </button>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#conferma_indirizzo_nuovo").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/orders/<[id_ordine]>/edit",
+                data: {
+                    indirizzo: $("#indirizzo_form").val(),
+                    citta: $("#citta").val(),
+                    cap: $("#cap").val(),
+                    provincia: $("#provincia").val(),
+                    nazione: $("#nazione").val(),
+                    controllo: $("#conferma_indirizzo_nuovo").val(),
+                    id_ordine: $("#id").val()
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

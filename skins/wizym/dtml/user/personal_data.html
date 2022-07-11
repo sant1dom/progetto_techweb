@@ -24,12 +24,6 @@
                 <label class="labels">Email</label>
                 <input type="text" class="form-control" id="email" name="email" value="<[email]>" required readonly>
             </div>
-
-
-        <button class="btn btn-primary profile-button" style="font-size: 12px" type="submit" id="edit_p" name="edit_p" value="edit_p" >
-            Modifica la password
-        </button>
-
         <div class="col-md-12" id="cambio_password" hidden>
             <label class="labels">Inserisci la vecchia password</label>
             <input type="password" class="form-control" id="password_v" name="password" value=" " >
@@ -38,6 +32,9 @@
             <label class="labels">Conferma la nuova password</label>
             <input type="password" class="form-control" id="password_c" name="password" value=" ">
         </div>
+        <button class="btn btn-primary profile-button" style="font-size: 12px" type="submit" id="edit_p" name="edit_p" value="edit_p" >
+            Modifica la password
+        </button>
         <button class="btn btn-primary profile-button" style="font-size: 12px" type="annulla" id="annulla_p" name="annulla" value="annulla" hidden >
            Annulla
         </button>
@@ -130,7 +127,6 @@
                                 'password_c': $('#password_c').val(),
                             },
                             success: function (data) {
-                                console.log(data);
                                 let response = JSON.parse(data);
                                 if (response['success']) {
                                     $('#edit_p').val('edit_p');

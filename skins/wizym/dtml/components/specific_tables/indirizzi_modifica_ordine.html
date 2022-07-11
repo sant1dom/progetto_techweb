@@ -1,0 +1,35 @@
+
+<div class="form-check">
+    <label for="indirizzo">I tuoi indirizzi</label><select  id="indirizzo" name="indirizzo">
+        <[foreach]>
+        <option value="<[id]>"><[indirizzo]></option>
+        <[/foreach]>
+    </select>
+    <input type="hidden" name="id" id="id" value="<[id_ordine]>">
+    <button class="btn btn-primary profile-button" style="font-size: 14px; color: #c02323" type="submit" id="conferma_indirizzo_esistente"
+            name="conferma" value="indirizzo_esistente">
+        Modifica
+    </button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#conferma_indirizzo_esistente").click(function () {
+            console.log("<[id_ordine]>");
+            console.log($("#indirizzo").val());
+            console.log($("#conferma_indirizzo_esistente").val());
+            $.ajax({
+                type: "POST",
+                url: "/orders/<[id_ordine]>/edit",
+                data: {
+                    id_indirizzo: $("#indirizzo").val(),
+                    controllo: $("#conferma_indirizzo_esistente").val(),
+                    id_ordine: $("#id").val()
+                },
+                success: function (data) {
+                   location.reload();
+                }
+            });
+        });
+    });
+</script>
