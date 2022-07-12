@@ -107,7 +107,7 @@ function edit()
     if ($controllo === "indirizzo_esistente") {
         $id_indirizzo = $_POST['id_indirizzo'];
         $response = array();
-        $mysqli->query("UPDATE tdw_ecommerce.ordini SET motivazione='', stato='IN ATTESA',indirizzi_spedizione=" . $id_indirizzo . " WHERE id=" . $id_ordine);
+        $mysqli->query("UPDATE tdw_ecommerce.ordini SET motivazione='', stato='IN ATTESA',indirizzi_spedizione=" . $id_indirizzo . ",indirizzi_fatturazione=" . $id_indirizzo . " WHERE id=" . $id_ordine);
 
 
     } else if ($controllo == "indirizzo_nuovo") {
@@ -121,7 +121,7 @@ function edit()
         $utente = $oid->fetch_assoc();
         $mysqli->query("INSERT INTO tdw_ecommerce.indirizzi (indirizzo, citta, cap, provincia, nazione, users_id) VALUES ('$indirizzo', '$citta', '$cap', '$provincia', '$nazione', " . $utente['id'] . ")");
         $id_indirizzo = $mysqli->insert_id;
-        $mysqli->query("UPDATE tdw_ecommerce.ordini SET motivazione='', stato='IN ATTESA', indirizzi_spedizione=" . $id_indirizzo . " WHERE id=" . $id_ordine);
+        $mysqli->query("UPDATE tdw_ecommerce.ordini SET motivazione='', stato='IN ATTESA', indirizzi_spedizione=" . $id_indirizzo . ",indirizzi_fatturazione=" . $id_indirizzo . " WHERE id=" . $id_ordine);
     }
 }
 

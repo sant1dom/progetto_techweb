@@ -40,7 +40,16 @@
         </button>
     </div>
 </div>
+<div id="dialog" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content text-center">
+        <p>Indirizzo aggiunto con successo</p>
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="ok" name="ok" value="ok">
+            OK</button>
+    </div>
+</div>
 <script>
+    var modal = document.getElementById("dialog");
     $(document).ready(function () {
         $("#conferma_indirizzo_nuovo").click(function () {
             $.ajax({
@@ -73,39 +82,53 @@
     });
     $(document).ready(function () {
         ($("#modifica_indirizzo").click(function () {
-           //chiamata ajax per modificare l'indirizzo
-            $.ajax({
-                type: "POST",
-                url: "/addresses/<[id]>/edit",
-                data: {
-                    indirizzo: $("#indirizzo_form").val(),
-                    citta: $("#citta").val(),
-                    cap: $("#cap").val(),
-                    provincia: $("#provincia").val(),
-                    nazione: $("#nazione").val(),
-                },
-                success: function (data) {
-                    let response = JSON.parse(data);
-                    if (response['success']) {
-                        $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                            response['success'] + '</div>');
-                    } else if (response['error']) {
-                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                            response['error'] + '</div>');
-                    } else {
-                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                            response['warning'] + '</div>');
-                    }
+            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!=="") {
+                if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/addresses/<[id]>/edit",
+                        data: {
+                            indirizzo: $("#indirizzo_form").val(),
+                            citta: $("#citta").val(),
+                            cap: $("#cap").val(),
+                            provincia: $("#provincia").val(),
+                            nazione: $("#nazione").val(),
+                        },
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['success'] + '</div>');
+                            } else if (response['error']) {
+                                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
                 }
-            });
+            }else{
+                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'Compilare tutti i campi' + '</div>');
+            }
         }
         ));
     });
     $(document).ready(function () {
         ($("#crea_indirizzo").click(function () {
+            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!==""){
+            if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
                 //chiamata ajax per modificare l'indirizzo
                 $.ajax({
                     type: "POST",
@@ -122,24 +145,35 @@
                         let response = JSON.parse(data);
                         if (response['success']) {
                             $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['success'] + '</div>');
-                            setTimeout(function(){
-                                window.location.href = '/addresses';
-                            }, 2000);
-                            $("#crea_indirizzo").attr("hidden",true);
+                            modal.style.display = "block";
                         } else if (response['error']) {
                             $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['error'] + '</div>');
                         } else {
                             $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
+                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['warning'] + '</div>');
                         }
                     }
                 });
+            } else {
+                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
             }
+        }else{
+            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                'Compila tutti i campi' + '</div>');
+            }
+        }
         ));
     });
+    ($("#ok").click(function () {
+        window.location.href = '/addresses';
+    }
+    ));
 </script>
