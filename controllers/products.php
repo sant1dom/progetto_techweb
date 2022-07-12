@@ -116,6 +116,7 @@ function show()
                 $body->setContent($key, $value);
             } else {
                 $likebutton->setContent($key, $value);
+                $body->setContent($key, $value);
             }
         }
         $body->setContent("disponibilita", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
@@ -182,7 +183,22 @@ function show()
     } else {
         $body->setContent("like", "");
     }
+    //Controllo per vedere se un utente può effettuare una recensione
+    if (isset($_SESSION['user']['email'])){
+        $utente= $mysqli->query("SELECT id as id_utente
+                                    FROM tdw_ecommerce.users 
+                                    WHERE email = '".$_SESSION['user']['email']."'");
+        $utente = $utente->fetch_assoc();
+        $recensione= $mysqli->query("SELECT * 
+                                    FROM tdw_ecommerce.ordini as o JOIN ordini_has_prodotti as op on o.id=op.ordini_id
+                                    WHERE o.stato='CONSEGNATO' AND o.user_id = ".$utente['id_utente']." AND op.prodotti_id = '$prodotto[id]'");
+        if ($recensione->num_rows == 0) {
+            $body->setContent("recensione", "false");
+        } else {
+            $body->setContent("recensione", "true");
+        }
 
+    }
     $main->setContent("content", $body->get());
     $main->close();
 }

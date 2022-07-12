@@ -23,7 +23,7 @@ function index()
     $email = $_SESSION['user']['email'];
     $oid = $mysqli->query("SELECT id FROM users WHERE email = '$email'");
     $utente = $oid->fetch_assoc();
-    $oid = $mysqli->query("SELECT * FROM indirizzi WHERE users_id = '$utente[id]'");
+    $oid = $mysqli->query("SELECT * FROM indirizzi WHERE users_id = '$utente[id]' AND valido = 1");
     do {
         $indirizzi = $oid->fetch_assoc();
         if ($indirizzi) {
@@ -114,4 +114,17 @@ function create(){
     }
     exit(json_encode($response));
 
+}
+function delete(){
+    global $mysqli;
+    $id = explode('/', $_SERVER['REQUEST_URI'])[2];
+    $mysqli->query("UPDATE tdw_ecommerce.indirizzi SET valido = 0 WHERE id = '$id'");
+    if($mysqli->affected_rows == 1){
+        $response['success'] = "Indirizzo eliminato con successo";
+    } elseif($mysqli->affected_rows == 0) {
+        $response['warning'] = "Nessun dato eliminato";
+    } else {
+        $response['error'] = "Errore nell'eliminazione dell'indirizzo";
+    }
+    exit(json_encode($response));
 }
