@@ -50,3 +50,16 @@ function add()
     exit(json_encode($response));
 
 }
+function delete(){
+    global $mysqli;
+    $id =explode('/', $_SERVER['REQUEST_URI'])[2];
+    $mysqli->query("DELETE FROM recensioni WHERE id = '$id'");
+    if ($mysqli->affected_rows == 1) {
+        $response['success'] = "Recensione eliminata con successo";
+    } elseif ($mysqli->affected_rows == 0) {
+        $response['warning'] = "Nessuna recensione eliminata";
+    } else {
+        $response['error'] = "Errore nell'eliminazione della recensione";
+    }
+    exit(json_encode($response));
+}
