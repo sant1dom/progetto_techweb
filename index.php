@@ -37,7 +37,7 @@ if ($oid->num_rows > 0) {
             exit;
         }
     } else {        //se non è autenticato reindirizza alla login
-        Header("Location: /login");
+        Header("Location: /login?referrer=" . urlencode($request));
         exit;
     }
 }else{  //se la pagina non esiste, carico il controller degli errori

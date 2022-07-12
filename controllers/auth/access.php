@@ -19,7 +19,7 @@ function login(): void
         if ($_SERVER["REQUEST_METHOD"] == "POST") {                 //se è una richiesta POST
             doLogin();                                              //eseguo il login
             if (isset($_SESSION['auth']) && $_SESSION['auth'] = true) {     //se l'utente è autenticato dopo la funzione di login
-                redirect();
+                redirect($_POST['referrer']??"");
             } else {                                                 //se l'utente non è stato autenticato
                 $main = setupMainAuth("login");
                 $alert = setupAlert("Username o password errati.");
@@ -32,7 +32,7 @@ function login(): void
         }
         //se l'utente è già autenticato, reindirizza alla home
     } else {
-        redirect();
+        redirect($_POST['referrer']??"");
     }
 }
 
@@ -46,7 +46,7 @@ function register(): void
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             doRegister();
             if (isset($_SESSION['auth']) && $_SESSION['auth'] = true) {
-                redirect();
+                redirect($_POST['referrer']??"");
             } else {
                 $main = setupMainAuth("register");
                 $alert = setupAlert("Email gi&agrave in uso.");
@@ -58,7 +58,7 @@ function register(): void
             $main->close();
         }
     } else {
-        redirect();
+        redirect($_POST['referrer']??"");
     }
 }
 
@@ -81,12 +81,13 @@ function register(): void
  * Utility per la redirezione alla home dopo login o registrazione
  * @return void
  */
-#[NoReturn] function redirect(): void
+#[NoReturn] function redirect($referrer): void
 {
-    if (isset($_SESSION['referrer'])) {                 //se è stato impostato un referrer reindirizza
-        $referrer = $_SESSION['referrer'];
+    //se è stato impostato un referrer reindirizza
+    echo "Referrer".$referrer;
+    if ($referrer != "") {
         unset($_SESSION['referrer']);
-        Header("Location: {$referrer}");
+        header("Location: $referrer");
         exit;
     } else if (isset($_SESSION['user']['script']['/admin']) && $_SESSION['user']['script']['/admin']) {
         Header("Location: /admin");               //se è un admin vai alla pagina di amministrazione

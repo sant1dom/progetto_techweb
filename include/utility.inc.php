@@ -23,6 +23,7 @@ function setupMainUser()
         $main->setContent("user_bar", $logged->get());
     } else {
         $unlogged = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/user/unlogged.html");
+        $unlogged->setContent("referrer", "?referrer=".urlencode($_SERVER['REQUEST_URI']));
         $main->setContent("user_bar", $unlogged->get());
     }
     $main->setContent("header", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/header.html"))->get());
@@ -41,6 +42,7 @@ function setupMainAuth(string $page): Template
     checkSession();
 
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/auth/" . $page . ".html");
+    $main->setContent("referrer", $_GET['referrer'] ?? "");
     // Default set delle parti statiche per il template wizym
     $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html"))->get());
     return $main;
