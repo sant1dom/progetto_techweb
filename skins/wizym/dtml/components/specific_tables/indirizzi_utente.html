@@ -1,3 +1,8 @@
+<style>
+    .modal-backdrop {
+        z-index:0;
+    }
+</style>
 <[foreach]>
 <tr>
     <td class="clickable-row" data-href="/addresses/<[id]>">
@@ -15,12 +20,21 @@
     <td class="clickable-row" data-href="/addresses/<[id]>">
         <[nazione]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+    <td>
         <div class="d-flex justify-content-center align-items-center">
             <div class="elm-btn">
                 <a href="/addresses/<[id]>"
                    class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
                    style="font-size: 13px">MODIFICA</a>
+            </div>
+            <div class="elm-btn">
+                <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                   style="font-size: 13px"
+                   data-bs-toggle="modal"
+                   data-bs-target="#deleteconfirmation"
+                   data-bs-original-title="Cancella"
+                   data-id="/addresses/<[id]>/delete"
+                   href="/addresses/<[id]>/delete">ELIMINA</a>
             </div>
         </div>
     </td>
@@ -37,19 +51,28 @@
     });
 </script>
 <script>
-    $('.table').DataTable({
-        "language": {
-            "lengthMenu": "Mostra _MENU_ record per pagina",
-            "zeroRecords": "Nessun record trovato",
-            "info": "Pagina _PAGE_ di _PAGES_",
-            "infoEmpty": "Nessun record trovato",
-            "infoFiltered": "(filtrato da _MAX_ record totali)",
-            "search": "Cerca",
-            "paginate": {
-                "previous": "Precedente",
-                "next": "Successivo"
-            }
-        },
-        "order": [[0, "asc"]]
+
+    $(document).ready(function() {
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function(e) {
+            $('#delete_modal_text').html('Sei sicuro di voler eliminare questo indirizzo?');
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+        $('#remove-button').click(function() {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function(data) {
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
+                    } else {
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
+                    }
+                }
+            });
+        });
     });
     </script>

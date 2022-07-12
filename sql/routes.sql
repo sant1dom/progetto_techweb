@@ -21,6 +21,7 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%', 'user/addresses.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Modifica indirizzo', '/addresses/%/edit', 'user/addresses.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Crea indirizzo', '/addresses/create', 'user/addresses.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Elimina indirizzo', '/addresses/%/delete', 'user/addresses.php', 'delete');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Aggiungi recensione', '/reviews/add', 'user/reviews.php', 'add');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Visualizza recensioni', '/reviews', 'user/reviews.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Elimina recensione', '/reviews/%/delete', 'user/reviews.php', 'delete');

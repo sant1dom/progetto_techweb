@@ -105,6 +105,7 @@ CREATE TABLE `indirizzi` (
                              `provincia` varchar(2) NOT NULL,
                              `nazione` varchar(45) NOT NULL,
                              `users_id` int NOT NULL,
+                             `valido` boolean default true,
                              PRIMARY KEY (`id`),
                              KEY `fk_indirizzi_users1_idx` (`users_id`),
                              CONSTRAINT `fk_indirizzi_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
