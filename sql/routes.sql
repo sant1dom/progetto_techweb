@@ -19,8 +19,10 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Ordini', 'Modifica ordine', '/orders/%/edit', 'user/orders.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzi', '/addresses', 'user/addresses.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%', 'user/addresses.php', 'show');
-INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/%/edit', 'user/addresses.php', 'edit');
-INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Visualizza indirizzo', '/addresses/create', 'user/addresses.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Modifica indirizzo', '/addresses/%/edit', 'user/addresses.php', 'edit');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Indirizzi', 'Crea indirizzo', '/addresses/create', 'user/addresses.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Aggiungi recensione', '/reviews/add', 'user/reviews.php', 'add');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Visualizza recensioni', '/reviews', 'user/reviews.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Like', 'Visualizzazione Like', '/likes', 'user/like.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Like', 'Toggle Like Prodotto', '/products/%/like', 'user/like.php', 'like');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');

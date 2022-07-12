@@ -81,7 +81,8 @@
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs">
                             <li><a class="tab active" data-id='#tab-description' href="#">Descrizione</a></li>
-                            <li><a class="tab" data-id='#tab-reviews' href="#">Recensioni (<[numero_recensioni]>)</a></li>
+                            <li><a class="tab" data-id='#tab-reviews' href="#">Recensioni (<[numero_recensioni]>)</a>
+                            </li>
                         </ul>
                         <div id="tab-description" class="tab-content" style="padding: 2rem">
                             <p><[descrizione]></p>
@@ -104,6 +105,27 @@
                                 <[/foreach]> <!-- /post-bottom-second -->
                             </div>
                         </div>
+                        <input type="hidden" name="recensione" id="recensione" value="<[recensione]>">
+                        <input type="hidden" name="voto" id="voto">
+                        <input type="hidden" name="voto" id="id_prodotto" value="<[id]>">
+                        <div class="comment-respond tab-content" id="recensione-form"
+                             style="padding: 2rem; display: none; margin: 0rem">
+                            <p style="font-size: 20px">Aggiungi una recensione</p>
+                            <div class="clearfix"></div>
+                            <h3>Il tuo voto</h3>
+                            <div class="post-rating" id="your-rating">
+                            </div>
+                            <p class="comment-form-comment">
+                                <!-- <label>Comment</label>  -->
+                                <textarea name="comment" id="comment" placeholder="Comment" required="required"></textarea>
+                            </p>
+                            <p class="submit-form">
+                                <button name="submit" type="submit"
+                                        class="submit btn btn-styl hvr-shutter-out-horizontal" id="submit">INVIA
+                                </button>
+                            </p>
+
+                        </div>  <!-- /comment-respond -->
                     </div>
                 </div>
             </div> <!-- /row-->
@@ -240,16 +262,16 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         let prezzo_base = $('.dolar').text().slice(0, -1);
-        let prezzo_scontato = prezzo_base * ((100-'<[percentuale]>')/100);
-        if('<[percentuale]>' !== ''){
+        let prezzo_scontato = prezzo_base * ((100 - '<[percentuale]>') / 100);
+        if ('<[percentuale]>' !== '') {
             $('.dolar').html('<p style="color: #c02323;">-<[percentuale]>%</p>' + prezzo_scontato.toFixed(2) + '€');
             $('.dolar').after('<p>Prezzo consigliato: <s>' + parseFloat(prezzo_base).toFixed(2) + '€</s></p>');
             // Per il countdown
             let countDownDate = new Date('<[data_fine]>').getTime();
             // Aggiorna una volta al secondo
-            let x = setInterval(function() {
+            let x = setInterval(function () {
                 // Data di oggi
                 let now = new Date().getTime();
 
@@ -278,7 +300,7 @@
     });
     $('#stars').after('<p> <[numero_recensioni]> recensioni</p>');
 
-    $('.post-rating-stars').each(function(){
+    $('.post-rating-stars').each(function () {
         if ($(this).attr('data-rating') !== "") {
             $(this).raty({
                 score: $(this).attr('data-rating'),
@@ -293,6 +315,48 @@
             $(this).html('<h2>Nessuna recensione</h2>');
         }
     })
+    let x = document.getElementById("recensione").value;
+    if (x === "true") {
+        $('#recensione-form').show();
+    }
+    $('#your-rating').raty({
+        number: 5,
+        readOnly: false,
+        starOff: 'fa fa-star-o text-warning',
+        starOn: 'fa fa-star text-warning',
+        starHalf: 'fa fa-star-half-o text-warning',
+        starType: 'i',
+        target: '#voto',
+        targetType:   'score',
+        targetKeep:   true
+    });
+    $("#submit").click(function () {
+        if( $("#comment").val()!=="" && $("#voto").val()!==""){
+            $.ajax({
+                type: "POST",
+                url: "/reviews/add",
+                data: {
+                    score: $("#voto").val(),
+                    comment: $("#comment").val(),
+                    id_prodotto: $("#id_prodotto").val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    let response = JSON.parse(data);
+                    if (response['success']){
+                        $('#recensione-form').parent().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            'recensione aggiunta correttamente' + '</div>');
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 2000);
+                    }
+                }
+            });
+        }else{
+            $('#recensione-form').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                'Uno o più campi non sono stati compilati' + '</div>');
+        }
+    })
 </script>
-
-

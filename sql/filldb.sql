@@ -181,6 +181,15 @@ insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,2);
 insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,3);
 insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,4);
 insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,5);
-insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,6);
-insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,7);
-insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (1,8);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (2,6);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (2,7);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (2,8);
+insert into users_has_prodotti_preferiti (users_id, prodotti_id) VALUES (2,9);
+
+insert into ordini (id, data, user_id,stato,totale,numero_ordine,indirizzi_fatturazione,indirizzi_spedizione,metodi_pagamento) values (NULL, '2022-01-01', 2, 'CONSEGNATO', 1000, '268868', 1, 1, 1);
+insert into ordini (id, data, user_id,stato,totale,numero_ordine,indirizzi_fatturazione,indirizzi_spedizione,metodi_pagamento, motivazione) values (NULL, '2022-01-01', 2, 'SOSPESO', 1000, '2585885', 1, 1, 1,'indirizzo sbagliato');
+
+insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (1, 1, 1);
+insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (1, 2, 1);
+insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (2, 3, 1);
+insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (2, 4, 1);

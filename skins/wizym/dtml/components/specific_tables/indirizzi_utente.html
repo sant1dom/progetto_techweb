@@ -1,4 +1,3 @@
-
 <[foreach]>
 <tr>
     <td class="clickable-row" data-href="/addresses/<[id]>">
@@ -15,14 +14,16 @@
     </td>
     <td class="clickable-row" data-href="/addresses/<[id]>">
         <[nazione]>
-    </td >
+    </td>
     <td class="clickable-row" data-href="/addresses/<[id]>">
         <div class="d-flex justify-content-center align-items-center">
-    <div class="elm-btn">
-     <a href="/addresses/<[id]>" class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 13px">MODIFICA</a>
-    </div>
+            <div class="elm-btn">
+                <a href="/addresses/<[id]>"
+                   class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                   style="font-size: 13px">MODIFICA</a>
+            </div>
         </div>
-    </td >
+    </td>
 
 </tr>
 <[/foreach]>
@@ -35,3 +36,20 @@
         });
     });
 </script>
+<script>
+    $('.table').DataTable({
+        "language": {
+            "lengthMenu": "Mostra _MENU_ record per pagina",
+            "zeroRecords": "Nessun record trovato",
+            "info": "Pagina _PAGE_ di _PAGES_",
+            "infoEmpty": "Nessun record trovato",
+            "infoFiltered": "(filtrato da _MAX_ record totali)",
+            "search": "Cerca",
+            "paginate": {
+                "previous": "Precedente",
+                "next": "Successivo"
+            }
+        },
+        "order": [[0, "asc"]]
+    });
+    </script>
