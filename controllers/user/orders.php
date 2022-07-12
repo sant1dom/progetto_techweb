@@ -72,9 +72,9 @@ function show()
             } else {
                 $table_prodotti->setContent('image', "/uploads/" . $image["image"]);
             }
-        }
-        foreach ($prodotti as $key => $value) {
-            $table_prodotti->setContent($key, $value);
+            foreach ($prodotti as $key => $value) {
+                $table_prodotti->setContent($key, $value);
+            }
         }
     } while ($prodotti);
 
