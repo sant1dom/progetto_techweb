@@ -1501,7 +1501,7 @@ Class ForeachCode {
 	function setPlaceholderValue($placeholderName,$placeholderValue,$foreachName,$foreachCode){
 		$result = preg_match("~<\[$placeholderName\]>~Us",$foreachCode);
 		if($result){//Se c'? il placeholder lo istanzio
-			$foreachCode = preg_replace("~<\[$placeholderName\]>~Us",$placeholderValue,$foreachCode,-1);
+			$foreachCode = preg_replace("~<\[$placeholderName\]>~Us",$placeholderValue?:"",$foreachCode,-1);
 		}
 		else{// Se non c'? controllo se si trova nel codice del foreach pulito, nel caso in cui lo appendo 
 			$foreachCode=preg_replace("~<\[(foreach\d+_\d+)\]>.+<\[\/\\1\]>~Us","",$foreachCode,-1);//Elimino i vecchi foreach annidati, sono in una nuova iterazione	

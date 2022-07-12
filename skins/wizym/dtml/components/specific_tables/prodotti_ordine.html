@@ -1,20 +1,24 @@
 <[foreach]>
-<div class="card shadow-0 border mb-4" style="width: 80%">
+<div class="card shadow-0 border mb-4" style="width: 100%">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3">
-                <img src=""
-                     class="img-fluid" alt="prodotto">
-            </div>
-            <div class="col-md-3 text-center d-flex justify-content-center align-items-center" >
-               <a href="/products/<[id]>" class="menu-style"> <p class=" mb-0"><[nome_prodotto]></p></a>
-            </div>
-            <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
-                <p class=" mb-0 "><[prezzo_prodotto]>€</p>
-            </div>
-            <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
-                <p class=" mb-0 ">qt.<[quantita_prodotto]></p>
-            </div>
+            <a class="flex justify-content-center align-items-center menu-style" href="/products/<[id]>">
+                <div class="col text-start">
+                    <img src="<[image]>" class="img-fluid" alt="prodotto">
+                </div>
+                <div class="col-md-5 text-center">
+                    <p><[nome_prodotto]></p>
+                </div>
+                <div class="col text-end">
+                    <p><[prezzo_prodotto]>€</p>
+                </div>
+                <div class="col text-end">
+                    <p><[sconto]>%</p>
+                </div>
+                <div class="col text-end">
+                    <p>qt.<[quantita_prodotto]></p>
+                </div>
+            </a>
         </div>
     </div>
 </div>

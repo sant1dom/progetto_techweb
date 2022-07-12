@@ -42,10 +42,14 @@ function show()
 {
     global $mysqli;
     $id = explode('/', $_SERVER['REQUEST_URI'])[2];
-    $ordine = $mysqli->query("SELECT ordini.id, u.email as email_utente, u.nome as nome_utente, u.id as id_utente, u.cognome as cognome_utente, u.telefono as utente_telefono, ordini.metodi_pagamento as m,
-       ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, ordini.motivazione, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
-       CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione FROM tdw_ecommerce.ordini 
-            JOIN tdw_ecommerce.users as u on u.id=ordini.user_id JOIN tdw_ecommerce.indirizzi as isp on isp.id= ordini.indirizzi_spedizione JOIN tdw_ecommerce.indirizzi as ifa on ifa.id= ordini.indirizzi_fatturazione");
+    $ordine = $mysqli->query("SELECT ordini.id, u.email as email_utente, u.id as id_utente, u.telefono as utente_telefono,
+                                            ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, ordini.motivazione, 
+                                            CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
+                                            CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione 
+                                    FROM tdw_ecommerce.ordini 
+                                        JOIN tdw_ecommerce.users as u on u.id = ordini.user_id 
+                                        JOIN tdw_ecommerce.indirizzi as isp on isp.id = ordini.indirizzi_spedizione 
+                                        JOIN tdw_ecommerce.indirizzi as ifa on ifa.id = ordini.indirizzi_fatturazione");
     $ordine = $ordine->fetch_assoc();
     $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/my_account.html");
@@ -54,15 +58,26 @@ function show()
         $show->setContent($key, $value);
     }
     $table_prodotti = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/prodotti_ordine.html");
-    $oid = $mysqli->query("SELECT p.nome as nome_prodotto,p.id as id, p.prezzo as prezzo_prodotto, op.quantita as quantita_prodotto FROM tdw_ecommerce.ordini_has_prodotti as op JOIN tdw_ecommerce.prodotti as p on p.id=op.prodotti_id WHERE op.ordini_id=" . $id);
+    $oid = $mysqli->query("SELECT p.nome as nome_prodotto,p.id as id, p.prezzo as prezzo_prodotto, op.quantita as quantita_prodotto, percentuale as sconto
+                                FROM tdw_ecommerce.ordini_has_prodotti as op 
+                                    JOIN tdw_ecommerce.prodotti as p on p.id=op.prodotti_id
+                                WHERE op.ordini_id=" . $id);
     do {
         $prodotti = $oid->fetch_assoc();
         if ($prodotti) {
-            foreach ($prodotti as $key => $value) {
-                $table_prodotti->setContent($key, $value);
+            $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = '{$prodotti['id']}' LIMIT 1");
+            $image = $image->fetch_assoc();
+            if (!$image) {
+                $table_prodotti->setContent('image', 'https://via.placeholder.com/150');
+            } else {
+                $table_prodotti->setContent('image', "/uploads/" . $image["image"]);
             }
         }
+        foreach ($prodotti as $key => $value) {
+            $table_prodotti->setContent($key, $value);
+        }
     } while ($prodotti);
+
     $selectPicker_indirizzi = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/indirizzi_modifica_ordine.html");
     $oid = $mysqli->query("SELECT id, CONCAT(indirizzo,' ', citta,' ', cap,' ', provincia,' ', nazione) as indirizzo FROM tdw_ecommerce.indirizzi WHERE users_id=" . $ordine['id_utente']);
     do {
@@ -125,7 +140,7 @@ function edit()
     }
 }
 
-function create()
+function create(): void
 {
     global $mysqli;
     $user = $mysqli->query("SELECT id FROM users WHERE email = '{$_SESSION['user']['email']}'")->fetch_assoc();
@@ -145,12 +160,20 @@ function create()
                 $id_indirizzo = $mysqli->insert_id;
             }
 
-            $oid = $mysqli->query("SELECT quantity, prezzo FROM tdw_ecommerce.cart JOIN prodotti p on p.id = cart.products_id WHERE users_id = " . $user['id']);
+            $oid = $mysqli->query("SELECT quantity, prezzo, percentuale as sconto 
+                                            FROM tdw_ecommerce.cart 
+                                                JOIN prodotti p on p.id = cart.products_id 
+                                                LEFT JOIN offerte o on p.id = o.prodotti_id  
+                                            WHERE users_id = " . $user['id']);
             $total = 0.00;
             do {
                 $product = $oid->fetch_assoc();
                 if ($product) {
-                    $total = $total + $product['quantity'] * $product['prezzo'];
+                    if (isset($product['sconto'])) {
+                        $total += $product['quantity'] * $product['prezzo'] * (1 - $product['sconto'] / 100);
+                    } else {
+                        $total += $product['quantity'] * $product['prezzo'];
+                    }
                 }
             } while ($product);
 
@@ -159,11 +182,14 @@ function create()
                                     VALUES ({$user['id']}, NOW(), 'NUOVO', $total, $rnd_str, $id_indirizzo, $id_indirizzo, '{$_POST['pagamento']}', '')");
             if ($mysqli->affected_rows > 0) {
                 $order_id = $mysqli->insert_id;
-                $oid = $mysqli->query("SELECT products_id, quantity FROM tdw_ecommerce.cart WHERE users_id = " . $user['id']);
+                $oid = $mysqli->query("SELECT products_id, quantity, percentuale as sconto FROM tdw_ecommerce.cart  LEFT JOIN offerte o on products_id = o.prodotti_id  WHERE users_id = " . $user['id']);
                 do {
                     $product = $oid->fetch_assoc();
                     if ($product) {
-                        $mysqli->query("INSERT INTO tdw_ecommerce.ordini_has_prodotti (ordini_id, prodotti_id, quantita) VALUES ($order_id, {$product['products_id']}, {$product['quantity']})");
+                        if ($product['sconto'] === "") {
+                            $product['sconto'] = 0;
+                        }
+                        $mysqli->query("INSERT INTO tdw_ecommerce.ordini_has_prodotti (ordini_id, prodotti_id, quantita, percentuale) VALUES ($order_id, {$product['products_id']}, {$product['quantity']}, {$product['sconto']})");
                         if ($mysqli->affected_rows > 0) {
                             $mysqli->query("UPDATE tdw_ecommerce.prodotti SET quantita_disponibile=quantita_disponibile-{$product['quantity']} WHERE id={$product['products_id']}");
                             $mysqli->query("DELETE FROM tdw_ecommerce.cart WHERE users_id = {$user['id']} AND products_id = {$product['products_id']}");

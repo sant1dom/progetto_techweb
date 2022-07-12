@@ -12,13 +12,18 @@ function cart(): void
 
     $user = $mysqli->query("SELECT * FROM tdw_ecommerce.users WHERE email = '{$_SESSION["user"]["email"]}'");
     $user = $user->fetch_assoc();
-    $products = $mysqli->query("SELECT id, nome, prezzo, dimensione, quantity FROM tdw_ecommerce.prodotti JOIN cart c on prodotti.id = c.products_id WHERE c.users_id = {$user["id"]}");
+    $products = $mysqli->query("SELECT prodotti.id, nome, prezzo, percentuale as sconto, dimensione, quantity 
+                                            FROM tdw_ecommerce.prodotti 
+                                                JOIN cart c on prodotti.id = c.products_id 
+                                                LEFT JOIN offerte o on prodotti.id = o.prodotti_id 
+                                            WHERE c.users_id = {$user["id"]}");
 
     if ($mysqli->affected_rows != 0) {
         $colnames = array(
             "Immagine",
             "Nome del prodotto",
             "Prezzo",
+            "Sconto",
             "Quantità",
             "Dimensione",
             "Totale",
@@ -34,6 +39,15 @@ function cart(): void
             if ($product) {
                 foreach ($products as $value) {
                     foreach ($value as $k => $v) {
+                        if ($k === 'prezzo') {
+                            $v = ($v * (1 - $product["sconto"] / 100)).'€';
+                        }
+
+                        if ($k === 'sconto' && !isset($v)) {
+                            $v = '-';
+                        } else if ($k === 'sconto') {
+                            $v = $v."%";
+                        }
                         $specific_table->setContent($k, $v);
                     }
                 }

@@ -168,6 +168,7 @@ CREATE TABLE `ordini_has_prodotti` (
                                        `ordini_id` int NOT NULL,
                                        `prodotti_id` int NOT NULL,
                                        `quantita` int NOT NULL DEFAULT '1',
+                                        `percentuale` int NOT NULL DEFAULT '0',
                                        PRIMARY KEY (`ordini_id`,`prodotti_id`),
                                        KEY `fk_ordini_has_prodotti_prodotti1_idx` (`prodotti_id`),
                                        KEY `fk_ordini_has_prodotti_ordini1_idx` (`ordini_id`),

@@ -36,6 +36,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <[cart_table]>
 
                                 <div class="cart-btn">
@@ -370,7 +371,7 @@
             });
             cart_total.html(total.toFixed(2) + ' &euro;');
             let order_recap_total = $('#order-recap-total');
-            order_recap_total.text(cart_total.text() + '&euro;');
+            order_recap_total.text(cart_total.text());
         }
 
         $('#check-out-btn').click(function () {

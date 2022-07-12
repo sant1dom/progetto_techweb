@@ -17,6 +17,9 @@ function setupMainUser()
     // Default set delle parti statiche
     if (isset($_SESSION['user'])) {
         $logged = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/user/logged.html");
+        if (isset($_SESSION['user']['script']['/admin'])) {
+            $logged->setContent("admin", "<li><a href='/admin'>Amministrazione</a></li>");
+        }
         $main->setContent("user_bar", $logged->get());
     } else {
         $unlogged = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/user/unlogged.html");

@@ -16,16 +16,8 @@
                     let response = JSON.parse(data);
                     if (response['success'] === 'Like') {
                         i.removeClass('fa-heart-o').addClass('fa-heart');
-                        i.parent().after('<p id="response" style="display: inline; color: #dc3545">' + response['success'] + '</p>');
-                        setTimeout(function() {
-                            $('#response').fadeOut();
-                        }, 2000);
                     } else if (response['success'] === 'Dislike') {
                         i.removeClass('fa-heart').addClass('fa-heart-o');
-                        i.parent().after('<p id="response" style="display: inline; color: #dc3545">' + response['success'] + '</p>');
-                        setTimeout(function() {
-                            $('#response').fadeOut();
-                        }, 2000);
                     }
                 }
             });
