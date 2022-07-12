@@ -52,22 +52,34 @@
     var modal = document.getElementById("dialog");
     $(document).ready(function () {
         $("#conferma_indirizzo_nuovo").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/orders/<[id_ordine]>/edit",
-                data: {
-                    indirizzo: $("#indirizzo_form").val(),
-                    citta: $("#citta").val(),
-                    cap: $("#cap").val(),
-                    provincia: $("#provincia").val(),
-                    nazione: $("#nazione").val(),
-                    controllo: $("#conferma_indirizzo_nuovo").val(),
-                    id_ordine: $("#id").val()
-                },
-                success: function (data) {
-                    location.reload();
+            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!=="") {
+                if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/orders/<[id_ordine]>/edit",
+                        data: {
+                            indirizzo: $("#indirizzo_form").val(),
+                            citta: $("#citta").val(),
+                            cap: $("#cap").val(),
+                            provincia: $("#provincia").val(),
+                            nazione: $("#nazione").val(),
+                            controllo: $("#conferma_indirizzo_nuovo").val(),
+                            id_ordine: $("#id").val()
+                        },
+                        success: function (data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
                 }
-            });
+            } else {
+                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                    'Compila tutti i campi' + '</div>');
+            }
         });
     });
     $(document).ready(function () {
