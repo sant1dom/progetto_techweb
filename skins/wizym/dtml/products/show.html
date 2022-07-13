@@ -108,7 +108,7 @@
                         <input type="hidden" name="recensione" id="recensione" value="<[recensione]>">
                         <input type="hidden" name="voto" id="voto">
                         <input type="hidden" name="voto" id="id_prodotto" value="<[id]>">
-                        <div class="comment-respond tab-content" id="recensione-form"
+                        <div class="comment-respond" id="recensione-form"
                              style="padding: 2rem; display: none; margin: 0rem">
                             <p style="font-size: 20px">Aggiungi una recensione</p>
                             <div class="clearfix"></div>
@@ -344,12 +344,7 @@
                     console.log(data);
                     let response = JSON.parse(data);
                     if (response['success']){
-                        $('#recensione-form').parent().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                            'recensione aggiunta correttamente' + '</div>');
-                        setTimeout(function(){
                             window.location.reload();
-                        }, 2000);
                     }
                 }
             });

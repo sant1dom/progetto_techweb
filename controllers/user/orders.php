@@ -49,7 +49,8 @@ function show()
                                     FROM tdw_ecommerce.ordini 
                                         JOIN tdw_ecommerce.users as u on u.id = ordini.user_id 
                                         JOIN tdw_ecommerce.indirizzi as isp on isp.id = ordini.indirizzi_spedizione 
-                                        JOIN tdw_ecommerce.indirizzi as ifa on ifa.id = ordini.indirizzi_fatturazione");
+                                        JOIN tdw_ecommerce.indirizzi as ifa on ifa.id = ordini.indirizzi_fatturazione
+                                        WHERE ordini.id = '$id'");
     $ordine = $ordine->fetch_assoc();
     $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/my_account.html");

@@ -18,7 +18,8 @@ function index()
                      LEFT JOIN categorie c on prodotti.categorie_id = c.id
                      LEFT JOIN produttori p on p.id = prodotti.produttori_id
                      LEFT JOIN offerte o on prodotti.id = o.prodotti_id
-            WHERE quantita_disponibile > 0 AND (prodotti.nome LIKE '%$search%' OR c.nome LIKE '%$search%' OR p.ragione_sociale LIKE '%$search%')");
+            WHERE quantita_disponibile > 0 AND (prodotti.nome LIKE '%$search%' OR c.nome LIKE '%$search%' OR p.ragione_sociale LIKE '%$search%')
+            ORDER BY prodotti.nome");
     } else {
         $oid = $mysqli->query("
             SELECT prodotti.id, prodotti.nome, prezzo, c.nome as categoria, ragione_sociale as produttore, percentuale
@@ -26,7 +27,8 @@ function index()
                      LEFT JOIN categorie c on prodotti.categorie_id = c.id
                      LEFT JOIN produttori p on p.id = prodotti.produttori_id
                      LEFT JOIN offerte o on prodotti.id = o.prodotti_id
-            WHERE quantita_disponibile > 0");
+            WHERE quantita_disponibile > 0
+            ORDER BY prodotti.nome");
     }
 
     $cat = array();
@@ -185,13 +187,18 @@ function show()
                                     FROM tdw_ecommerce.users 
                                     WHERE email = '".$_SESSION['user']['email']."'");
         $utente = $utente->fetch_assoc();
-        $recensione= $mysqli->query("SELECT * 
+        $recensione_provato= $mysqli->query("SELECT * 
                                     FROM tdw_ecommerce.ordini as o JOIN ordini_has_prodotti as op on o.id=op.ordini_id
                                     WHERE o.stato='CONSEGNATO' AND o.user_id = ".$utente['id_utente']." AND op.prodotti_id = '$prodotto[id]'");
-        if ($recensione->num_rows == 0) {
+        $recensione_esistente= $mysqli->query("SELECT * 
+                                    FROM tdw_ecommerce.recensioni 
+                                    WHERE users_id = ".$utente['id_utente']." AND prodotti_id = '$prodotto[id]'");
+        if ($recensione_provato->num_rows == 0) {
             $body->setContent("recensione", "false");
-        } else {
+        } elseif ($recensione_esistente->num_rows == 0) {
             $body->setContent("recensione", "true");
+        } else {
+            $body->setContent("recensione", "false");
         }
 
     }

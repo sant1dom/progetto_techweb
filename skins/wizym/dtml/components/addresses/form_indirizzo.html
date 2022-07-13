@@ -1,40 +1,44 @@
 <div class="row mt-auto" id="form">
     <div class="col-md-6">
         <label class="labels">Indirizzo</label>
-        <input type="text" class="form-control" id="indirizzo_form" name="indirizzo_form" value="<[indirizzo]>" required >
+        <input type="text" class="form-control" id="indirizzo_form" name="indirizzo_form" value="<[indirizzo]>"
+               required>
     </div>
     <div class="col-md-6">
         <label class="labels">Città</label>
-        <input type="text" class="form-control"  id="citta" name="citta" value="<[citta]>" required>
+        <input type="text" class="form-control" id="citta" name="citta" value="<[citta]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">CAP</label>
-        <input type="text" class="form-control"  id="cap" name="cap" value="<[cap]>" required>
+        <input type="text" class="form-control" id="cap" name="cap" value="<[cap]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">Provincia</label>
-        <input type="text" class="form-control"  id="provincia" name="provincia" value="<[provincia]>" required>
+        <input type="text" class="form-control" id="provincia" name="provincia" value="<[provincia]>" required>
     </div>
     <div class="col-md-6">
         <label class="labels">Nazione</label>
-        <input type="text" class="form-control"  id="nazione" name="nazione" value="<[nazione]>" required>
+        <input type="text" class="form-control" id="nazione" name="nazione" value="<[nazione]>" required>
     </div>
     <input type="hidden" name="id" id="id" value="<[id_ordine]>">
     <input type="hidden" name="id" id="id_indirizzo" value="<[id]>">
     <input type="hidden" name="id" id="id_utente" value="<[id_utente]>">
     <input type="hidden" name="id" id="controllo" value="<[controllo]>">
     <div class="d-flex justify-content-center align-items-center">
-    <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 14px" type="submit" id="conferma_indirizzo_nuovo"
-            name="conferma" value="indirizzo_nuovo">
-        CREA E AGGIUNGI
-    </button>
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                style="font-size: 14px" type="submit" id="conferma_indirizzo_nuovo"
+                name="conferma" value="indirizzo_nuovo">
+            CREA E AGGIUNGI
+        </button>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-    <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="modifica_indirizzo"
-            name="conferma" hidden>
-        MODIFICA
-    </button>
-        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="crea_indirizzo"
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit"
+                id="modifica_indirizzo"
+                name="conferma" hidden>
+            MODIFICA
+        </button>
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit"
+                id="crea_indirizzo"
                 name="crea_indirizzo" hidden>
             CREA
         </button>
@@ -44,15 +48,18 @@
     <!-- Modal content -->
     <div class="modal-content text-center">
         <p>Indirizzo aggiunto con successo</p>
-        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="ok" name="ok" value="ok">
-            OK</button>
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit"
+                id="ok" name="ok" value="ok">
+            OK
+        </button>
     </div>
 </div>
 <script>
     var modal = document.getElementById("dialog");
     $(document).ready(function () {
         $("#conferma_indirizzo_nuovo").click(function () {
-            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!=="") {
+           removeAlert();
+            if ($("#indirizzo_form").val() !== "" && $("#citta").val() !== "" && $("#cap").val() !== "" && $("#provincia").val() !== "" && $("#nazione").val() !== "") {
                 if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
                     $.ajax({
                         type: "POST",
@@ -80,112 +87,123 @@
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Compila tutti i campi' + '</div>');
             }
+           removeAlert();
         });
     });
     $(document).ready(function () {
-        if($("#controllo").val()==="modifica indirizzo"){
-            $("#conferma_indirizzo_nuovo").attr("hidden",true);
+        if ($("#controllo").val() === "modifica indirizzo") {
+            $("#conferma_indirizzo_nuovo").attr("hidden", true);
             $("#modifica_indirizzo").removeAttr("hidden");
         }
-        if($("#controllo").val()==="nuovo indirizzo"){
-            $("#conferma_indirizzo_nuovo").attr("hidden",true);
+        if ($("#controllo").val() === "nuovo indirizzo") {
+            $("#conferma_indirizzo_nuovo").attr("hidden", true);
             $("#crea_indirizzo").removeAttr("hidden");
         }
     });
     $(document).ready(function () {
         ($("#modifica_indirizzo").click(function () {
-            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!=="") {
-                if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
+           removeAlert();
+                if ($("#indirizzo_form").val() !== "" && $("#citta").val() !== "" && $("#cap").val() !== "" && $("#provincia").val() !== "" && $("#nazione").val() !== "") {
+                    if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/addresses/<[id]>/edit",
-                        data: {
-                            indirizzo: $("#indirizzo_form").val(),
-                            citta: $("#citta").val(),
-                            cap: $("#cap").val(),
-                            provincia: $("#provincia").val(),
-                            nazione: $("#nazione").val(),
-                        },
-                        success: function (data) {
-                            let response = JSON.parse(data);
-                            if (response['success']) {
-                                $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                    response['success'] + '</div>');
-                            } else if (response['error']) {
-                                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                    response['error'] + '</div>');
-                            } else {
-                                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                    response['warning'] + '</div>');
+                        $.ajax({
+                            type: "POST",
+                            url: "/addresses/<[id]>/edit",
+                            data: {
+                                indirizzo: $("#indirizzo_form").val(),
+                                citta: $("#citta").val(),
+                                cap: $("#cap").val(),
+                                provincia: $("#provincia").val(),
+                                nazione: $("#nazione").val(),
+                            },
+                            success: function (data) {
+                                $('div.alert').alert('close').fadeOut(500);
+                                let response = JSON.parse(data);
+                                if (response['success']) {
+                                    $('#form').parent().after('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['success'] + '</div>');
+
+                                } else if (response['error']) {
+                                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert" id="messaggio">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['error'] + '</div>');
+                                } else {
+                                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert" id="messaggio">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['warning'] + '</div>');
+
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert" id="messaggio">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
+
+                    }
                 } else {
-                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert" id="messaggio">' +
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                        'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
+                        'Compilare tutti i campi' + '</div>');
                 }
-            }else{
-                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                    'Compilare tutti i campi' + '</div>');
+                setTimeout(function () {
+                    $('div.alert').alert('close');
+                }, 1000);
+
             }
-        }
         ));
     });
     $(document).ready(function () {
         ($("#crea_indirizzo").click(function () {
-            if($("#indirizzo_form").val()!=="" && $("#citta").val()!=="" && $("#cap").val()!=="" && $("#provincia").val()!=="" && $("#nazione").val()!==""){
-            if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
-                //chiamata ajax per modificare l'indirizzo
-                $.ajax({
-                    type: "POST",
-                    url: "/addresses/create",
-                    data: {
-                        indirizzo: $("#indirizzo_form").val(),
-                        citta: $("#citta").val(),
-                        cap: $("#cap").val(),
-                        provincia: $("#provincia").val(),
-                        nazione: $("#nazione").val(),
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        let response = JSON.parse(data);
-                        if (response['success']) {
-                            $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                response['success'] + '</div>');
-                            modal.style.display = "block";
-                        } else if (response['error']) {
-                            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                response['error'] + '</div>');
-                        } else {
-                            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                                response['warning'] + '</div>');
-                        }
+           removeAlert();
+                if ($("#indirizzo_form").val() !== "" && $("#citta").val() !== "" && $("#cap").val() !== "" && $("#provincia").val() !== "" && $("#nazione").val() !== "") {
+                    if ($("#cap").val().length === 5 && $("#provincia").val().length === 2) {
+                        //chiamata ajax per modificare l'indirizzo
+                        $.ajax({
+                            type: "POST",
+                            url: "/addresses/create",
+                            data: {
+                                indirizzo: $("#indirizzo_form").val(),
+                                citta: $("#citta").val(),
+                                cap: $("#cap").val(),
+                                provincia: $("#provincia").val(),
+                                nazione: $("#nazione").val(),
+                            },
+                            success: function (data) {
+                                let response = JSON.parse(data);
+                                if (response['success']) {
+                                    $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['success'] + '</div>');
+                                    modal.style.display = "block";
+                                } else if (response['error']) {
+                                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['error'] + '</div>');
+                                } else {
+                                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['warning'] + '</div>');
+                                }
+                            }
+                        });
+                    } else {
+                        $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
                     }
-                });
-            } else {
-                $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                    'Il CAP deve essere di 5 cifre e la provincia di 2 lettere' + '</div>');
+                } else {
+                    $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compila tutti i campi' + '</div>');
+                }
+           removeAlert();
             }
-        }else{
-            $('#form').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                'Compila tutti i campi' + '</div>');
-            }
-        }
         ));
     });
     ($("#ok").click(function () {
-        window.location.href = '/addresses';
-    }
+            window.location.href = '/addresses';
+        }
     ));
 </script>
