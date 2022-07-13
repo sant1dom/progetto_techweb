@@ -12,7 +12,6 @@ function index()
         "Stato",
         "Totale",
         "Indirizzo di spedizione",
-        "Indirizzo di fatturazione"
     );
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/table.html");
     foreach ($colnames as $colname) {

@@ -349,9 +349,10 @@
                 }
             });
         }else{
-            $('#recensione-form').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+            $('#recensione-form').parent().after('<div class="alert alert-dismissible fade show" role="alert">' +
                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                 'Uno o più campi non sono stati compilati' + '</div>');
+            removeAlert();
         }
     })
 </script>

@@ -120,7 +120,7 @@
                                 $('div.alert').alert('close').fadeOut(500);
                                 let response = JSON.parse(data);
                                 if (response['success']) {
-                                    $('#form').parent().after('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                    $('#form').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
                                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                         response['success'] + '</div>');
 
@@ -147,9 +147,7 @@
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                         'Compilare tutti i campi' + '</div>');
                 }
-                setTimeout(function () {
-                    $('div.alert').alert('close');
-                }, 1000);
+                removeAlert();
 
             }
         ));

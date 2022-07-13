@@ -1,3 +1,11 @@
+<style>
+    .page-item.active.page-link-color {
+        z-index: 3; !important;
+        color: #fff; !important;
+        background-color: #c02323; !important;
+        border-color: #c02323; !important;
+    }
+</style>
 <[foreach]>
 <tr>
     <td class="clickable-row" data-href="/products/<[id]>">
@@ -63,5 +71,7 @@
             },
             "order": [[0, "asc"]]
         });
+        $('.page-link').addClass('page-link-color')
     });
+
 </script>
