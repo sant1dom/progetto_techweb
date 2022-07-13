@@ -18,7 +18,8 @@ function index()
                      LEFT JOIN categorie c on prodotti.categorie_id = c.id
                      LEFT JOIN produttori p on p.id = prodotti.produttori_id
                      LEFT JOIN offerte o on prodotti.id = o.prodotti_id
-            WHERE quantita_disponibile > 0 AND (prodotti.nome LIKE '%$search%' OR c.nome LIKE '%$search%' OR p.ragione_sociale LIKE '%$search%')");
+            WHERE quantita_disponibile > 0 AND (prodotti.nome LIKE '%$search%' OR c.nome LIKE '%$search%' OR p.ragione_sociale LIKE '%$search%')
+            ORDER BY prodotti.nome");
     } else {
         $oid = $mysqli->query("
             SELECT prodotti.id, prodotti.nome, prezzo, c.nome as categoria, ragione_sociale as produttore, percentuale
@@ -26,7 +27,8 @@ function index()
                      LEFT JOIN categorie c on prodotti.categorie_id = c.id
                      LEFT JOIN produttori p on p.id = prodotti.produttori_id
                      LEFT JOIN offerte o on prodotti.id = o.prodotti_id
-            WHERE quantita_disponibile > 0");
+            WHERE quantita_disponibile > 0
+            ORDER BY prodotti.nome");
     }
 
     $cat = array();
