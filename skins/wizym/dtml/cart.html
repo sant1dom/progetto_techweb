@@ -255,7 +255,7 @@
         });
 
         $('#clear-cart-btn').click(function () {
-            $('div.alert').alert('close');
+             removeAlert();
             $.each($('td[id^="remove"]'), function (index, value) {
                 let id = $(value).attr('id').toString().replace('remove', '');
                 remove(id);
@@ -265,7 +265,7 @@
         })
 
         $('li i').click(function () {
-            $('div.alert').alert('close');
+             removeAlert();
 
             let button = $(this);
             let id = button.attr('id').toString();
@@ -329,7 +329,7 @@
         });
 
         function remove(id) {
-            $('div.alert').alert('close');
+             removeAlert();
             $.ajax({
                 url: '/cart/' + id + '/remove',
                 type: 'POST',
@@ -375,7 +375,7 @@
         }
 
         $('#check-out-btn').click(function () {
-            $('div.alert').alert('close');
+            removeAlert();
             if ($('#cart-table-body').children().length === 0) {
                 msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
