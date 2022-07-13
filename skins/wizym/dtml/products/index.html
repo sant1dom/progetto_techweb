@@ -1,30 +1,20 @@
 <div class="main-shop-right grid">
     <div class="container">
-        <div class="d-lg-flex  price-filter clearfix">
+        <div class="d-lg-flex price-filter clearfix">
             <div class="elm-btn text-center mb-3" id="filter">
                 <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">Mostra
                     Filtri</a>
             </div>
             <div class="barra sidebar">
                 <div class="sidebar-inner">
-                    <div class="widget widget-search">
-                        <form action="#" id="searchform" method="get">
-                            <div>
-                                <input type="text" id="s" class="sss" placeholder="Cerca ...">
-                                <button><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </div>
-                        </form>
-                    </div> <!-- /widget-search-->
                     <div class="widget widget-filter">
                         <h2 class="widget-title text-center">Per prezzo</h2>
                         <div class="price-filter clearfix">
                             <label for="customRange2" class="form-label">Prezzo fino a:&nbsp;</label>
                             <output></output>
-                            <input type="range" class="form-range custom-range" value="0" min="0" max="1000" step="0.5"
+                            <input type="range" class="form-range custom-range" value="0" min="0" max="300" step="0.5"
                                    id="customRange2"
                                    oninput="this.previousElementSibling.value = ' ' + this.value + '&euro;'">
-
-                            <span class="filter" id="filtro-prezzo-btn"><a href="#" class="hvr-shutter-out-horizontal">FILTRA</a></span>
                         </div>
                     </div> <!-- /widget-filter-->
                     <div class="widget widget-categories">
@@ -57,6 +47,9 @@
                         <li class="dropdown-item" id="ordina-nome-az">Nome A-Z</li>
                         <li class="dropdown-item" id="ordina-nome-za">Nome Z-A</li>
                     </ul>
+                </div>
+                <div class="elm-btn text-center mb-3" id="reset-filters">
+                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">Resetta Filtri</a>
                 </div>
                 <div class="product-content clearfix shop-right-grid flex flex-wrap justify-content-start">
                     <ul class="product style2 isotope-product clearfix">
@@ -175,6 +168,10 @@
 <script>
     $(document).ready(function () {
         const allItems = $('.product-item'); //tutti i prodotti
+        let currentItems = $('.product-item'); //prodotti correnti
+        let currentCategoria = 'all'; //categoria corrente
+        let currentPrezzo = 1000; //prezzo corrente
+        let currentOrdine = 'nome-az'; //ordine corrente
 
         paginate(allItems); //prima chiamata alla paginazione
 
@@ -189,46 +186,6 @@
                 amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
                 amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
             }
-        });
-
-        // Comparsa dei filtri su mobile
-        $('#filter').on('click', function () {
-            $('.sidebar').slideToggle();
-        });
-
-        //filtro categorie
-        $('li.thumb-new-categories').click(function () {
-            let categoria = $(this).find('a').attr('id');
-            if (categoria === 'all') {
-                location.reload();
-            } else {
-                let items = allItems.find("input[value='" + categoria + "']").parent();
-                paginate(items, true);
-            }
-        });
-
-        //filtro prezzo
-        $('#filtro-prezzo-btn').click(function () {
-            let value = $('input[type="range"]').val();
-            let items = allItems.find('span[class^="amount"]').filter(function () {
-                return parseFloat($(this).text().replace('€', '')) <= value;
-            }).parent().parent().parent().parent();
-            paginate(items, true);
-            $('#da_attivare').trigger('click');
-        });
-
-        //filtro titolo
-        $('#s').keyup(function () {
-            if ($(this).val().length >= 3) {
-                let value = $(this).val();
-                let items = allItems.find('span[class^="product-title"]').filter(function () {
-                    return $(this).text().toLowerCase().includes(value.toLowerCase());
-                }).parent().parent();
-                paginate(items, true);
-            } else {
-                paginate(allItems, true);
-            }
-            $('#da_attivare').trigger('click');
         });
 
         // Paginazione
@@ -265,43 +222,125 @@
                 currentPage = $this.index();
                 let startItem = currentPage * perPage;
                 let endItem = startItem + perPage;
-                items.hide().slice(startItem, endItem).show().css({'position': 'relative', 'top': '', 'left': ''});
+                $(items).hide().slice(startItem, endItem).show().css({'position': 'relative', 'top': '', 'left': ''});
             });
         }
 
+        // Comparsa dei filtri su mobile
+        $('#filter').on('click', function () {
+            $('.sidebar').slideToggle();
+        });
+
+        //filtro categorie
+        $('li.thumb-new-categories').click(function () {
+            currentCategoria = $(this).find('a').attr('id');
+            applyFilter();
+        });
+
+        //filtro prezzo
+        $('#filtro-prezzo-btn').click(function () {
+            currentPrezzo = $('input[type="range"]').val();
+            applyFilter();
+        });
+
         // Ordinamento in base al prezzo
         $('#ordina-prezzo-cres').click(function () {
-            let items = allItems.sort(function (a, b) {
-                return parseFloat($(a).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(b).find('span[class^="amount"]').text().replace('€', ''));
-            });
-            paginate(items, true);
-            $('#da_attivare').trigger('click');
+            currentOrdine = 'prezzo-cresc';
+            applyFilter();
         });
 
         $('#ordina-prezzo-decr').click(function () {
-            let items = allItems.sort(function (a, b) {
-                return parseFloat($(b).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(a).find('span[class^="amount"]').text().replace('€', ''));
-            });
-            paginate(items, true);
-            $('#da_attivare').trigger('click');
+            currentOrdine = 'prezzo-decr';
+            applyFilter();
         });
 
         // Ordinamento in base al titolo
         $('#ordina-nome-az').click(function () {
-            let items = allItems.sort(function (a, b) {
-                return $(a).find('span[class^="product-title"]').text().localeCompare($(b).find('span[class^="product-title"]').text());
-            });
-            paginate(items, true);
-            $('#da_attivare').trigger('click');
+            currentOrdine = 'nome-az';
+            applyFilter();
         });
 
         $('#ordina-nome-za').click(function () {
-            let items = allItems.sort(function (a, b) {
-                return $(b).find('span[class^="product-title"]').text().localeCompare($(a).find('span[class^="product-title"]').text());
-            });
-            paginate(items, true);
-            $('#da_attivare').trigger('click');
+            currentOrdine = 'nome-za';
+            applyFilter();
         });
+
+        $('#reset-filters').click(function () {
+            currentCategoria = 'all';
+            currentPrezzo = 1000;
+            currentOrdine = 'nome-az';
+            applyFilter();
+        });
+
+        function filterCategories(items, categoria){
+            if (categoria === 'all') {
+                return items;
+            } else {
+                return items.filter(function (element) {
+                    return $(element).find('input[name=categoria]').val() === categoria;
+                });
+            }
+        }
+
+        // Filter items that have a price less than the current price
+        function filterPrice(items, price){
+            if (price === '0') {
+                return items;
+            } else {
+                return items.filter(function (element) {
+                    return parseFloat($(element).find('span[class^="amount"]').text().slice(0, -1)) <= price;
+                });
+            }
+        }
+
+        function selectOrdine(items, ordine){
+            switch (ordine) {
+                case 'prezzo-cresc':
+                    return orderByPrice(items);
+                case 'prezzo-decr':
+                    return orderByPriceReverse(items);
+                case 'nome-az':
+                    return orderByName(items);
+                case 'nome-za':
+                    return orderByNameReverse(items);
+                default:
+                    return items;
+            }
+        }
+
+        function orderByPrice(items){
+            return [...items].sort(function(a, b){
+                return parseFloat($(a).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(b).find('span[class^="amount"]').text().replace('€', ''));
+            });
+        }
+
+        function orderByPriceReverse(items){
+            return [...items].sort(function(a, b){
+                return parseFloat($(b).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(a).find('span[class^="amount"]').text().replace('€', ''));
+            });
+        }
+
+
+        function orderByName(items){
+            return [...items].sort(function(a, b){
+                return $(a).find('span[class^="product-title"]').text().toLowerCase().localeCompare($(b).find('span[class^="product-title"]').text().toLowerCase());
+            });
+        }
+
+        function orderByNameReverse(items){
+            return [...items].sort(function(a, b){
+                return $(b).find('span[class^="product-title"]').text().toLowerCase().localeCompare($(a).find('span[class^="product-title"]').text().toLowerCase());
+            });
+        }
+
+        function applyFilter(){
+            currentItems = selectOrdine(allItems, currentOrdine);
+            currentItems = filterCategories(currentItems, currentCategoria);
+            currentItems = filterPrice(currentItems, currentPrezzo);
+            paginate(currentItems, true);
+            $('#da_attivare').trigger('click');
+        }
+
     });
 
 
