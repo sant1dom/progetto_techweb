@@ -6,18 +6,18 @@
                 <div class="col-lg-10">
                     <div class="flat-carousel-box data-effect clearfix" data-gap="30" data-column="4" data-column2="2"
                          data-column3="1" data-dots="false" data-nav="true" data-auto="false">
-                        <div class="owl-carousel">
+                        <div class="owl-carousel" style="padding-left: 0">
                             <[foreach]>
                             <div class="product-item style4">
                                 <div class="product-thumb clearfix">
-                                    <a href="/skins/wizym/#" class="product-thumb">
+                                    <a href="/products/<[id]>" class="product-thumb">
                                         <img src="<[image]>" alt="image">
                                     </a>
                                 </div>
                                 <div class="product-info text-center clearfix">
-                                    <span class="product-title"><[name]></span>
+                                    <span class="product-title"><[nome]></span>
                                     <div class="price">
-                                        <span class="amount"><[price]></span>
+                                        <span class="amount"><[prezzo]></span>
                                     </div>
                                 </div>
                             </div>
@@ -31,27 +31,23 @@
     </div> <!-- /slider-style4 -->
     <section class="flat-about style4">
         <div class="container">
-            <div class="about-wrap clearfix">
-                <div class="about-image">
-                    <img src="/skins/wizym/image/homepage77.png" alt="image">
+            <div class="about-wrap clearfix flex flex-wrap justify-content-between align-items-center">
+                <div class="about-image h-100 text-center" style="float: none; width: 50%; height: 100%;">
+                    <img src="/skins/wizym/image/dipendente_1.png" alt="image">
                 </div>
-                <div class="about-inner">
-                    <div class="flat-divider margin-top50px"></div>
+                <div class="about-inner" style="float: none; width: 50%; height: 100%">
                     <div class="title-section">
-                        <h3 class="our-product-title"><a href="/skins/wizym/#"> Our Form Wizym </a></h3>
-                        <h1 class="our-product-main"><a href="/skins/wizym/#"> Welcome To Wizym </a></h1>
+                        <h1 class="our-product-main">Benvenuto su Wizym</h1>
                         <div class="our-product-image">
-                            <img src="/skins/wizym/image/homepage14.png" alt="image">
+                            <img src="/skins/wizym/image/bicchieri.png" alt="image">
                         </div>
                     </div> <!-- /title-section -->
                     <div class="about-content text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.</p>
+                        <p>DESCRIZIONE DA COMPLETARE</p>
                     </div>
                     <div class="elm-btn">
                         <a href="/skins/wizym/#"
-                           class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">LEARN
-                            MORE</a>
+                           class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">ABOUT US</a>
                     </div>
                 </div>
             </div>
@@ -62,70 +58,28 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title-section">
-                        <h3 class="our-product-title"><a href="/skins/wizym/#"> Our Wine </a></h3>
-                        <h1 class="our-product-main"><a href="/skins/wizym/#"> Top Products </a></h1>
+                        <h1 class="our-product-main"><a href="/products"> I Migliori Prodotti </a></h1>
                         <div class="our-product-image">
-                            <img src="/skins/wizym/image/homepage14.png" alt="image">
+                            <img src="/skins/wizym/image/bicchieri.png" alt="image">
                         </div>
                     </div> <!-- /title-section -->
                 </div>
-                <div class="col-lg-2">
-                    <div class="products-menu">
-                        <ul>
-                            <li class="active"><a href="/skins/wizym/#">Red Wine</a></li>
-                            <li><a href="/skins/wizym/#">Sparkling Wine</a></li>
-                            <li><a href="/skins/wizym/#">While Wine</a></li>
-                            <li><a href="/skins/wizym/#">Sparkling wine</a></li>
-                            <li><a href="/skins/wizym/#">Champagne</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-10">
+                <div class="col">
                     <div class="flat-carousel-box data-effect clearfix" data-gap="30" data-column="3" data-column2="2"
                          data-column3="1" data-dots="false" data-nav="true" data-auto="false">
-                        <div class="owl-carousel">
+                        <div class="owl-carousel" style="padding-right: 7rem">
+                            <[foreach]>
                             <div class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a href="/skins/wizym/#" class="product-thumb">
-                                        <img src="/skins/wizym/image/homepage79.png" alt="image">
+                                <div class="product-thumb clearfix" style="padding-top: 0">
+                                    <a href="/products/<[top_id]>" class="product-thumb">
+                                        <img src="<[top_image]>" alt="image">
                                     </a>
                                 </div>
                                 <div class="product-info text-center clearfix">
-                                    <span class="product-title">Laboure Chardonnay</span>
+                                    <span class="product-title"><[top_nome]></span>
                                     <div class="price">
                                         <ins>
-                                            <span class="amount">$19.99</span>
-                                        </ins>
-                                    </div>
-
-                                </div>
-                                <div class="product-review">
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like1"><i class="fa fa-refresh"
-                                                                                  aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like2"><i class="fa fa-heart-o"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like3"><i class="fa fa-shopping-cart"
-                                                                                  aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div> <!-- /product-item -->
-                            <div class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a href="/skins/wizym/#" class="product-thumb">
-                                        <img src="/skins/wizym/image/homepage80.png" alt="image">
-                                    </a>
-                                    <span class="new">Sale</span>
-                                </div>
-                                <div class="product-info text-center clearfix">
-                                    <span class="product-title">Josh Cellars Cabernet</span>
-                                    <div class="price">
-                                        <ins>
-                                            <span class="amount">$19.99</span>
-                                            <del>$38.99</del>
+                                            <span class="amount"><[top_prezzo]></span>
                                         </ins>
                                     </div>
                                 </div>
@@ -143,35 +97,7 @@
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
-                            <div class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a href="/skins/wizym/#" class="product-thumb">
-                                        <img src="/skins/wizym/image/homepage81.png" alt="image">
-                                    </a>
-                                </div>
-                                <div class="product-info text-center clearfix">
-                                    <span class="product-title">Apothic Red</span>
-                                    <div class="price">
-                                        <ins>
-                                            <span class="amount">$19.99</span>
-                                        </ins>
-                                    </div>
-
-                                </div>
-                                <div class="product-review">
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like1"><i class="fa fa-refresh"
-                                                                                  aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like2"><i class="fa fa-heart-o"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like3"><i class="fa fa-shopping-cart"
-                                                                                  aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div> <!-- /product-item -->
+                            <[/foreach]>
                         </div>
                     </div>
                 </div>

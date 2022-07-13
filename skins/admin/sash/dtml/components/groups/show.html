@@ -73,7 +73,7 @@
                             }).get()
                         },
                         success: function (data) {
-                            $('div.alert').alert('close');
+                            removeAlert();
                             let response = JSON.parse(data);
                             if (response['success']) {
                                 edit.val('edit');

@@ -3,3 +3,4 @@ function removeAlert () {
         $('div.alert').slideUp(200).alert('close');
     }, 3000);
 }
+

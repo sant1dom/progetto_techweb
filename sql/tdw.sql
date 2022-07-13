@@ -201,6 +201,7 @@ CREATE TABLE `prodotti` (
                             `dimensione` varchar(45) NOT NULL,
                             `quantita_disponibile` int unsigned NOT NULL,
                             `descrizione` text NOT NULL,
+                            `data_inserimento` DATETIME NOT NULL default NOW(),
                             `produttori_id` int NOT NULL,
                             `provenienze_id` int NOT NULL,
                             `categorie_id` int NOT NULL,
