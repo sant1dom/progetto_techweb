@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title-section">
-                        <h1 class="our-product-main"><a href="/products"> Aggiunti Di Recente </a></h1>
+                        <h1 class="our-product-main"><a href="/products"> Ultime Aggiunte </a></h1>
                         <div class="our-product-image">
                             <img src="/skins/wizym/image/bicchieri.png" alt="image">
                         </div>
@@ -26,11 +26,11 @@
                                     <span class="product-title"><[nome]></span>
                                     <div class="price">
                                         <ins>
-                                            <span class="amount"><[prezzo]>&euro;</span>
+                                            <span class="amount_new<[id]>"><[prezzo]>&euro;</span>
                                         </ins>
                                     </div>
-                                    <[sconto]>
                                 </div>
+                                <[sconto]>
                                 <div class="product-review">
                                     <[like]>
                                     <div class="add-cart">
@@ -99,12 +99,12 @@
                                     <div class="post-rating" id="rec<[top_id]>"></div>
                                     <div class="price">
                                         <ins>
-                                            <span class="amount"><[top_prezzo]>&euro;</span>
+                                            <span class="amount_rec<[top_id]>"><[top_prezzo]>&euro;</span>
                                         </ins>
                                     </div>
-                                    <[top_sconto]>
                                     <input type="hidden" value="<[voto_medio]>" id="voto-medio<[top_id]>">
                                 </div>
+                                <[top_sconto]>
                                 <div class="product-review">
                                     <[top_like]>
                                     <div class="add-cart">
@@ -138,19 +138,68 @@
             padding-right: 7rem;
         }
 
+        div.product-review {
+            opacity: 0;
+            top: 16px;
+            right: 0;
+            position: absolute;
+            visibility: hidden;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
         @media (max-width: 991px) {
             .sconto {
-                top: 0;
-                left: 0;
+                top: 0.5rem;
+                left: 0.5rem;
             }
             body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
             body > div.main-homepage-4 > div > div > section > div > div.col > div > div {
                 padding: 0;
             }
+
+            .flat-our-product.style4 .product-item .product-review {
+                opacity: 1;
+                right: 6%;
+                visibility: visible;
+                transition: none;
+            }
         }
     </style>
     <script>
         $(document).ready(function () {
+            $.each($('span[id^="percentuale_new"]'), function () {
+                let id = $(this).attr('id').replace('percentuale_new', '');
+                let percentuale = parseInt($(this).text().slice(1, -1));
+                if (!isNaN(percentuale)) {
+                    let amount = $('.amount_new' + id);
+                    let prezzo_base = amount.text().slice(0, -1);
+                    let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
+                    amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
+                    amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
+                }
+            });
+
+            $.each($('span[id^="percentuale_rec"]'), function () {
+                let id = $(this).attr('id').replace('percentuale_rec', '');
+                let percentuale = parseInt($(this).text().slice(1, -1));
+                if (!isNaN(percentuale)) {
+                    let amount = $('.amount_rec' + id);
+                    let prezzo_base = amount.text().slice(0, -1);
+                    console.log(prezzo_base);
+                    let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
+
+                    amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
+                    amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
+                }
+            });
+
+
+
+
             const recs = $('div[id^="rec"]');
             $.each(recs, function (index, value) {
                 let id = value.id.replace('rec', '');
@@ -165,5 +214,4 @@
                 });
             });
         });
-
     </script>

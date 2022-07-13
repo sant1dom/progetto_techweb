@@ -20,7 +20,7 @@ function home(): void
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
-            $prodotto['sconto'] = $prodotto['sconto'] ? " <span class='sconto' id='percentuale{$prodotto['id']}'>-{$prodotto['sconto']}%</span>" : "";
+            $prodotto['sconto'] = $prodotto['sconto'] ? " <span class='sconto' id='percentuale_new{$prodotto['id']}'>-{$prodotto['sconto']}%</span>" : "";
 
             $image = $mysqli->query("SELECT nome_file FROM immagini WHERE immagini.prodotto_id = {$prodotto['id']} LIMIT 1");
             $image = $image->fetch_assoc();
@@ -45,7 +45,6 @@ function home(): void
                                 </div>");
                 }
             }
-            $body->setContent('image', $image);
             foreach ($prodotto as $key => $value) {
                 $body->setContent($key, $value);
             }
@@ -65,7 +64,7 @@ function home(): void
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
-            $prodotto['top_sconto'] = $prodotto['top_sconto'] ? " <span class='sconto' id='percentuale{$prodotto['top_id']}'>-{$prodotto['top_sconto']}%</span>" : "";
+            $prodotto['top_sconto'] = $prodotto['top_sconto'] ? " <span class='sconto' id='percentuale_rec{$prodotto['top_id']}'>-{$prodotto['top_sconto']}%</span>" : "";
 
             $image = $mysqli->query("SELECT nome_file FROM immagini WHERE immagini.prodotto_id = {$prodotto['top_id']} LIMIT 1");
             $image = $image->fetch_assoc();
@@ -91,9 +90,6 @@ function home(): void
                 }
             }
             foreach ($prodotto as $key => $value) {
-                if ($key == 'voto_medio') {
-                    debug_to_console($value);
-                }
                 $body->setContent($key, $value);
             }
         }

@@ -10,6 +10,7 @@ function index()
         "Voto",
         "Commento",
         "Prodotto",
+        "Azioni"
     );
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/table.html");
     foreach ($colnames as $colname) {

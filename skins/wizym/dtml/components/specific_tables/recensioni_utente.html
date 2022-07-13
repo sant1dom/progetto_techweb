@@ -1,15 +1,9 @@
-<style>
-    .modal-backdrop {
-        z-index:0;
-    }
-</style>
 <[foreach]>
 <tr>
     <td class="clickable-row" data-href="/addresses/<[id]>">
-        <div class="post-rating" id="<[id]>">
-        </div>
+        <div class="post-rating" id="<[id]>"></div>
         <script>
-            $('#<[id]>').raty({
+            $('#' + '<[id]>').raty({
                 score: '<[voto]>',
                 readOnly: true,
                 starOff: 'fa fa-star-o',
@@ -23,46 +17,44 @@
         <[commento]>
     </td>
     <td class="clickable-row" data-href="/addresses/<[id]>">
-      <a href="/products/<[prodotto_id]>" class="menu-style"> <[nome_prodotto]></a>
+        <a href="/products/<[prodotto_id]>" class="menu-style"> <[nome_prodotto]></a>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="elm-btn">
-                <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-                   style="font-size: 13px"
-                   data-bs-toggle="modal"
-                   data-bs-target="#deleteconfirmation"
-                   data-bs-original-title="Cancella"
-                   data-id="/reviews/<[id]>/delete"
-                   href="/reviews/<[id]>/delete">ELIMINA</a>
-            </div>
+    <td>
+        <div class="elm-btn flex justify-content-start">
+            <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+               style="font-size: 13px; margin: 0; padding-left: 20px; padding-right: 20px;"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteconfirmation"
+               data-bs-original-title="Cancella"
+               data-id="/reviews/<[id]>/delete"
+               href="/reviews/<[id]>/delete">ELIMINA</a>
         </div>
     </td>
-    <[/foreach]>
+</tr>
+<[/foreach]>
 
-    <script>
-        $(document).ready(function() {
-            let delid = ''; //global variable
-            $('#deleteconfirmation').on('show.bs.modal', function(e) {
-                $('#delete_modal_text').html('Sei sicuro di voler eliminare questa recensione?');
-                delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
-            });
-            $('#remove-button').click(function() {
-                $.ajax({
-                    url: delid,
-                    type: 'POST',
-                    success: function(data) {
-                        $('#deleteconfirmation').modal('hide');
-                        let response = JSON.parse(data);
-                        if (response['success']) {
-                            window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
-                        } else {
-                            $('#error .modal-body .text-danger').text(response['error']);
-                            $('#error').modal('show');
-                        }
+<script>
+    $(document).ready(function () {
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function (e) {
+            $('#delete_modal_text').html('Sei sicuro di voler eliminare questa recensione?');
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+        $('#remove-button').click(function () {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function (data) {
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        window.location.href = window.location.pathname + "?" + $.param({'success': 'true'});
+                    } else {
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
                     }
-                });
+                }
             });
         });
-
-    </script>
+    });
+</script>

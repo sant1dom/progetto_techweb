@@ -33,3 +33,45 @@
         </div>
     </div>
 </div>
+
+<style>
+    .modal-backdrop {
+        z-index: 0;
+    }
+
+    .page-item.active.page-link-color {
+        z-index: 3; !important;
+        color: #fff; !important;
+        background-color: #c02323; !important;
+        border-color: #c02323; !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.table').DataTable({
+            "language": {
+                "lengthMenu": "Mostra _MENU_ record per pagina",
+                "zeroRecords": "Nessun record trovato",
+                "info": "Pagina _PAGE_ di _PAGES_",
+                "infoEmpty": "Nessun record trovato",
+                "infoFiltered": "(filtrato da _MAX_ record totali)",
+                "search": "Cerca",
+                "paginate": {
+                    "previous": "Precedente",
+                    "next": "Successivo"
+                }
+            },
+            "order": [[0, "asc"]]
+        });
+
+        $('.page-item.active .page-link').css({'background-color': '#c02323', 'border-color': '#c02323'});
+
+        $(document).ready(function () {
+            $(".clickable-row").css("cursor", "pointer");
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    })
+</script>
