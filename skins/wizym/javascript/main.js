@@ -761,7 +761,7 @@
         flatRetinaLogo();
         ajaxContactForm();
         removePreloader();
-        $( window ).load(function() {
+        $( window ).on('load', function() {
             inViewport();
         });
         

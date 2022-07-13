@@ -47,6 +47,17 @@
                 </div> <!-- /sidebar-inner -->
             </div> <!-- /sidebar -->
             <div class="prodotti">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ordina per:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button" id="ordina-prezzo-cres">Prezzo Crescente</button>
+                        <button class="dropdown-item" type="button" id="ordina-prezzo-decr">Prezzo Decrescente</button>
+                        <button class="dropdown-item" type="button" id="ordina-nome-az">Nome A-Z</button>
+                        <button class="dropdown-item" type="button" id="ordina-nome-za">Nome Z-A</button>
+                    </div>
+                </div>
                 <div class="product-content clearfix shop-right-grid flex flex-wrap justify-content-start">
                     <ul class="product style2 isotope-product clearfix">
                         <[foreach]>
@@ -175,6 +186,7 @@
             }
         });
 
+        // Comparsa dei filtri su mobile
         $('#filter').on('click', function () {
             $('.sidebar').slideToggle();
         });
@@ -214,6 +226,7 @@
             $('#da_attivare').trigger('click');
         });
 
+        // Paginazione
         function paginate(items, filter = false) {
             let numItems = items.length;
             let perPage = 9;
@@ -250,6 +263,40 @@
                 items.hide().slice(startItem, endItem).show().css({'position': 'relative', 'top': '', 'left': ''});
             });
         }
+
+        // Ordinamento in base al prezzo
+        $('#ordina-prezzo-cres').click(function () {
+            let items = allItems.sort(function (a, b) {
+                return parseFloat($(a).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(b).find('span[class^="amount"]').text().replace('€', ''));
+            });
+            paginate(items, true);
+            $('#da_attivare').trigger('click');
+        });
+
+        $('#ordina-prezzo-decr').click(function () {
+            let items = allItems.sort(function (a, b) {
+                return parseFloat($(b).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(a).find('span[class^="amount"]').text().replace('€', ''));
+            });
+            paginate(items, true);
+            $('#da_attivare').trigger('click');
+        });
+
+        // Ordinamento in base al titolo
+        $('#ordina-nome-az').click(function () {
+            let items = allItems.sort(function (a, b) {
+                return $(a).find('span[class^="product-title"]').text().localeCompare($(b).find('span[class^="product-title"]').text());
+            });
+            paginate(items, true);
+            $('#da_attivare').trigger('click');
+        });
+
+        $('#ordina-nome-za').click(function () {
+            let items = allItems.sort(function (a, b) {
+                return $(b).find('span[class^="product-title"]').text().localeCompare($(a).find('span[class^="product-title"]').text());
+            });
+            paginate(items, true);
+            $('#da_attivare').trigger('click');
+        });
     });
 
 

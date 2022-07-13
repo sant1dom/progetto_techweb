@@ -1,7 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
 
-use Ds\Set;
 
 function index()
 {
@@ -69,9 +68,6 @@ function index()
             }
         }
     } while ($product);
-
-    debug_to_console($cat);
-
 
     foreach ($cat as $key => $value) {
         $body->setContent("categoria_name", $key);
