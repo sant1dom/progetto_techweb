@@ -23,13 +23,22 @@
                 <!--Modal-->
                 <div id="dialog" class="modal">
                     <!-- Modal content -->
-                    <div class="modal-content text-center">
-                        <span class="close text-left">&times;</span>
-                        <p>Sei sicuro di voler annullare l'ordine?</p>
-                        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-                                type="submit" id="conferma" name="conferma" value="conferma">
-                            Sì
-                        </button>
+                    <div class="modal-dialog text-center" role="document">
+                        <div class="modal-content text-center" style="width: 90%">
+                            <div class="modal-body text-center ">
+                                <div class="flex justify-content-end ">
+                                    <button aria-label="Close" class="btn-close position-relative mb-3" id="close"
+                                            data-bs-dismiss="modal"><span aria-hidden="true"></span></button>
+                                </div>
+                                <p>Sei sicuro di voler annullare l'ordine?</p>
+                                <div class="flex justify-content-center">
+                                    <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                                            type="submit" id="conferma" name="conferma" value="conferma">
+                                        Sì
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <[table_prodotti]>
@@ -114,7 +123,7 @@
     var btn = document.getElementById("annulla");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementById("close");
 
     // When the user clicks on the button, open the modal
     btn.onclick = function () {
