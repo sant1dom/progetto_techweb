@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-between align-items-center mb-3" >
-    <h2 class="text-right">Informazioni personali</h2>
+<div class="d-flex justify-content-between align-items-center mb-3" id="messaggio-errore" >
+    <h2 class="text-right" >Informazioni personali</h2>
     <div class="mt-3 text-center d-flex justify-content-end align-items-end" id="modifica-button" >
         <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" type="submit" id="edit" name="edit" value="edit">
             MODIFICA LE INFORMAZIONI
@@ -30,11 +30,11 @@
     </div>
     <div class="col-md-12" id="cambio_password" style="display: none">
         <label class="labels">Inserisci la vecchia password</label>
-        <input type="password" class="form-control" id="password_v" name="password" value=" " >
+        <input type="password" class="form-control" id="password_v" name="password" value="vecchiap" >
         <label class="labels">Inserisci la nuova password</label>
-        <input type="password" class="form-control" id="password_n" name="password" value=" " >
+        <input type="password" class="form-control" id="password_n" name="password" value="nuovappp" >
         <label class="labels">Conferma la nuova password</label>
-        <input type="password" class="form-control" id="password_c" name="password" value=" ">
+        <input type="password" class="form-control" id="password_c" name="password" value="conferma">
     </div>
     <div class="d-flex justify-content-start align-items-start">
         <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"  style="font-size: 12px" type="submit" id="edit_p" name="edit_p" value="edit_p" >
@@ -45,6 +45,7 @@
 <script>
     $(document).ready(function(){
         $("#edit").click(function(){
+            removeAlert();
             if($(this).val()==='edit') {
                 $("#nome").removeAttr("readonly");
                 $("#cognome").removeAttr("readonly");
@@ -54,54 +55,61 @@
                 $(this).val('save');
                 $(this).html('<span class="fe fs-14"></span> SALVA</m>');
             }else{
-                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
-                    // Faccio la chiamata e in base al risultato lo mostro a schermo
-                    $.ajax({
-                        type: 'POST',
-                        url: '/myAccountEdit',
-                        data: {
-                            'nome': $('#nome').val(),
-                            'cognome': $('#cognome').val(),
-                            'numero_telefono': $('#numero_telefono').val(),
-                            'email': $('#email').val(),
-                        },
-                        success: function (data) {
-                            let response = JSON.parse(data);
-                            if (response['success']) {
-                                $('#edit').val('edit');
-                                $('#edit_p').show();
-                                $('#edit').html('<span class="fe fs-14"></span> MODIFICA LE INFORMAZIONI');
-                                $('#nome').attr('readonly', function (_, attr) {
-                                    return !attr
-                                });
-                                $('#cognome').attr('readonly', function (_, attr) {
-                                    return !attr
-                                });
-                                $('#numero_telefono').attr('readonly', function (_, attr) {
-                                    return !attr
-                                });
-                                $('#email').attr('readonly', function (_, attr) {
-                                    return !attr
-                                });
-                                $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['success'] + '</div>');
-                            } else if (response['error']) {
-                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['error'] + '</div>');
-                            } else {
-                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['warning'] + '</div>');
-                            }
-                        }
-                    });
-                } else {
-                    $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                        'Compilare tutti i campi correttamente' + '</div>');
-                }
+                   if($("#nome").val()!=='' && $("#cognome").val()!=='' && $("#numero_telefono").val()!=='' && $("#email").val()!==''){
+                   if($("#email").val().search("@")!==-1 && $("#email").val().search('.')!==-1) {
+                       $.ajax({
+                           type: 'POST',
+                           url: '/myAccountEdit',
+                           data: {
+                               'nome': $('#nome').val(),
+                               'cognome': $('#cognome').val(),
+                               'numero_telefono': $('#numero_telefono').val(),
+                               'email': $('#email').val(),
+                           },
+                           success: function (data) {
+                               let response = JSON.parse(data);
+                               if (response['success']) {
+                                   $('#edit').val('edit');
+                                   $('#edit_p').show();
+                                   $('#edit').html('<span class="fe fs-14"></span> MODIFICA LE INFORMAZIONI');
+                                   $('#nome').attr('readonly', function (_, attr) {
+                                       return !attr
+                                   });
+                                   $('#cognome').attr('readonly', function (_, attr) {
+                                       return !attr
+                                   });
+                                   $('#numero_telefono').attr('readonly', function (_, attr) {
+                                       return !attr
+                                   });
+                                   $('#email').attr('readonly', function (_, attr) {
+                                       return !attr
+                                   });
+                                   $('#messaggio-errore').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                       '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                       response['success'] + '</div>');
+                               } else if (response['error']) {
+                                   $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                       '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                       response['error'] + '</div>');
+                               } else {
+                                   $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                       '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                       response['warning'] + '</div>');
+                               }
+
+                           }
+                       });
+                       }else{
+                            $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                 'Inserisci una email valida</div>');
+                          }
+                   }else{
+                          $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            'I campi non possono essere vuoti</div>');
+                   }
+                removeAlert();
             }
         });
     })
@@ -109,6 +117,7 @@
 <script>
     $(document).ready(function(){
         $("#edit_p").click(function(){
+            removeAlert();
             if($(this).val()==='edit_p') {
                 $("#cambio_password").show(500);
                 $("#password_v").removeAttr("readonly");
@@ -119,44 +128,51 @@
                 $(this).val('save_p');
                 $(this).html('<span class="fe fs-14"></span> SALVA</m>');
             }else{
-                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
-                    // Faccio la chiamata e in base al risultato lo mostro a schermo
-                    $.ajax({
-                        type: 'POST',
-                        url: '/myAccountPassword',
-                        data: {
-                            'password_v': $('#password_v').val(),
-                            'password_n': $('#password_n').val(),
-                            'password_c': $('#password_c').val(),
-                        },
-                        success: function (data) {
-                            let response = JSON.parse(data);
-                            if (response['success']) {
-                                $('#edit_p').val('edit_p');
-                                $('#edit').show();
-                                $('#edit_p').removeAttr("hidden");
-                                $('#edit_p').html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD</m>');
-                                $('#cambio_password').attr("hidden",true);
-                                $('#annulla_p').attr("hidden",true);
-                                $('#modifica-button').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['success'] + '</div>');
-                            } else if (response['error']) {
-                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['error'] + '</div>');
-                            } else {
-                                $('#modifica-button').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n'+
-                                    response['warning'] + '</div>');
+                if($("#password_n").val().length>=8) {
+                    if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                        // Faccio la chiamata e in base al risultato lo mostro a schermo
+                        $.ajax({
+                            type: 'POST',
+                            url: '/myAccountPassword',
+                            data: {
+                                'password_v': $('#password_v').val(),
+                                'password_n': $('#password_n').val(),
+                                'password_c': $('#password_c').val(),
+                            },
+                            success: function (data) {
+                                let response = JSON.parse(data);
+                                if (response['success']) {
+                                    $('#edit_p').val('edit_p');
+                                    $('#edit').show(500);
+                                    $('#edit_p').removeAttr("hidden");
+                                    $('#edit_p').html('<span class="fe fs-14"></span> MODIFICA LA PASSWORD</m>');
+                                    $('#cambio_password').hide(500);
+                                    $('#annulla_p').attr("hidden", true);
+                                    $('#messaggio-errore').parent().append('<div class="alert  alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['success'] + '</div>');
+                                } else if (response['error']) {
+                                    $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['error'] + '</div>');
+                                } else {
+                                    $('#messaggio-errore').parent().append('<div class="alert alert-dismissible fade show" role="alert">' +
+                                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                        response['warning'] + '</div>');
+                                }
                             }
-                        }
-                    });
-                } else {
-                    $('#modifica-button').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        });
+                    } else {
+                        $('#messaggio-errore').parent().after('<div class="alert alert-dismissible fade show" role="alert">' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                            'Compilare tutti i campi correttamente' + '</div>');
+                    }
+                }else{
+                    $('#messaggio-errore').parent().after('<div class="alert alert-dismissible fade show" role="alert">' +
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                        'Compilare tutti i campi correttamente' + '</div>');
+                        'La password deve avere almeno 8 caratteri' + '</div>');
                 }
+                removeAlert();
             }
         });
     })

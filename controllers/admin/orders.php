@@ -48,11 +48,10 @@ function show()
         "Quantità",
     );
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];
-    $ordine= $mysqli-> query("SELECT ordini.id, u.email as email_utente, u.nome as nome_utente, u.cognome as cognome_utente, u.telefono as utente_telefono, m.numero_carta as carta_utente, m.nome_proprietario as nome_carta,
-       m.scadenza_carta as scadenza_carta, m.cvv as cvv, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, ordini.motivazione, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
+    $ordine= $mysqli-> query("SELECT ordini.id, u.email as email_utente, u.nome as nome_utente, u.cognome as cognome_utente, u.telefono as utente_telefono, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, ordini.motivazione, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
         CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione FROM tdw_ecommerce.ordini 
             JOIN tdw_ecommerce.users as u on u.id=ordini.user_id JOIN tdw_ecommerce.indirizzi as isp on isp.id= ordini.indirizzi_spedizione JOIN tdw_ecommerce.indirizzi as ifa on ifa.id= ordini.indirizzi_fatturazione
-            JOIN tdw_ecommerce.metodi_pagamento as m on m.id=ordini.metodi_pagamento WHERE ordini.id=".$id);
+             WHERE ordini.id=".$id);
 
     if ($ordine->num_rows == 0) {
         header("Location: /admin/orders");
@@ -88,9 +87,8 @@ function show()
 function accetta_ordine(){
     global $mysqli;
     $id = explode('/', $_SERVER['REQUEST_URI'])[3];
-    $numero_ordine= generateRandomString();
     $response = array();
-    $mysqli->query("UPDATE tdw_ecommerce.ordini SET stato='MEMORIZZATO', numero_ordine='$numero_ordine' WHERE id=".$id);
+    $mysqli->query("UPDATE tdw_ecommerce.ordini SET stato='MEMORIZZATO' WHERE id=".$id);
     if ($mysqli->affected_rows == 1) {
         $response['success'] = "Prodotto modificato con successo";
     } elseif ($mysqli->affected_rows == 0) {
