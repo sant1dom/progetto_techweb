@@ -10,8 +10,9 @@ function home(): void
     $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/home.html");
 
-    $oid = $mysqli->query("SELECT id, nome, prezzo
+    $oid = $mysqli->query("SELECT prodotti.id, prodotti.nome, prodotti.prezzo, o.percentuale as sconto
                                 FROM prodotti 
+                                LEFT JOIN offerte o on prodotti.id = o.prodotti_id
                                 WHERE prodotti.quantita_disponibile > 0 
                                 ORDER BY data_inserimento DESC, prodotti.id  
                                 LIMIT 10");
@@ -19,12 +20,30 @@ function home(): void
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
+            $prodotto['sconto'] = $prodotto['sconto'] ? " <span class='sconto' id='percentuale{$prodotto['id']}'>-{$prodotto['sconto']}%</span>" : "";
+
             $image = $mysqli->query("SELECT nome_file FROM immagini WHERE immagini.prodotto_id = {$prodotto['id']} LIMIT 1");
             $image = $image->fetch_assoc();
             if (!$image) {
                 $image = 'https://via.placeholder.com/500';
             } else {
                 $image = '/uploads/' . $image["nome_file"];
+            }
+            $body->setContent('image', $image);
+
+            if (isset($_SESSION["user"])) {
+                $like = $mysqli->query("SELECT * FROM users_has_prodotti_preferiti WHERE users_id = " . $_SESSION["user"]["id"] . " AND prodotti_id = " . $prodotto["id"]);
+                if ($like->num_rows == 0) {
+                    $body->setContent("like", "
+                                <div class='add-cart'>
+                                    <a class='like2'><i class='fa fa-heart-o'></i></a>
+                                </div>");
+                } else {
+                    $body->setContent("like", "
+                                <div class='add-cart'>
+                                    <a class='like2'><i class='fa fa-heart'></i></a>
+                                </div>");
+                }
             }
             $body->setContent('image', $image);
             foreach ($prodotto as $key => $value) {
@@ -46,6 +65,8 @@ function home(): void
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
+            $prodotto['top_sconto'] = $prodotto['top_sconto'] ? " <span class='sconto' id='percentuale{$prodotto['top_id']}'>-{$prodotto['top_sconto']}%</span>" : "";
+
             $image = $mysqli->query("SELECT nome_file FROM immagini WHERE immagini.prodotto_id = {$prodotto['top_id']} LIMIT 1");
             $image = $image->fetch_assoc();
             if (!$image) {
@@ -54,7 +75,25 @@ function home(): void
                 $image = '/uploads/' . $image["nome_file"];
             }
             $body->setContent('top_image', $image);
+
+            if (isset($_SESSION["user"])) {
+                $like = $mysqli->query("SELECT * FROM users_has_prodotti_preferiti WHERE users_id = " . $_SESSION["user"]["id"] . " AND prodotti_id = " . $prodotto["top_id"]);
+                if ($like->num_rows == 0) {
+                    $body->setContent("top_like", "
+                                <div class='add-cart'>
+                                    <a class='like2'><i class='fa fa-heart-o'></i></a>
+                                </div>");
+                } else {
+                    $body->setContent("top_like", "
+                                <div class='add-cart'>
+                                    <a class='like2'><i class='fa fa-heart'></i></a>
+                                </div>");
+                }
+            }
             foreach ($prodotto as $key => $value) {
+                if ($key == 'voto_medio') {
+                    debug_to_console($value);
+                }
                 $body->setContent($key, $value);
             }
         }

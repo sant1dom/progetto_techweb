@@ -1,15 +1,23 @@
 <div class="main-homepage-4">
     <div class="slider-style4">
         <div class="container">
+            <section class="flat-our-product style4" style="margin-top: 0; padding-top: 0; padding-bottom: 0; background-image: none;">
             <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
-                    <div class="flat-carousel-box data-effect clearfix" data-gap="30" data-column="4" data-column2="2"
+                <div class="col-lg-12">
+                    <div class="title-section">
+                        <h1 class="our-product-main"><a href="/products"> Aggiunti Di Recente </a></h1>
+                        <div class="our-product-image">
+                            <img src="/skins/wizym/image/bicchieri.png" alt="image">
+                        </div>
+                    </div> <!-- /title-section -->
+                </div>
+                <div class="col">
+                    <div class="flat-carousel-box data-effect clearfix" data-gap="30" data-column="3" data-column2="2"
                          data-column3="1" data-dots="false" data-nav="true" data-auto="false">
-                        <div class="owl-carousel" style="padding-left: 0">
+                        <div class="owl-carousel">
                             <[foreach]>
-                            <div class="product-item style4">
-                                <div class="product-thumb clearfix">
+                            <div class="product-item">
+                                <div class="product-thumb clearfix" style="padding-top: 0">
                                     <a href="/products/<[id]>" class="product-thumb">
                                         <img src="<[image]>" alt="image">
                                     </a>
@@ -17,16 +25,26 @@
                                 <div class="product-info text-center clearfix">
                                     <span class="product-title"><[nome]></span>
                                     <div class="price">
-                                        <span class="amount"><[prezzo]></span>
+                                        <ins>
+                                            <span class="amount"><[prezzo]>&euro;</span>
+                                        </ins>
+                                    </div>
+                                    <[sconto]>
+                                </div>
+                                <div class="product-review">
+                                    <[like]>
+                                    <div class="add-cart">
+                                        <a class="like3"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> <!-- /product-item -->
                             <[/foreach]>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
             </div> <!-- /row -->
+            </section>
         </div> <!-- /container -->
     </div> <!-- /slider-style4 -->
     <section class="flat-about style4">
@@ -47,7 +65,8 @@
                     </div>
                     <div class="elm-btn">
                         <a href="/skins/wizym/#"
-                           class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">ABOUT US</a>
+                           class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">ABOUT
+                            US</a>
                     </div>
                 </div>
             </div>
@@ -67,7 +86,7 @@
                 <div class="col">
                     <div class="flat-carousel-box data-effect clearfix" data-gap="30" data-column="3" data-column2="2"
                          data-column3="1" data-dots="false" data-nav="true" data-auto="false">
-                        <div class="owl-carousel" style="padding-right: 7rem">
+                        <div class="owl-carousel">
                             <[foreach]>
                             <div class="product-item">
                                 <div class="product-thumb clearfix" style="padding-top: 0">
@@ -77,23 +96,19 @@
                                 </div>
                                 <div class="product-info text-center clearfix">
                                     <span class="product-title"><[top_nome]></span>
+                                    <div class="post-rating" id="rec<[top_id]>"></div>
                                     <div class="price">
                                         <ins>
-                                            <span class="amount"><[top_prezzo]></span>
+                                            <span class="amount"><[top_prezzo]>&euro;</span>
                                         </ins>
                                     </div>
+                                    <[top_sconto]>
+                                    <input type="hidden" value="<[voto_medio]>" id="voto-medio<[top_id]>">
                                 </div>
                                 <div class="product-review">
+                                    <[top_like]>
                                     <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like1"><i class="fa fa-refresh"
-                                                                                  aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like2"><i class="fa fa-heart-o"></i></a>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a href="/skins/wizym/#" class="like3"><i class="fa fa-shopping-cart"
-                                                                                  aria-hidden="true"></i></a>
+                                        <a class="like3"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
@@ -104,220 +119,51 @@
             </div>
         </div>
     </section>
-    <section class="flat-products style1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="flat-latest mgb-mobi40">
-                        <div class="latest-title mb-mgtop0">
-                            <h3><a href="/skins/wizym/#">Latest Products</a></h3>
-                        </div>
-                        <div class="flat-next">
-                            <a href="/skins/wizym/#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                        </div>
-                        <article class="post-border post-top">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage28.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Laboure Chardonnay </a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$19.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage29.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Godiva Chocolates Gift</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$28.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage30.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Bertrana Cap Insula Red</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$22.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div> <!-- /col-lg-4 -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="flat-latest mgb-mobi40">
-                        <div class="latest-title title-between">
-                            <h3><a href="/skins/wizym/#">Top Rated Products</a></h3>
-                        </div>
-                        <div class="flat-next">
-                            <a href="/skins/wizym/#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                        </div>
-                        <article class="post-border post-top">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage31.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Red Wine Trio 1988</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$22.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage32.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Dreaming Wine Trio</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$28.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage33.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Hall Eighteen Seventy</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$49.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div> <!-- /col-lg-4 -->
-                <div class="col-lg-4 col-md-4 col-12">
-                    <div class="flat-latest">
-                        <div class="latest-title title-bottom">
-                            <h3><a href="/skins/wizym/#">Review Products</a></h3>
-                        </div>
-                        <div class="flat-next">
-                            <a href="/skins/wizym/#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                        </div>
-                        <article class="post-border post-top">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage34.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Brothers Patricia Pinot</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$24.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage35.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> Adelaide Hills Chardonnay</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$49.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="post-border post-between">
-                            <div class="featured-post">
-                                <img src="/skins/wizym/image/homepage36.png" alt="image">
-                            </div>
-                            <div class="content-post">
-                                <div class="post-title">
-                                    <span><a href="/skins/wizym/#"> 51 Eden Valley Riesling 1918</a></span>
-                                </div>
-                                <div class="post-dolar">
-                                    <span>$19.99</span>
-                                </div>
-                                <div class="post-rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div> <!-- /col-lg-4 -->
-            </div> <!-- /row -->
-        </div> <!-- /container -->
-    </section> <!-- /flat-dblog -->
 </div>
+    <style>
+        .sconto {
+            position: absolute;
+            z-index: 2;
+            color: white;
+            top: 0.5rem;
+            left: 0.5rem;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #c02323;
+            border-radius: 50%;
+            margin-bottom: 18px;
+        }
+        body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
+        body > div.main-homepage-4 > div > div > section > div > div.col > div > div  {
+            padding-right: 7rem;
+        }
+
+        @media (max-width: 991px) {
+            .sconto {
+                top: 0;
+                left: 0;
+            }
+            body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
+            body > div.main-homepage-4 > div > div > section > div > div.col > div > div {
+                padding: 0;
+            }
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            const recs = $('div[id^="rec"]');
+            $.each(recs, function (index, value) {
+                let id = value.id.replace('rec', '');
+                let voto_medio = $('#voto-medio' + id).val();
+                $(this).raty({
+                    score: voto_medio,
+                    readOnly: true,
+                    starOff: 'fa fa-star-o',
+                    starOn: 'fa fa-star text-warning',
+                    starHalf: 'fa fa-star-half-o text-warning',
+                    starType: 'i'
+                });
+            });
+        });
+
+    </script>
