@@ -47,16 +47,16 @@
                 </div> <!-- /sidebar-inner -->
             </div> <!-- /sidebar -->
             <div class="prodotti">
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown" style="height: 46px">
+                    <button class="btn dropdown-toggle ordina-per" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 100%; width: 30%">
                         Ordina per:
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" id="ordina-prezzo-cres">Prezzo Crescente</button>
-                        <button class="dropdown-item" type="button" id="ordina-prezzo-decr">Prezzo Decrescente</button>
-                        <button class="dropdown-item" type="button" id="ordina-nome-az">Nome A-Z</button>
-                        <button class="dropdown-item" type="button" id="ordina-nome-za">Nome Z-A</button>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="width: 30%">
+                        <li class="dropdown-item" id="ordina-prezzo-cres">Prezzo Crescente</li>
+                        <li class="dropdown-item" id="ordina-prezzo-decr">Prezzo Decrescente</li>
+                        <li class="dropdown-item" id="ordina-nome-az">Nome A-Z</li>
+                        <li class="dropdown-item" id="ordina-nome-za">Nome Z-A</li>
+                    </ul>
                 </div>
                 <div class="product-content clearfix shop-right-grid flex flex-wrap justify-content-start">
                     <ul class="product style2 isotope-product clearfix">
@@ -103,6 +103,11 @@
 
 
 <style>
+    .ordina-per, .ordina-per:hover, .ordina-per:focus {
+        width: 30%;
+        outline: none !important;
+    }
+
     .custom-range::-webkit-slider-thumb {
         background: #c21a1a;
     !important;
