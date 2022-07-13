@@ -58,6 +58,18 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="error">
+    <div class="modal-dialog modal-dialog-centered text-center " role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body text-center p-4 pb-5">
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <i class="icon icon-close fs-70 text-red lh-1 my-5 d-inline-block"></i>
+                <h4 class="text-danger tx-semibold"></h4>
+                <button aria-label="Procedi" class="btn btn-danger pd-x-25 font-weight-bold" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('#data-table').DataTable({
@@ -75,16 +87,19 @@
             },
             "order": [[0, "asc"]]
         });
-    });
-</script>
 
-<script>
-    $(document).ready(function (){
+        $(document).ready(function () {
+            $(".clickable-row").css("cursor", "pointer");
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+        // Controlla se utente è la tabella
         const params = new URLSearchParams(location.search);
         const url = new URL(location.href);
         if (!params.has('utente')) {
             if (params.has('success')) {
-                $(".card-header").after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                $(".card-header").first().after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     '<strong>Successo!</strong> Il record è stato eliminato con successo.</div>'
                 );
@@ -101,6 +116,30 @@
         if(url.toString().includes("users")){
             $("#delete_modal_text").text("Sei sicuro di voler disabilitare/riabilitare l'utente ?");
         }
-    })
+        removeAlert();
+
+        // CANCELLA RECORD
+        let delid = ''; //global variable
+        $('#deleteconfirmation').on('show.bs.modal', function(e) {
+            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
+        });
+
+        $('#remove-button').click(function() {
+            $.ajax({
+                url: delid,
+                type: 'POST',
+                success: function(data) {
+                    $('#deleteconfirmation').modal('hide');
+                    let response = JSON.parse(data);
+                    if (response['success']) {
+                        window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
+                    } else {
+                        $('#error .modal-body .text-danger').text(response['error']);
+                        $('#error').modal('show');
+                    }
+                }
+            });
+        });
+    });
 </script>
 <!-- END Table -->

@@ -166,9 +166,11 @@
                             $('input').val('');
                             $('textarea').val('');
                             $('select').val('').trigger('change');
+                            $('.richText-editor div').html('');
                             $('.card-header').after('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['success'] + '</div>');
+
                         } else {
                             $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
@@ -181,6 +183,8 @@
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Compilare tutti i campi correttamente' + '</div>');
             }
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            removeAlert();
         });
 
 

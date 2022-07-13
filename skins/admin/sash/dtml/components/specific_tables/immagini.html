@@ -1,0 +1,32 @@
+<[foreach]>
+<tr>
+    <td class="clickable-row" data-href="/uploads/<[nome_file]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block">
+                <h6 class="mb-0 fs-14 fw-semibold">
+                    <[id_immagine]>
+                </h6>
+            </div>
+        </div>
+    </td>
+    <td class="clickable-row" data-href="/uploads/<[nome_file]>">
+        <div class="d-flex">
+            <div class="mt-0 mt-sm-3 d-block text-center">
+                <img src="/uploads/<[nome_file]>" width="30%" height="auto" alt="Immagine">
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="g-2">
+            <a class="btn text-danger btn-sm"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteconfirmation"
+               data-bs-original-title="Cancella"
+               data-id="/admin/products/<[id]>/images/<[id_immagine]>/delete"
+               href="/admin/products/<[id]>/images/<[id_immagine]>/delete"><span
+                    class="fe fe-trash-2 fs-14"></span></a>
+        </div>
+    </td>
+
+
+<[/foreach]>

@@ -34,7 +34,7 @@
                                 <div class="product-review">
                                     <[like]>
                                     <div class="add-cart">
-                                        <a class="like3"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                        <a class="like3 cart"><i data-id="<[id]>" class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
@@ -108,7 +108,7 @@
                                 <div class="product-review">
                                     <[top_like]>
                                     <div class="add-cart">
-                                        <a class="like3"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                        <a class="like3"><i data-id="<[top_id]>" class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
@@ -151,6 +151,8 @@
             transition: all 0.3s ease-in-out;
         }
 
+        .cart-hovered { color: #c02323; !important; }
+
         @media (max-width: 991px) {
             .sconto {
                 top: 0.5rem;
@@ -189,7 +191,6 @@
                 if (!isNaN(percentuale)) {
                     let amount = $('.amount_rec' + id);
                     let prezzo_base = amount.text().slice(0, -1);
-                    console.log(prezzo_base);
                     let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
 
                     amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
@@ -197,7 +198,57 @@
                 }
             });
 
+            $('.heart').click(function () {
+                let i = $(this).find('i');
 
+                $.ajax({
+                    type: 'POST',
+                    url: '/products/'+ $(this).data('id') +'/like',
+                    data: {
+                        'like': i.hasClass('fa-heart') ? 0 : 1
+                    },
+                    success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response['success'] === 'Like') {
+                            i.removeClass('fa-heart-o').addClass('fa-heart');
+                        } else if (response['success'] === 'Dislike') {
+                            i.removeClass('fa-heart').addClass('fa-heart-o');
+                        }
+                    }
+                });
+            });
+
+            $('.cart').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/cart/add',
+                    data: {
+                        'id': $(this).data('id')
+                    },
+                    success: function (data) {
+                        let response = JSON.parse(data);
+                        if (response['success'] === "success") {
+                            let cart = $('#add-cart-header');
+                            cart.addClass('text-danger');
+                            setTimeout(function () {
+                                cart.removeClass('text-danger');
+                            }, 300);
+                            setTimeout(function () {
+                                cart.addClass('text-danger');
+                            }, 600);
+                            setTimeout(function () {
+                                cart.removeClass('text-danger');
+                            }, 900);
+                            setTimeout(function () {
+                                cart.addClass('text-danger');
+                            }, 1200);
+                            setTimeout(function () {
+                                cart.removeClass('text-danger');
+                            }, 1500);
+                        }
+                    }
+                });
+            });
 
 
             const recs = $('div[id^="rec"]');

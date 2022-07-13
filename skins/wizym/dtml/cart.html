@@ -307,11 +307,11 @@
                             dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "l");
                             updateTotal();
                         } else if (response['error']) {
-                            msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                            msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['error'] + '</div>');
                         } else {
-                            msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                            msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                                 '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                                 response['warning'] + '</div>');
                         }
@@ -321,7 +321,7 @@
                     }
                 });
             } else {
-                msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'La quanti&agrave; deve essere superiore a 0' + '</div>');
             }
@@ -347,11 +347,11 @@
                         }
 
                     } else if (response['error']) {
-                        msg_span.after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                             response['error'] + '</div>');
                     } else {
-                        msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                        msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                             response['warning'] + '</div>');
                     }
@@ -377,7 +377,7 @@
         $('#check-out-btn').click(function () {
             removeAlert();
             if ($('#cart-table-body').children().length === 0) {
-                msg_span.after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                msg_span.after('<div class="alert alert-dismissible fade show" role="alert">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
                     'Nessun elemento nel carrello.' + '</div>')
             } else {
@@ -386,81 +386,3 @@
         });
     });
 </script>
-
-<!--                            <div id="tab-order" class="tab-content">-->
-<!--                                <div class="order-complete">-->
-<!--                                    <p class="heading-order">Thank you. Your order has been received</p>-->
-<!--                                    <div class="order-wrap">-->
-<!--                                        <ul class="order-menu">-->
-<!--                                            <li>-->
-<!--                                                <h3>Order number:</h3>-->
-<!--                                                <p>1599</p>-->
-<!--                                            </li>-->
-<!--                                            <li>-->
-<!--                                                <h3>Date:</h3>-->
-<!--                                                <p>December 11, 2018</p>-->
-<!--                                            </li>-->
-<!--                                            <li>-->
-<!--                                                <h3>Total:</h3>-->
-<!--                                                <p>$88.95</p>-->
-<!--                                            </li>-->
-<!--                                            <li>-->
-<!--                                                <h3>Payment methob:</h3>-->
-<!--                                                <p>Cash on delivery</p>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                    <div class="order-details">-->
-<!--                                        <h1><a href="#">Order details</a></h1>-->
-<!--                                        <div class="order-table">-->
-<!--                                            <table class="order-table">-->
-<!--                                                <tbody>-->
-<!--                                                <tr class="cart-subtotal">-->
-<!--                                                    <td class="product-name">PRODUCT</td>-->
-<!--                                                    <td class="total" data-title="Subtotal"><span-->
-<!--                                                            class="woocommerce-Price-amount amount"><span-->
-<!--                                                            class="woocommerce-Price-currencySymbol">$</span>TOTAL</span>-->
-<!--                                                    </td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="cart-subtotal">-->
-<!--                                                    <td class="product-name">Bougrier Rose dAnjou</td>-->
-<!--                                                    <td class="total" data-title="Subtotal"><span-->
-<!--                                                            class="woocommerce-Price-amount amount"><span-->
-<!--                                                            class="woocommerce-Price-currencySymbol">$</span>29.99</span>-->
-<!--                                                    </td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="order-total">-->
-<!--                                                    <td class="product-name">Olema Rose Cotes De</td>-->
-<!--                                                    <td class="total" data-title="Total"><span-->
-<!--                                                            class="woocommerce-Price-amount amount"><span-->
-<!--                                                            class="woocommerce-Price-currencySymbol">$</span>36.89</span>-->
-<!--                                                    </td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="order-total">-->
-<!--                                                    <td class="product-name">Total</td>-->
-<!--                                                    <td class="total text-d90000 font-weight-500" data-title="Total">-->
-<!--                                                        <span class="woocommerce-Price-amount amount"><span-->
-<!--                                                                class="woocommerce-Price-currencySymbol ">$</span>66.88</span>-->
-<!--                                                    </td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="order-total">-->
-<!--                                                    <td class="product-name">Shipping</td>-->
-<!--                                                    <td class="total" data-title="Total"> Free Shipping</td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="order-total">-->
-<!--                                                    <td class="product-name">Payment methob:</td>-->
-<!--                                                    <td class="total" data-title="Total"> Cash on delivery</td>-->
-<!--                                                </tr>-->
-<!--                                                <tr class="order-total">-->
-<!--                                                    <td class="title product-name">ORDER TOTAL</td>-->
-<!--                                                    <td class="total text-d90000 font-weight-500" data-title="Total">-->
-<!--                                                        <span class="woocommerce-Price-amount amount"><span-->
-<!--                                                                class="woocommerce-Price-currencySymbol">$</span>69.99</span>-->
-<!--                                                    </td>-->
-<!--                                                </tr>-->
-<!--                                                </tbody>-->
-<!--                                            </table>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->

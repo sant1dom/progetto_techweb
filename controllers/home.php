@@ -36,12 +36,12 @@ function home(): void
                 if ($like->num_rows == 0) {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart-o'></i></a>
+                                    <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart-o'></i></a>
                                 </div>");
                 } else {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart'></i></a>
+                                    <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart'></i></a>
                                 </div>");
                 }
             }
@@ -80,12 +80,12 @@ function home(): void
                 if ($like->num_rows == 0) {
                     $body->setContent("top_like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart-o'></i></a>
+                                    <a class='like2 heart' data-id='{$prodotto["top_id"]}'><i class='fa fa-heart-o'></i></a>
                                 </div>");
                 } else {
                     $body->setContent("top_like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart'></i></a>
+                                    <a class='like2 heart' data-id='{$prodotto["top_id"]}'><i class='fa fa-heart'></i></a>
                                 </div>");
                 }
             }

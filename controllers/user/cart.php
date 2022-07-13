@@ -79,6 +79,42 @@ function cart(): void
     $main->close();
 }
 
+function add(): void
+{
+    $response = array();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['id'])) {
+            global $mysqli;
+            $id = $_POST['id'];
+
+            $oid = $mysqli->query("SELECT products_id FROM cart WHERE users_id = {$_SESSION["user"]["id"]} AND products_id = {$id}");
+
+            if (isset($_POST['quantity'])) {
+                $quantity = $_POST['quantity'];
+
+                if ($oid->num_rows == 0) {
+                    $mysqli->query("INSERT INTO cart (users_id, products_id, quantity) VALUES ({$_SESSION["user"]["id"]}, {$id}, {$quantity})");
+                    $response['success'] = "success";
+                } else {
+                    //altrimenti aggiungi 1 alla quantità
+                    $mysqli->query("UPDATE cart SET quantity = quantity + $quantity WHERE users_id = {$_SESSION["user"]["id"]} AND products_id = {$id}");
+                    $response['success'] = "success";
+                }
+            } else {
+                if ($oid->num_rows == 0) {
+                    $mysqli->query("INSERT INTO cart (users_id, products_id) VALUES ({$_SESSION["user"]["id"]}, {$id})");
+                    $response['success'] = "success";
+                } else {
+                    //altrimenti aggiungi 1 alla quantità
+                    $mysqli->query("UPDATE cart SET quantity = quantity + 1 WHERE users_id = {$_SESSION["user"]["id"]} AND products_id = {$id}");
+                    $response['success'] = "success";
+                }
+            }
+        }
+    }
+    exit(json_encode($response));
+}
+
 function edit()
 {
     $response = array();

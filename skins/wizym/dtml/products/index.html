@@ -2,11 +2,14 @@
     <div class="container">
         <div class="d-lg-flex price-filter clearfix">
             <div class="elm-btn text-center mb-3" id="filter">
-                <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">Mostra
-                    Filtri</a>
+                <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">MOSTRA
+                    FILTRI</a>
             </div>
             <div class="barra sidebar">
                 <div class="sidebar-inner">
+                    <div class="elm-btn text-center mb-3" id="reset-filters">
+                        <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">RESETTA FILTRI</a>
+                    </div>
                     <div class="widget widget-filter">
                         <h2 class="widget-title text-center">Per prezzo</h2>
                         <div class="price-filter clearfix">
@@ -47,9 +50,6 @@
                         <li class="dropdown-item" id="ordina-nome-az">Nome A-Z</li>
                         <li class="dropdown-item" id="ordina-nome-za">Nome Z-A</li>
                     </ul>
-                </div>
-                <div class="elm-btn text-center mb-3" id="reset-filters">
-                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">Resetta Filtri</a>
                 </div>
                 <div class="product-content clearfix shop-right-grid flex flex-wrap justify-content-start">
                     <ul class="product style2 isotope-product clearfix">
@@ -143,6 +143,19 @@
         margin-bottom: 18px;
     }
 
+    div.product-review {
+        opacity: 0;
+        top: 16px;
+        right: 0;
+        position: absolute;
+        visibility: hidden;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
     @media (max-width: 991px) {
         .prodotti, .barra {
             width: 100%;
@@ -161,6 +174,14 @@
         .sconto {
             top: 2rem;
             left: 5.5rem;
+        }
+
+        .product .product-item .product-review {
+            opacity: 1;
+            top: 16%;
+            right: 16%;
+            visibility: visible;
+            transition: none;
         }
     }
 </style>
@@ -186,6 +207,26 @@
                 amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
                 amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
             }
+        });
+
+        $('.heart').click(function () {
+            let i = $(this).find('i');
+
+            $.ajax({
+                type: 'POST',
+                url: '/products/'+ $(this).data('id') +'/like',
+                data: {
+                    'like': i.hasClass('fa-heart') ? 0 : 1
+                },
+                success: function (data) {
+                    let response = JSON.parse(data);
+                    if (response['success'] === 'Like') {
+                        i.removeClass('fa-heart-o').addClass('fa-heart');
+                    } else if (response['success'] === 'Dislike') {
+                        i.removeClass('fa-heart').addClass('fa-heart-o');
+                    }
+                }
+            });
         });
 
         // Paginazione

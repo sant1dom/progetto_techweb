@@ -6,7 +6,7 @@ function contacts (): void
     $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT']."/skins/wizym/dtml/contacts.html");
 
-    $main->setContent("title", "CONTACT US");
+    $main->setContent("title", "Contattaci");
     $main->setContent("content",$body->get());
     $main->close();
 }

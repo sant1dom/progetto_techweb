@@ -489,6 +489,34 @@ LOCK TABLES `users_has_prodotti_preferiti` WRITE;
 /*!40000 ALTER TABLE `users_has_prodotti_preferiti` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `personalizzazione`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `personalizzazione` (
+                    `id` int NOT NULL AUTO_INCREMENT,
+                    `logo` varchar(255) NOT NULL,
+                    `phone` varchar(255) NOT NULL,
+                    `email` varchar(255) NOT NULL,
+                    `address` varchar(255) NOT NULL,
+                    `country` varchar(255) NOT NULL,
+                    `descrizione` text NOT NULL,
+                    `titolo_descrizione` varchar(255) NOT NULL,
+                    `descrizione_estesa` varchar(255) NOT NULL,
+                    `immagine_about` varchar(255) NOT NULL,
+                 PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personalizzazione`
+--
+
+LOCK TABLES `personalizzazione` WRITE;
+/*!40000 ALTER TABLE `personalizzazione` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personalizzazione` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

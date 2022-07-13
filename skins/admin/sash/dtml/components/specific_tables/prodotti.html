@@ -74,41 +74,6 @@
 <[/foreach]>
 
 <script>
-    $(document).ready(function () {
-        $(".clickable-row").css("cursor", "pointer");
-        $(".clickable-row").click(function () {
-            window.location = $(this).data("href");
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        let delid = ''; //global variable
-        $('#deleteconfirmation').on('show.bs.modal', function(e) {
-            delid = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
-        });
-
-        $('#remove-button').click(function() {
-            $.ajax({
-                url: delid,
-                type: 'POST',
-                success: function(data) {
-                    $('#deleteconfirmation').modal('hide');
-                    let response = JSON.parse(data);
-                    if (response['success']) {
-                        window.location.href = window.location.pathname+"?"+$.param({'success':'true'});
-                    } else {
-                        $('#error .modal-body .text-danger').text(response['error']);
-                        $('#error').modal('show');
-                    }
-                }
-            });
-        });
-    });
-</script>
-
-<script>
     $(document).ready(function() {
         $('.card-header').append('<a class="btn btn-primary" href="/admin/products/create"><span class="fe fe-plus fs-14"></span> Aggiungi</a>');
     })

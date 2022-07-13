@@ -42,7 +42,7 @@ function index()
                 $cat[$product["categoria"]]++;
             }
 
-            $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = {$product['id']} LIMIT 1");
+            $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = {$product['id']} ORDER BY immagini.id LIMIT 1 ");
             $image = $image->fetch_assoc();
             if (!$image) {
                 $product['image'] = 'https://via.placeholder.com/500';
@@ -59,12 +59,12 @@ function index()
                 if ($like->num_rows == 0) {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart-o'></i></a>
+                                    <a class='like2 heart' data-id='{$product["id"]}'><i class='fa fa-heart-o'></i></a>
                                 </div>");
                 } else {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2'><i class='fa fa-heart'></i></a>
+                                    <a class='like2 heart' data-id='{$product["id"]}'><i class='fa fa-heart'></i></a>
                                 </div>");
                 }
             }
