@@ -28,6 +28,7 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Recensioni', 'Elimina recensione', '/reviews/%/delete', 'user/reviews.php', 'delete');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Like', 'Visualizzazione Like', '/likes', 'user/like.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Like', 'Toggle Like Prodotto', '/products/%/like', 'user/like.php', 'like');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Categorie', 'Visualizza categoria', '/categories/%', 'categories.php', 'show');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/index.php', 'admin');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Home admin', 'Visualizza home admin', '/admin', 'admin/orders.php', 'index');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione ordini', 'Visualizza ordini', '/admin/orders', 'admin/orders.php', 'index');
