@@ -1,0 +1,62 @@
+<h2 class="text-right mb-3" id="messaggio-errore">Informazioni personali</h2>
+
+<div class="row justify-content-between">
+    <div class="col-6">
+        <label class="labels" for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="<[nome]>" required readonly></div>
+    <div class="col-6">
+        <label class="labels" for="cognome">Cognome</label>
+        <input type="text" class="form-control" id="cognome" name="cognome" value="<[cognome]>" required readonly></div>
+</div>
+<div class="row justify-content-between">
+    <div class="col-6">
+        <label class="labels" for="numero_telefono">Numero di telefono</label>
+        <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" value="<[telefono]>"
+               required readonly>
+    </div>
+    <div class="col-6">
+        <label class="labels" for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="<[email]>" required readonly>
+    </div>
+
+
+    <div class="col-md-12" id="cambio-password-form" style="display: none">
+        <label class="labels" for="password_v">Inserisci la vecchia password</label>
+        <input type="password" class="form-control" id="password_v" name="password" value="" readonly>
+        <label class="labels" for="password_n">Inserisci la nuova password</label>
+        <input type="password" class="form-control" id="password_n" name="password" value="" readonly>
+        <label class="labels" for="password_c">Conferma la nuova password</label>
+        <input type="password" class="form-control" id="password_c" name="password" value="" readonly>
+    </div>
+
+
+    <div class="col-6" id="password-button-container">
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                style="font-size: 12px" id="edit-password-button" name="edit-password-button"
+                value="edit-password">
+            MODIFICA LA PASSWORD
+        </button>
+    </div>
+    <div class="col-6" style="display: none" id="annulla-password-button-container">
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                style="font-size: 12px" id="annulla-password-button" name="annulla-edit-button"
+                value="annulla-password-button">
+            ANNULLA
+        </button>
+    </div>
+    <div class="col-6" style="display: none" id="annulla-button-container">
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                style="font-size: 12px" id="annulla-edit-button" name="annulla-edit-button" value="annulla-edit-button">
+            ANNULLA
+        </button>
+    </div>
+    <div class="col-6" id="modifica-button-container">
+        <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                style="font-size: 12px;" id="edit-info-button" name="edit-info-button" value="edit-info">
+            AGGIORNA INFORMAZIONI
+        </button>
+    </div>
+</div>
+
+<script src="/skins/wizym/customJs/account.js"></script>
+

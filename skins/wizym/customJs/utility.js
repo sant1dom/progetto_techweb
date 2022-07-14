@@ -5,6 +5,24 @@ $(document).ready(function () {
     clickable_row.click(function () {
         window.location = $(this).data("href");
     });
+
+    $('.table').DataTable({
+        "language": {
+            "lengthMenu": "Mostra _MENU_ record per pagina",
+            "zeroRecords": "Nessun record trovato",
+            "info": "Pagina _PAGE_ di _PAGES_",
+            "infoEmpty": "Nessun record trovato",
+            "infoFiltered": "(filtrato da _MAX_ record totali)",
+            "search": "Cerca",
+            "paginate": {
+                "previous": "Precedente",
+                "next": "Successivo"
+            }
+        },
+        "order": [[0, "asc"]]
+    });
+
+    $('.page-item.active .page-link').css({'background-color': '#c02323', 'border-color': '#c02323'});
 });
 
 //Rimuove gli alert con uno slideUp dopo X secondi
