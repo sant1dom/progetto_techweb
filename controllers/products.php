@@ -45,7 +45,7 @@ function index()
             $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = {$product['id']} ORDER BY immagini.id LIMIT 1 ");
             $image = $image->fetch_assoc();
             if (!$image) {
-                $product['image'] = 'https://via.placeholder.com/500';
+                $product['image'] = 'https://via.placeholder.com/250x500';
             } else {
                 $product['image'] = '/uploads/' . $image["image"];
             }
@@ -59,12 +59,12 @@ function index()
                 if ($like->num_rows == 0) {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2 heart' data-id='{$product["id"]}'><i class='fa fa-heart-o'></i></a>
+                                    <a class='like2 heart'><i class='fa fa-heart-o' data-id='{$product["id"]}'></i></a>
                                 </div>");
                 } else {
                     $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2 heart' data-id='{$product["id"]}'><i class='fa fa-heart'></i></a>
+                                    <a class='like2 heart'><i class='fa fa-heart' data-id='{$product["id"]}'></i></a>
                                 </div>");
                 }
             }
@@ -87,7 +87,6 @@ function show()
     $main = setupMainUser();
     $main->setContent("title", "Dettaglio Prodotto");
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/products/show.html");
-    $likebutton = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/products/likebutton.html");
     $id = explode('/', $_SERVER['REQUEST_URI'])[2];
     $prodotto = $mysqli->query("SELECT prodotti.id,
                                            prodotti.nome as nome_prodotto,
@@ -110,12 +109,7 @@ function show()
     } else {
         $prodotto = $prodotto->fetch_assoc();
         foreach ($prodotto as $key => $value) {
-            if ($key !== "id") {
-                $body->setContent($key, $value);
-            } else {
-                $likebutton->setContent($key, $value);
-                $body->setContent($key, $value);
-            }
+            $body->setContent($key, $value);
         }
         $body->setContent("disponibilita", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
     }
@@ -127,6 +121,9 @@ function show()
     if ($offerta) {
         $body->setContent("percentuale", $offerta['percentuale']);
         $body->setContent("data_fine", $offerta['data_fine']);
+    } else {
+        $body->setContent("percentuale", "");
+        $body->setContent("data_fine", "");
     }
     // Per le recensioni del prodotto
     $recensioni = $mysqli->query("SELECT ROUND(AVG(voto),1) as voto_medio, COUNT(*) as numero
@@ -173,26 +170,25 @@ function show()
                                 WHERE users_id = " . $_SESSION['user']["id"] . " 
                                     AND prodotti_id = $id");
         if ($like->num_rows == 0) {
-            $likebutton->setContent("start_value", "fa fa-heart-o");
+            $body->setContent("like", "<div class='heart mg-item-ct m-0' style='cursor: pointer'><i class='fa fa-heart-o' aria-hidden='true' data-id='$id'></i></div>");
         } else {
-            $likebutton->setContent("start_value", "fa fa-heart");
+            $body->setContent("like", "<div class='heart mg-item-ct m-0' style='cursor: pointer'><i class='fa fa-heart' aria-hidden='true' data-id='$id'></i></div>");
         }
-        $body->setContent("like", $likebutton->get());
     } else {
         $body->setContent("like", "");
     }
     //Controllo per vedere se un utente può effettuare una recensione
-    if (isset($_SESSION['user']['email'])){
-        $utente= $mysqli->query("SELECT id as id_utente
+    if (isset($_SESSION['user']['email'])) {
+        $utente = $mysqli->query("SELECT id as id_utente
                                     FROM tdw_ecommerce.users 
-                                    WHERE email = '".$_SESSION['user']['email']."'");
+                                    WHERE email = '" . $_SESSION['user']['email'] . "'");
         $utente = $utente->fetch_assoc();
-        $recensione_provato= $mysqli->query("SELECT * 
+        $recensione_provato = $mysqli->query("SELECT * 
                                     FROM tdw_ecommerce.ordini as o JOIN ordini_has_prodotti as op on o.id=op.ordini_id
-                                    WHERE o.stato='CONSEGNATO' AND o.user_id = ".$utente['id_utente']." AND op.prodotti_id = '$prodotto[id]'");
-        $recensione_esistente= $mysqli->query("SELECT * 
+                                    WHERE o.stato='CONSEGNATO' AND o.user_id = " . $utente['id_utente'] . " AND op.prodotti_id = '$prodotto[id]'");
+        $recensione_esistente = $mysqli->query("SELECT * 
                                     FROM tdw_ecommerce.recensioni 
-                                    WHERE users_id = ".$utente['id_utente']." AND prodotti_id = '$prodotto[id]'");
+                                    WHERE users_id = " . $utente['id_utente'] . " AND prodotti_id = '$prodotto[id]'");
         if ($recensione_provato->num_rows == 0) {
             $body->setContent("recensione", "false");
         } elseif ($recensione_esistente->num_rows == 0) {

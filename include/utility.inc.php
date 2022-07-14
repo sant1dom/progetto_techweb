@@ -13,6 +13,8 @@ function setupMainAdmin()
 function setupMainUser()
 {
     checkSession();
+    global $mysqli;
+
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/main.html");
     // Default set delle parti statiche
     if (isset($_SESSION['user'])) {
@@ -26,8 +28,22 @@ function setupMainUser()
         $unlogged->setContent("referrer", "?referrer=".urlencode($_SERVER['REQUEST_URI']));
         $main->setContent("user_bar", $unlogged->get());
     }
-    $main->setContent("header", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/header.html"))->get());
-    $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html"))->get());
+
+    $header = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/header.html");
+    $footer = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html");
+    $personalizzazione = $mysqli->query("SELECT logo FROM personalizzazione WHERE id = 1")->fetch_assoc();
+    if ($personalizzazione) {
+        if ($personalizzazione["logo"] != "") {
+            $header->setContent("logo", "/uploads/".$personalizzazione["logo"]);
+            $footer->setContent("logo", "/uploads/".$personalizzazione["logo"]);
+        } else {
+            $header->setContent("logo", "https://via.placeholder.com/500");
+            $footer->setContent("logo", "https://via.placeholder.com/500");
+        }
+    }
+
+    $main->setContent("header", $header->get());
+    $main->setContent("footer", $footer->get());
     return $main;
 }
 

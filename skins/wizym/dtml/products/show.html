@@ -1,3 +1,6 @@
+<script src="/skins/wizym/customJs/recensioni.js"></script>
+<script src="/skins/wizym/customJs/products.js"></script>
+
 <div class="main-shop-detail-review">
     <section class="main-shop-detail">
         <div class="container">
@@ -31,6 +34,7 @@
                     <div class="content-wrap">
                         <h2 class="heading"><a href=""><[nome_prodotto]></a></h2>
                         <div id="stars"></div>
+                        <p> <[numero_recensioni]> recensioni</p>
                         <h2 class="dolar"><[prezzo]>€</h2>
                         <p class="timer"></p>
                         <div class="info-content">
@@ -55,21 +59,26 @@
                                         <span class="note">Disponibilità: </span> <[disponibilita]>
                                     </span>
                                 </li>
+                                <li>
+                                    <span>
+                                        <span class="note">Dimensione: </span> <[dimensione]> l
+                                    </span>
+                                </li>
                             </ul>
                         </div>
-                        <div class="size clearfix">
-                            <span>Dimensione: </span>
-                            <span><[dimensione]> l</span>
-                        </div>
                         <div class="content-cart clearfix">
-                            <form class="cart clearfix" method="post">
-                                <div class="quantity mg-item-ct">
-                                    <input type="number" step="1" min="1" name="quantity" id="quantity" value="1" title="Qty"
+                            <form class="cart clearfix" method="post"
+                                  style="display: flex; justify-content: space-between; align-content: center">
+                                <div class="quantity mg-item-ct m-0">
+                                    <input type="number" step="1" min="1" name="quantity" id="quantity" value="1"
+                                           title="Qty"
                                            class="input-text qty text" size="4">
                                 </div>
-                                <div class="elm-btn mg-item-ct">
-                                    <a style="cursor: pointer; " class="cart-btn themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontall" data-id="<[id]>">
-                                        <i class="fa fa-shopping-cart"  aria-hidden="true"></i> AGGIUNGI AL CARRELLO </a>
+                                <div class="elm-btn mg-item-ct m-0">
+                                    <a style="cursor: pointer; "
+                                       class="cart-btn themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontall">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true" data-id="<[id]>"></i> AGGIUNGI
+                                        AL CARRELLO </a>
                                 </div>
                                 <[like]>
                             </form>
@@ -87,6 +96,28 @@
                             <p><[descrizione]></p>
                         </div>
                         <div id="tab-reviews" class="tab-content" style="padding: 2rem">
+                            <span id="msg"></span>
+                            <input type="hidden" name="recensione" id="recensione" value="<[recensione]>">
+                            <input type="hidden" name="voto" id="voto">
+                            <input type="hidden" name="voto" id="id_prodotto" value="<[id]>">
+                            <div class="comment-respond" id="recensione-form"
+                                 style="display: none; margin: 0">
+                                <p style="font-size: 20px">Aggiungi una recensione</p>
+                                <div class="clearfix"></div>
+                                <span>Il tuo voto:&nbsp;</span>
+                                <div class="post-rating" id="your-rating"></div>
+
+                                <div class="comment-form-comment">
+                                    <!-- <label>Comment</label>  -->
+                                    <textarea class="m-0" name="comment" id="comment" placeholder="Comment"
+                                              required="required"></textarea>
+                                </div>
+
+                                <div class="submit-form text-center">
+                                    <a style="cursor: pointer; margin-top: 1rem; margin-bottom: 1rem" type="submit"
+                                       class="submit btn btn-styl hvr-shutter-out-horizontal" id="submit">INVIA</a>
+                                </div>
+                            </div>  <!-- /comment-respond -->
                             <div id="reviews" class="woocommerce-Reviews">
                                 <[foreach]>
                                 <div class="post-bottom-second post-bottom mb-4">
@@ -104,162 +135,14 @@
                                 <[/foreach]> <!-- /post-bottom-second -->
                             </div>
                         </div>
-                        <input type="hidden" name="recensione" id="recensione" value="<[recensione]>">
-                        <input type="hidden" name="voto" id="voto">
-                        <input type="hidden" name="voto" id="id_prodotto" value="<[id]>">
-                        <div class="comment-respond" id="recensione-form"
-                             style="padding: 2rem; display: none; margin: 0rem">
-                            <p style="font-size: 20px">Aggiungi una recensione</p>
-                            <div class="clearfix"></div>
-                            <h3>Il tuo voto</h3>
-                            <div class="post-rating" id="your-rating">
-                            </div>
-                            <p class="comment-form-comment">
-                                <!-- <label>Comment</label>  -->
-                                <textarea name="comment" id="comment" placeholder="Comment" required="required"></textarea>
-                            </p>
-                            <p class="submit-form">
-                                <button name="submit" type="submit"
-                                        class="submit btn btn-styl hvr-shutter-out-horizontal" id="submit">INVIA
-                                </button>
-                            </p>
-
-                        </div>  <!-- /comment-respond -->
                     </div>
                 </div>
             </div> <!-- /row-->
         </div> <!-- /container -->
     </section> <!-- /main-shop-detail -->
+
+    <input type="hidden" id="percentuale" value="<[percentuale]>">
+    <input type="hidden" id="data-fine" value="<[data_fine]>">
+    <input type="hidden" id="voto-medio" value="<[voto_medio]>">
+
 </div>
-
-<script>
-    $(document).ready(function () {
-        let prezzo_base = $('.dolar').text().slice(0, -1);
-        let prezzo_scontato = prezzo_base * ((100 - '<[percentuale]>') / 100);
-        if ('<[percentuale]>' !== '') {
-            $('.dolar').html('<p style="color: #c02323;">-<[percentuale]>%</p>' + prezzo_scontato.toFixed(2) + '€');
-            $('.dolar').after('<p>Prezzo consigliato: <s>' + parseFloat(prezzo_base).toFixed(2) + '€</s></p>');
-            // Per il countdown
-            let countDownDate = new Date('<[data_fine]>').getTime();
-            // Aggiorna una volta al secondo
-            let x = setInterval(function () {
-                // Data di oggi
-                let now = new Date().getTime();
-
-                // Trovo la distanza
-                let distance = countDownDate - now;
-
-                // Calcolo per i giorni, ore, minuti e secondi
-                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                $('.timer').html('<p><strong style="color: #c02323;">Scade tra:</strong> ' + days + ' giorni ' + hours + ' ore ' + minutes + ' minuti ' + seconds + ' secondi</p>');
-            }, 1000);
-        }
-
-    });
-
-    $('.cart-btn').click(function () {
-        console.log($(this));
-        $.ajax({
-            type: 'POST',
-            url: '/cart/add',
-            data: {
-                'id': $(this).data('id'),
-                'quantity': $('#quantity').val()
-            },
-            success: function (data) {
-                let response = JSON.parse(data);
-                if (response['success'] === "success") {
-                    let cart = $('#add-cart-header');
-                    cart.addClass('text-danger');
-                    setTimeout(function () {
-                        cart.removeClass('text-danger');
-                    }, 300);
-                    setTimeout(function () {
-                        cart.addClass('text-danger');
-                    }, 600);
-                    setTimeout(function () {
-                        cart.removeClass('text-danger');
-                    }, 900);
-                    setTimeout(function () {
-                        cart.addClass('text-danger');
-                    }, 1200);
-                    setTimeout(function () {
-                        cart.removeClass('text-danger');
-                    }, 1500);
-                }
-            }
-        });
-    });
-
-
-    let voto_medio = parseFloat('<[voto_medio]>');
-    $('#stars').raty({
-        score: voto_medio,
-        readOnly: true,
-        starOff: 'fa fa-star-o',
-        starOn: 'fa fa-star text-warning',
-        starHalf: 'fa fa-star-half-o text-warning',
-        starType: 'i'
-    });
-    $('#stars').after('<p> <[numero_recensioni]> recensioni</p>');
-
-    $('.post-rating-stars').each(function () {
-        if ($(this).attr('data-rating') !== "") {
-            $(this).raty({
-                score: $(this).attr('data-rating'),
-                readOnly: true,
-                starOff: 'fa fa-star-o',
-                starOn: 'fa fa-star text-warning',
-                starHalf: 'fa fa-star-half-o text-warning',
-                starType: 'i',
-
-            });
-        } else {
-            $(this).html('<h2>Nessuna recensione</h2>');
-        }
-    })
-    let x = document.getElementById("recensione").value;
-    if (x === "true") {
-        $('#recensione-form').show();
-    }
-    $('#your-rating').raty({
-        number: 5,
-        readOnly: false,
-        starOff: 'fa fa-star-o text-warning',
-        starOn: 'fa fa-star text-warning',
-        starHalf: 'fa fa-star-half-o text-warning',
-        starType: 'i',
-        target: '#voto',
-        targetType:   'score',
-        targetKeep:   true
-    });
-    $("#submit").click(function () {
-        if( $("#comment").val()!=="" && $("#voto").val()!==""){
-            $.ajax({
-                type: "POST",
-                url: "/reviews/add",
-                data: {
-                    score: $("#voto").val(),
-                    comment: $("#comment").val(),
-                    id_prodotto: $("#id_prodotto").val()
-                },
-                success: function (data) {
-                    console.log(data);
-                    let response = JSON.parse(data);
-                    if (response['success']){
-                            window.location.reload();
-                    }
-                }
-            });
-        }else{
-            $('#recensione-form').parent().after('<div class="alert alert-dismissible fade show" role="alert">' +
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                'Uno o più campi non sono stati compilati' + '</div>');
-            removeAlert();
-        }
-    })
-</script>

@@ -1,0 +1,90 @@
+.ordina-per, .ordina-per:hover, .ordina-per:focus {
+    width: 30%;
+    outline: none !important;
+}
+
+.custom-range::-webkit-slider-thumb {
+    background: #c21a1a;
+!important;
+}
+
+.custom-range::-moz-range-thumb {
+    background: #c21a1a;
+!important;
+}
+
+.custom-range::-ms-thumb {
+    background: #c21a1a;
+!important;
+}
+
+.prodotti {
+    width: 73%;
+!important;
+}
+
+.barra {
+    width: 27%;
+!important;
+    padding-right: 3rem;
+}
+
+#filter {
+    display: none;
+}
+
+.sconto {
+    position: absolute;
+    color: white;
+    top: 2rem;
+    left: 2rem;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #c02323;
+    border-radius: 50%;
+    margin: 18px;
+}
+
+
+div.product-review {
+    opacity: 0;
+    top: 16px;
+    right: 0;
+    position: absolute;
+    visibility: hidden;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 991px) {
+    .prodotti, .barra {
+        width: 100%;
+    !important;
+        padding-right: 0;
+    }
+
+    .barra {
+        display: none;
+    }
+
+    #filter {
+        display: block;
+    }
+
+    .sconto {
+        top: 2rem;
+        left: 5.5rem;
+    }
+
+
+    .product .product-item .product-review {
+        opacity: 1;
+        top: 16%;
+        right: 16%;
+        visibility: visible;
+        transition: none;
+    }
+}

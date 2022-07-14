@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="/skins/wizym/customCSS/products.css">
+
 <div class="main-shop-right grid">
     <div class="container">
         <div class="d-lg-flex price-filter clearfix">
@@ -18,6 +20,10 @@
                             <input type="range" class="form-range custom-range" value="0" min="0" max="300" step="0.5"
                                    id="customRange2"
                                    oninput="this.previousElementSibling.value = ' ' + this.value + '&euro;'">
+                            <div class="elm-btn text-center mb-3" id="filtro-prezzo-btn">
+                                <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">
+                                    FILTRA PER PREZZO</a>
+                            </div>
                         </div>
                     </div> <!-- /widget-filter-->
                     <div class="widget widget-categories">
@@ -61,7 +67,7 @@
                             <input type="hidden" name="percentuale<[id]>" value="<[percentuale]>">
                             <div class="product-thumb clearfix">
                                 <a href="/products/<[id]>" class="product-thumb">
-                                    <img style="width: 150px; height: auto" src="<[image]>" alt="image">
+                                    <img style="height: 250px; width: auto" src="<[image]>" alt="image">
                                 </a>
                             </div>
                             <div class="product-info clearfix">
@@ -94,295 +100,10 @@
     </div> <!-- /container -->
 </div> <!-- /main-shop-fullwidth -->
 
-
-<style>
-    .ordina-per, .ordina-per:hover, .ordina-per:focus {
-        width: 30%;
-        outline: none !important;
-    }
-
-    .custom-range::-webkit-slider-thumb {
-        background: #c21a1a;
-    !important;
-    }
-
-    .custom-range::-moz-range-thumb {
-        background: #c21a1a;
-    !important;
-    }
-
-    .custom-range::-ms-thumb {
-        background: #c21a1a;
-    !important;
-    }
-
-    .prodotti {
-        width: 73%;
-    !important;
-    }
-
-    .barra {
-        width: 27%;
-    !important;
-        padding-right: 3rem;
-    }
-
-    #filter {
-        display: none;
-    }
-
-    .sconto {
-        position: absolute;
-        color: white;
-        top: 2rem;
-        left: 2rem;
-        display: inline-block;
-        padding: 10px 15px;
-        background-color: #c02323;
-        border-radius: 50%;
-        margin-bottom: 18px;
-    }
-
-    div.product-review {
-        opacity: 0;
-        top: 16px;
-        right: 0;
-        position: absolute;
-        visibility: hidden;
-        -webkit-transition: all 0.3s ease-in-out;
-        -moz-transition: all 0.3s ease-in-out;
-        -ms-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-
-    @media (max-width: 991px) {
-        .prodotti, .barra {
-            width: 100%;
-        !important;
-            padding-right: 0;
-        }
-
-        .barra {
-            display: none;
-        }
-
-        #filter {
-            display: block;
-        }
-
-        .sconto {
-            top: 2rem;
-            left: 5.5rem;
-        }
-
-        .product .product-item .product-review {
-            opacity: 1;
-            top: 16%;
-            right: 16%;
-            visibility: visible;
-            transition: none;
-        }
-    }
-</style>
+<script src="/skins/wizym/customJs/products.js"></script>
 
 <script>
     $(document).ready(function () {
-        const allItems = $('.product-item'); //tutti i prodotti
-        let currentItems = $('.product-item'); //prodotti correnti
-        let currentCategoria = 'all'; //categoria corrente
-        let currentPrezzo = 1000; //prezzo corrente
-        let currentOrdine = 'nome-az'; //ordine corrente
-
         paginate(allItems); //prima chiamata alla paginazione
-
-        $.each($('span[id^="percentuale"]'), function () {
-            let id = $(this).attr('id').replace('percentuale', '');
-            let percentuale = parseInt($(this).text().slice(1, -1));
-            if (!isNaN(percentuale)) {
-                let amount = $('.amount' + id);
-                let prezzo_base = amount.text().slice(0, -1);
-                let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
-
-                amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
-                amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
-            }
-        });
-
-        $('.heart').click(function () {
-            let i = $(this).find('i');
-
-            $.ajax({
-                type: 'POST',
-                url: '/products/'+ $(this).data('id') +'/like',
-                data: {
-                    'like': i.hasClass('fa-heart') ? 0 : 1
-                },
-                success: function (data) {
-                    let response = JSON.parse(data);
-                    if (response['success'] === 'Like') {
-                        i.removeClass('fa-heart-o').addClass('fa-heart');
-                    } else if (response['success'] === 'Dislike') {
-                        i.removeClass('fa-heart').addClass('fa-heart-o');
-                    }
-                }
-            });
-        });
-
-        // Paginazione
-        function paginate(items, filter = false) {
-            let numItems = items.length;
-            let perPage = 9;
-            let pages = Math.ceil(numItems / perPage) + 1;
-            let currentPage = 0;
-            $('.product').css('height', 'auto');
-            $('.flat-pagination').empty();
-            if (filter) {
-                $('.product').empty();
-                $.each(items, function () {
-                    $(this).show();
-                    $(this).css({'position': 'relative', 'top': '0', 'left': '0'});
-                    $('.product').append($(this));
-                });
-            } else {
-                items.slice(perPage).hide();
-            }
-
-            for (let i = 1; i < pages; i++) {
-                if (i === 1) {
-                    $('.flat-pagination').append('<li class="active"><a href="#" id="da_attivare" class=" hvr-shutter-out-horizontal">' + i + '</a></li>');
-                } else {
-                    $('.flat-pagination').append('<li><a href="#" class=" hvr-shutter-out-horizontal">' + i + '</a></li>');
-                }
-            }
-
-            $('.flat-pagination li').on('click', function () {
-                let $this = $(this);
-                $('li').removeClass('active');
-                $this.addClass('active');
-                currentPage = $this.index();
-                let startItem = currentPage * perPage;
-                let endItem = startItem + perPage;
-                $(items).hide().slice(startItem, endItem).show().css({'position': 'relative', 'top': '', 'left': ''});
-            });
-        }
-
-        // Comparsa dei filtri su mobile
-        $('#filter').on('click', function () {
-            $('.sidebar').slideToggle();
-        });
-
-        //filtro categorie
-        $('li.thumb-new-categories').click(function () {
-            currentCategoria = $(this).find('a').attr('id');
-            applyFilter();
-        });
-
-        //filtro prezzo
-        $('#filtro-prezzo-btn').click(function () {
-            currentPrezzo = $('input[type="range"]').val();
-            applyFilter();
-        });
-
-        // Ordinamento in base al prezzo
-        $('#ordina-prezzo-cres').click(function () {
-            currentOrdine = 'prezzo-cresc';
-            applyFilter();
-        });
-
-        $('#ordina-prezzo-decr').click(function () {
-            currentOrdine = 'prezzo-decr';
-            applyFilter();
-        });
-
-        // Ordinamento in base al titolo
-        $('#ordina-nome-az').click(function () {
-            currentOrdine = 'nome-az';
-            applyFilter();
-        });
-
-        $('#ordina-nome-za').click(function () {
-            currentOrdine = 'nome-za';
-            applyFilter();
-        });
-
-        $('#reset-filters').click(function () {
-            currentCategoria = 'all';
-            currentPrezzo = 1000;
-            currentOrdine = 'nome-az';
-            applyFilter();
-        });
-
-        function filterCategories(items, categoria){
-            if (categoria === 'all') {
-                return items;
-            } else {
-                return items.filter(function (element) {
-                    return $(element).find('input[name=categoria]').val() === categoria;
-                });
-            }
-        }
-
-        // Filter items that have a price less than the current price
-        function filterPrice(items, price){
-            if (price === '0') {
-                return items;
-            } else {
-                return items.filter(function (element) {
-                    return parseFloat($(element).find('span[class^="amount"]').text().slice(0, -1)) <= price;
-                });
-            }
-        }
-
-        function selectOrdine(items, ordine){
-            switch (ordine) {
-                case 'prezzo-cresc':
-                    return orderByPrice(items);
-                case 'prezzo-decr':
-                    return orderByPriceReverse(items);
-                case 'nome-az':
-                    return orderByName(items);
-                case 'nome-za':
-                    return orderByNameReverse(items);
-                default:
-                    return items;
-            }
-        }
-
-        function orderByPrice(items){
-            return [...items].sort(function(a, b){
-                return parseFloat($(a).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(b).find('span[class^="amount"]').text().replace('€', ''));
-            });
-        }
-
-        function orderByPriceReverse(items){
-            return [...items].sort(function(a, b){
-                return parseFloat($(b).find('span[class^="amount"]').text().replace('€', '')) - parseFloat($(a).find('span[class^="amount"]').text().replace('€', ''));
-            });
-        }
-
-
-        function orderByName(items){
-            return [...items].sort(function(a, b){
-                return $(a).find('span[class^="product-title"]').text().toLowerCase().localeCompare($(b).find('span[class^="product-title"]').text().toLowerCase());
-            });
-        }
-
-        function orderByNameReverse(items){
-            return [...items].sort(function(a, b){
-                return $(b).find('span[class^="product-title"]').text().toLowerCase().localeCompare($(a).find('span[class^="product-title"]').text().toLowerCase());
-            });
-        }
-
-        function applyFilter(){
-            currentItems = selectOrdine(allItems, currentOrdine);
-            currentItems = filterCategories(currentItems, currentCategoria);
-            currentItems = filterPrice(currentItems, currentPrezzo);
-            paginate(currentItems, true);
-            $('#da_attivare').trigger('click');
-        }
-
-    });
-
-
+    })
 </script>

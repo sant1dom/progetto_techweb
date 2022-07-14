@@ -501,7 +501,7 @@ CREATE TABLE `personalizzazione` (
                     `country` varchar(255) NOT NULL,
                     `descrizione` text NOT NULL,
                     `titolo_descrizione` varchar(255) NOT NULL,
-                    `descrizione_estesa` varchar(255) NOT NULL,
+                    `descrizione_estesa` text NOT NULL,
                     `immagine_about` varchar(255) NOT NULL,
                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

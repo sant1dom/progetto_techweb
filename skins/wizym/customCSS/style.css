@@ -1,0 +1,41 @@
+.auth-page {
+    background-image: url(../image/footer.jpg);
+    min-height: 70vh;
+    padding: 5rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.product-thumb-custom {
+    width: auto;
+    height: 18.5rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+
+.immagine {
+    height: 100%;
+    width: auto;
+}
+
+@media (max-width: 880px) {
+
+    .resp800 {
+        display: none;
+    }
+
+    .auth-page {
+        padding: 0;
+    }
+
+    .immagine {
+        height: 15rem;
+        width: auto;
+    }
+}
+

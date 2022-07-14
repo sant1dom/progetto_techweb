@@ -1,0 +1,76 @@
+
+.product-thumb-custom {
+    width: auto;
+    height: 18.5rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+.sconto {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    top: 0.5rem;
+    left: 0.5rem;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #c02323;
+    border-radius: 50%;
+    margin-bottom: 18px;
+}
+
+body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
+body > div.main-homepage-4 > div > div > section > div > div.col > div > div {
+    padding-right: 7rem;
+}
+
+div.product-review {
+    opacity: 0;
+    top: 16px;
+    right: 0;
+    position: absolute;
+    visibility: hidden;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.about-image, .about-inner {
+    float: none;
+    width: 50%;
+    height: 100%;
+}
+
+@media (max-width: 991px) {
+    .sconto {
+        top: 0.5rem;
+        left: 3rem;
+    }
+
+    body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
+    body > div.main-homepage-4 > div > div > section > div > div.col > div > div {
+        padding: 0;
+    }
+
+    .flat-our-product.style4 .product-item .product-review {
+        opacity: 1;
+        top: 0.5rem;
+        right: 3rem;
+        visibility: visible;
+        transition: none;
+    }
+
+    .immagine {
+        height: 15rem;
+        width: auto;
+    }
+
+    .about-image, .about-inner {
+        width: 100%;
+        height: 100%;
+    }
+}

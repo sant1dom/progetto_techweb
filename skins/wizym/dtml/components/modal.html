@@ -1,0 +1,40 @@
+<div class="modal" id="delete-confirmation">
+    <div class="modal-dialog text-center" role="document" style="margin-top: 10rem">
+        <div class="modal-content text-center">
+            <div class="modal-body text-center">
+                <div class="flex justify-content-end ">
+                    <button aria-label="Close" class="btn-close position-relative mb-3" data-bs-dismiss="modal"><span
+                            aria-hidden="true"></span></button>
+                </div>
+                <p id="delete-modal-text"></p>
+                <div class="flex justify-content-around align-items-center">
+                    <button aria-label="Annulla"
+                            class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                            data-bs-dismiss="modal">Annulla
+                    </button>
+                    <button aria-label="Procedi"
+                            class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                            id="remove-button">Procedi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-backdrop {
+        z-index: 0;
+    }
+
+    .page-item.active.page-link-color {
+        z-index: 3;
+    !important;
+        color: #fff;
+    !important;
+        background-color: #c02323;
+    !important;
+        border-color: #c02323;
+    !important;
+    }
+</style>

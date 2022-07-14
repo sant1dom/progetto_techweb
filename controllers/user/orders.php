@@ -186,10 +186,12 @@ function create(): void
                 do {
                     $product = $oid->fetch_assoc();
                     if ($product) {
-                        if ($product['sconto'] === "") {
+                        debug_to_console($product['sconto']);
+                        if ($product['sconto'] === null) {
                             $product['sconto'] = 0;
                         }
-                        $mysqli->query("INSERT INTO tdw_ecommerce.ordini_has_prodotti (ordini_id, prodotti_id, quantita, percentuale) VALUES ($order_id, {$product['products_id']}, {$product['quantity']}, {$product['sconto']})");
+                        debug_to_console($product['sconto']);
+                        $mysqli->query("INSERT INTO tdw_ecommerce.ordini_has_prodotti (ordini_id, prodotti_id, quantita, percentuale) VALUES ('$order_id', {$product['products_id']}, {$product['quantity']}, {$product['sconto']})");
                         if ($mysqli->affected_rows > 0) {
                             $mysqli->query("UPDATE tdw_ecommerce.prodotti SET quantita_disponibile=quantita_disponibile-{$product['quantity']} WHERE id={$product['products_id']}");
                             $mysqli->query("DELETE FROM tdw_ecommerce.cart WHERE users_id = {$user['id']} AND products_id = {$product['products_id']}");

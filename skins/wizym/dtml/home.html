@@ -1,3 +1,9 @@
+<link rel="stylesheet" type="text/css" href="/skins/wizym/customCSS/home.css">
+
+<script src="/skins/wizym/customJs/products.js"></script>
+<script src="/skins/wizym/customJs/home.js"></script>
+
+
 <div class="main-homepage-4">
     <div class="slider-style4">
         <div class="container">
@@ -17,9 +23,9 @@
                         <div class="owl-carousel">
                             <[foreach]>
                             <div class="product-item">
-                                <div class="product-thumb clearfix" style="padding-top: 0">
-                                    <a href="/products/<[id]>" class="product-thumb">
-                                        <img src="<[image]>" alt="image">
+                                <div class="product-thumb clearfix" style="padding-top: 0;">
+                                    <a href="/products/<[id]>" class="product-thumb product-thumb-custom" style="padding: 0;">
+                                        <img class="immagine" src="<[image]>" alt="image" style="margin-top: auto; margin-bottom: auto">
                                     </a>
                                 </div>
                                 <div class="product-info text-center clearfix">
@@ -33,8 +39,8 @@
                                 <[sconto]>
                                 <div class="product-review">
                                     <[like]>
-                                    <div class="add-cart">
-                                        <a class="like3 cart"><i data-id="<[id]>" class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
+                                    <div class="add-cart cart-btn">
+                                        <a class="like3 cart"><i class="fa fa-shopping-cart cart" data-id="<[id]>" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
@@ -50,21 +56,21 @@
     <section class="flat-about style4">
         <div class="container">
             <div class="about-wrap clearfix flex flex-wrap justify-content-between align-items-center">
-                <div class="about-image h-100 text-center" style="float: none; width: 50%; height: 100%;">
-                    <img src="/skins/wizym/image/dipendente_1.png" alt="image">
+                <div class="about-image h-100 text-center" >
+                    <img src="<[immagine_about]>" alt="image">
                 </div>
-                <div class="about-inner" style="float: none; width: 50%; height: 100%">
+                <div class="about-inner" >
                     <div class="title-section">
-                        <h1 class="our-product-main">Benvenuto su Wizym</h1>
+                        <h1 class="our-product-main"><[titolo_descrizione]></h1>
                         <div class="our-product-image">
                             <img src="/skins/wizym/image/bicchieri.png" alt="image">
                         </div>
                     </div> <!-- /title-section -->
                     <div class="about-content text-center">
-                        <p>DESCRIZIONE DA COMPLETARE</p>
+                        <p><[descrizione]></p>
                     </div>
                     <div class="elm-btn">
-                        <a href="/skins/wizym/#"
+                        <a href="/about"
                            class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">ABOUT
                             US</a>
                     </div>
@@ -90,8 +96,8 @@
                             <[foreach]>
                             <div class="product-item">
                                 <div class="product-thumb clearfix" style="padding-top: 0">
-                                    <a href="/products/<[top_id]>" class="product-thumb">
-                                        <img src="<[top_image]>" alt="image">
+                                    <a href="/products/<[top_id]>" class="product-thumb product-thumb-custom" style="padding: 0;">
+                                        <img class="immagine" src="<[top_image]>" alt="image" style="margin-top: auto; margin-bottom: auto">
                                     </a>
                                 </div>
                                 <div class="product-info text-center clearfix">
@@ -107,8 +113,8 @@
                                 <[top_sconto]>
                                 <div class="product-review">
                                     <[top_like]>
-                                    <div class="add-cart">
-                                        <a class="like3"><i data-id="<[top_id]>" class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
+                                    <div class="add-cart cart-btn">
+                                        <a class="like3"><i class="fa fa-shopping-cart cart" data-id="<[top_id]>" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div> <!-- /product-item -->
@@ -120,149 +126,5 @@
         </div>
     </section>
 </div>
-    <style>
-        .sconto {
-            position: absolute;
-            z-index: 2;
-            color: white;
-            top: 0.5rem;
-            left: 0.5rem;
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #c02323;
-            border-radius: 50%;
-            margin-bottom: 18px;
-        }
-        body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
-        body > div.main-homepage-4 > div > div > section > div > div.col > div > div  {
-            padding-right: 7rem;
-        }
-
-        div.product-review {
-            opacity: 0;
-            top: 16px;
-            right: 0;
-            position: absolute;
-            visibility: hidden;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -ms-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .cart-hovered { color: #c02323; !important; }
-
-        @media (max-width: 991px) {
-            .sconto {
-                top: 0.5rem;
-                left: 0.5rem;
-            }
-            body > div.main-homepage-4 > section.flat-our-product.style4 > div > div > div.col > div > div,
-            body > div.main-homepage-4 > div > div > section > div > div.col > div > div {
-                padding: 0;
-            }
-
-            .flat-our-product.style4 .product-item .product-review {
-                opacity: 1;
-                right: 6%;
-                visibility: visible;
-                transition: none;
-            }
-        }
-    </style>
-    <script>
-        $(document).ready(function () {
-            $.each($('span[id^="percentuale_new"]'), function () {
-                let id = $(this).attr('id').replace('percentuale_new', '');
-                let percentuale = parseInt($(this).text().slice(1, -1));
-                if (!isNaN(percentuale)) {
-                    let amount = $('.amount_new' + id);
-                    let prezzo_base = amount.text().slice(0, -1);
-                    let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
-                    amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
-                    amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
-                }
-            });
-
-            $.each($('span[id^="percentuale_rec"]'), function () {
-                let id = $(this).attr('id').replace('percentuale_rec', '');
-                let percentuale = parseInt($(this).text().slice(1, -1));
-                if (!isNaN(percentuale)) {
-                    let amount = $('.amount_rec' + id);
-                    let prezzo_base = amount.text().slice(0, -1);
-                    let prezzo_scontato = prezzo_base - (prezzo_base * (percentuale / 100));
-
-                    amount.html(`<p>${prezzo_scontato.toFixed(2)} € &nbsp;</p>`);
-                    amount.after(`<p style="color: black; font-size: .7em;">Prezzo consigliato: <s>${parseFloat(prezzo_base).toFixed(2)}€</s></p>`);
-                }
-            });
-
-            $('.heart').click(function () {
-                let i = $(this).find('i');
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/products/'+ $(this).data('id') +'/like',
-                    data: {
-                        'like': i.hasClass('fa-heart') ? 0 : 1
-                    },
-                    success: function (data) {
-                        let response = JSON.parse(data);
-                        if (response['success'] === 'Like') {
-                            i.removeClass('fa-heart-o').addClass('fa-heart');
-                        } else if (response['success'] === 'Dislike') {
-                            i.removeClass('fa-heart').addClass('fa-heart-o');
-                        }
-                    }
-                });
-            });
-
-            $('.cart').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '/cart/add',
-                    data: {
-                        'id': $(this).data('id')
-                    },
-                    success: function (data) {
-                        let response = JSON.parse(data);
-                        if (response['success'] === "success") {
-                            let cart = $('#add-cart-header');
-                            cart.addClass('text-danger');
-                            setTimeout(function () {
-                                cart.removeClass('text-danger');
-                            }, 300);
-                            setTimeout(function () {
-                                cart.addClass('text-danger');
-                            }, 600);
-                            setTimeout(function () {
-                                cart.removeClass('text-danger');
-                            }, 900);
-                            setTimeout(function () {
-                                cart.addClass('text-danger');
-                            }, 1200);
-                            setTimeout(function () {
-                                cart.removeClass('text-danger');
-                            }, 1500);
-                        }
-                    }
-                });
-            });
 
 
-            const recs = $('div[id^="rec"]');
-            $.each(recs, function (index, value) {
-                let id = value.id.replace('rec', '');
-                let voto_medio = $('#voto-medio' + id).val();
-                $(this).raty({
-                    score: voto_medio,
-                    readOnly: true,
-                    starOff: 'fa fa-star-o',
-                    starOn: 'fa fa-star text-warning',
-                    starHalf: 'fa fa-star-half-o text-warning',
-                    starType: 'i'
-                });
-            });
-        });
-    </script>
