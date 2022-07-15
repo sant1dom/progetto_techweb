@@ -28,6 +28,8 @@
     <!-- Custom Style -->
     <link rel="stylesheet" type="text/css" href="/skins/wizym/customCSS/style.css">
 
+    <!-- Custom Style -->
+    <link rel="stylesheet" type="text/css" href="/skins/wizym/customCSS/home.css">
 
     <!-- Favicon and touch icons  -->
     <link href="/skins/wizym/icon/icon.png" rel="apple-touch-icon-precomposed" sizes="48x48">
@@ -40,66 +42,57 @@
 </div> <!-- /.loading-overlay -->
 
 <div class="login-page">
-    <div class="slider-style4 auth-page">
+    <section class="flat-about style4 auth-page">
         <div class="container">
-            <div class="">
-                <section class="flat-about style4">
-                    <div class="container">
-                        <div class="about-wrap clearfix" style="margin: 0;">
-                            <span id="msg">
-                               <[alert]>
-                            </span>
-                            <div class="about-image resp800" style="height: 55%">
-                                <a href="/" class="flex justify-content-center align-content-center" style="height: 100%">
-                                    <img src="/skins/wizym/image/logo-2x.png" class="resp800" alt="image" style="object-fit: none;">
-                                </a>
-                            </div>
-                            <div class="about-inner">
-                                <div class="title-section">
-                                    <h1 class="our-product-main">Registrazione</h1>
-                                    <div class="our-product-image">
-                                        <img src="/skins/wizym/image/bicchieri.png" alt="image">
-                                    </div>
-                                </div> <!-- /title-section -->
-                                <form method="POST" action="/register" id="register">
-                                    <div class="about-content text-center">
-                                        <div class="flex justify-content-">
-                                            <div class="mr-1">
-                                                <label for="nome">Nome</label>
-                                                <input type="text" name="nome" id="nome" placeholder="Nome" required>
-                                            </div>
-                                            <div class="ml-1">
-                                                <label for="cognome">Cognome</label>
-                                                <input type="text" name="cognome" id="cognome" placeholder="Cognome"
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <label for="telefono">Telefono</label>
-                                        <input type="number" name="telefono" id="telefono" placeholder="Telefono"
-                                               required>
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" placeholder="Email" required>
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" id="password" placeholder="Password"
-                                               required>
-                                    </div>
-                                    <div class="elm-btn">
-                                        <button id="register-btn" style="margin-top: 0"
-                                                class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">
-                                            REGISTRATI
-                                        </button>
-                                    </div>
-                                </form>
-                                <br>
-                                Sei gi&agrave; registrato? <a href="/login">Accedi ora!</a>
-                            </div>
+            <div class="about-wrap clearfix flex flex-wrap justify-content-between align-items-center"
+                 style="margin-top:0">
+                <div class="about-image h-100 text-center resp800">
+                    <img src="<[logo]>" alt="image">
+                </div>
+                <div class="about-inner">
+                    <div class="title-section">
+                        <h1 class="our-product-main">Registrazione</h1>
+                        <div class="our-product-image">
+                            <img src="/skins/wizym/image/bicchieri.png" alt="image">
                         </div>
-                    </div>
-                </section>
-            </div> <!-- /row -->
-        </div> <!-- /container -->
-    </div>
-</div>
+                    </div> <!-- /title-section -->
+                    <form method="POST" action="/register" id="register">
+                        <div class="about-content text-center">
+                            <div class="flex justify-content-">
+                                <div class="mr-1">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                                </div>
+                                <div class="ml-1">
+                                    <label for="cognome">Cognome</label>
+                                    <input type="text" name="cognome" id="cognome" placeholder="Cognome"
+                                           required>
+                                </div>
+                            </div>
+                            <label for="telefono">Telefono</label>
+                            <input type="number" name="telefono" id="telefono" placeholder="Telefono"
+                                   required>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password"
+                                   required>
+                        </div>
+                        <div class="elm-btn">
+                            <button id="register-btn" style="margin-top: 0"
+                                    class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">
+                                REGISTRATI
+                            </button>
+                        </div>
+                    </form>
+                    <br>
+                    Sei gi&agrave; registrato? <a href="/login">Accedi ora!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> <!-- /row -->
+
 
 <[footer]>
 

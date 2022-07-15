@@ -19,7 +19,7 @@ function login(): void
         if ($_SERVER["REQUEST_METHOD"] == "POST") {                 //se è una richiesta POST
             doLogin();                                              //eseguo il login
             if (isset($_SESSION['auth']) && $_SESSION['auth'] = true) {     //se l'utente è autenticato dopo la funzione di login
-                redirect($_POST['referrer']??"");
+                redirect($_POST['referrer'] ?? "");
             } else {                                                 //se l'utente non è stato autenticato
                 $main = setupMainAuth("login");
                 $alert = setupAlert("Username o password errati.");
@@ -32,7 +32,7 @@ function login(): void
         }
         //se l'utente è già autenticato, reindirizza alla home
     } else {
-        redirect($_POST['referrer']??"");
+        redirect($_POST['referrer'] ?? "");
     }
 }
 
@@ -46,7 +46,7 @@ function register(): void
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             doRegister();
             if (isset($_SESSION['auth']) && $_SESSION['auth'] = true) {
-                redirect($_POST['referrer']??"");
+                redirect($_POST['referrer'] ?? "");
             } else {
                 $main = setupMainAuth("register");
                 $alert = setupAlert("Email gi&agrave in uso.");
@@ -58,7 +58,7 @@ function register(): void
             $main->close();
         }
     } else {
-        redirect($_POST['referrer']??"");
+        redirect($_POST['referrer'] ?? "");
     }
 }
 
@@ -84,7 +84,7 @@ function register(): void
 #[NoReturn] function redirect($referrer): void
 {
     //se è stato impostato un referrer reindirizza
-    echo "Referrer".$referrer;
+    echo "Referrer" . $referrer;
     if ($referrer != "") {
         unset($_SESSION['referrer']);
         header("Location: $referrer");

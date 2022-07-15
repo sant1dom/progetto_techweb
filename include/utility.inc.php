@@ -57,10 +57,24 @@ function setupMainAuth(string $page): Template
 {
     checkSession();
 
+    global $mysqli;
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/auth/" . $page . ".html");
+    $footer = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html");
+    $personalizzazione = $mysqli->query("SELECT logo FROM personalizzazione WHERE id = 1")->fetch_assoc();
+    if ($personalizzazione) {
+        if (!$personalizzazione["logo"] == "") {
+            $personalizzazione["logo"] = "/uploads/" . $personalizzazione["logo"];
+        } else {
+            $personalizzazione["logo"] = "https://via.placeholder.com/500";
+        }
+        $footer->setContent("logo", $personalizzazione["logo"]);
+        $main->setContent("logo", $personalizzazione["logo"]);
+    }
+
+
     $main->setContent("referrer", $_GET['referrer'] ?? "");
     // Default set delle parti statiche per il template wizym
-    $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/footer.html"))->get());
+    $main->setContent("footer", $footer->get());
     return $main;
 }
 
