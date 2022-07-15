@@ -1,43 +1,7 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
-function index()
-{
-    global $mysqli;
-    $main = setupMainUser();
-    $main->setContent("title", "I miei ordini");
-    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/my_account.html");
-    $colnames = array(
-        "Numero ordine",
-        "Data",
-        "Stato",
-        "Totale",
-        "Indirizzo di spedizione",
-    );
-    $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/table.html");
-    foreach ($colnames as $colname) {
-        $table->setContent("colname", $colname);
-    }
-    $specific_table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/ordini_utente.html");
-    $email = $_SESSION['user']['email'];
-    $oid = $mysqli->query("SELECT id FROM users WHERE email = '$email'");
-    $utente = $oid->fetch_assoc();
-    $oid = $mysqli->query("SELECT ordini.id, u.email as utente, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
-    CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione FROM tdw_ecommerce.ordini JOIN tdw_ecommerce.users as u on u.id=ordini.user_id JOIN tdw_ecommerce.indirizzi as isp on isp.id= ordini.indirizzi_spedizione JOIN tdw_ecommerce.indirizzi as ifa on ifa.id= ordini.indirizzi_fatturazione WHERE ordini.user_id = '$utente[id]'");
-    do {
-        $ordini = $oid->fetch_assoc();
-        if ($ordini) {
-            foreach ($ordini as $key => $value) {
-                $specific_table->setContent($key, $value);
-            }
-        }
-    } while ($ordini);
-    $table->setContent("specific_table", $specific_table->get());
-    $body->setContent("content", $table->get());
-    $main->setContent("content", $body->get());
-    $main->close();
-}
 
-function show()
+function show(): void
 {
     global $mysqli;
     $id = explode('/', $_SERVER['REQUEST_URI'])[2];
@@ -52,12 +16,13 @@ function show()
                                         WHERE ordini.id = '$id'");
     $ordine = $ordine->fetch_assoc();
     $main = setupMainUser();
-    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/my_account.html");
-    $show = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/orders/show_ordine.html");
+    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/show.html");
+
     foreach ($ordine as $key => $value) {
-        $show->setContent($key, $value);
+        $body->setContent($key, $value);
     }
-    $table_prodotti = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/prodotti_ordine.html");
+
+    $table_prodotti = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/prodotti.html");
     $oid = $mysqli->query("SELECT p.nome as nome_prodotto,p.id as id, p.prezzo as prezzo_prodotto, op.quantita as quantita_prodotto, percentuale as sconto
                                 FROM tdw_ecommerce.ordini_has_prodotti as op 
                                     JOIN tdw_ecommerce.prodotti as p on p.id=op.prodotti_id
@@ -72,13 +37,20 @@ function show()
             } else {
                 $table_prodotti->setContent('image', "/uploads/" . $image["image"]);
             }
+
+            if($prodotti['sconto'] == 0) {
+                $prodotti['sconto'] = '-';
+            } else {
+                $prodotti['sconto'] = $prodotti['sconto'] . '%';
+            }
+
             foreach ($prodotti as $key => $value) {
                 $table_prodotti->setContent($key, $value);
             }
         }
     } while ($prodotti);
 
-    $selectPicker_indirizzi = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/indirizzi_modifica_ordine.html");
+    $selectPicker_indirizzi = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/indirizzi.html");
     $oid = $mysqli->query("SELECT id, CONCAT(indirizzo,' ', citta,' ', cap,' ', provincia,' ', nazione) as indirizzo FROM tdw_ecommerce.indirizzi WHERE users_id=" . $ordine['id_utente']);
     do {
         $indirizzi = $oid->fetch_assoc();
@@ -91,16 +63,15 @@ function show()
     $form_indirizzo = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/addresses/form_indirizzo.html");
     $form_indirizzo->setContent("id_ordine", $ordine['id']);
     $selectPicker_indirizzi->setContent("id_ordine", $ordine['id']);
-    $show->setContent("selectPicker_indirizzi", $selectPicker_indirizzi->get());
-    $show->setContent("form_indirizzo", $form_indirizzo->get());
-    $show->setContent("table_prodotti", $table_prodotti->get());
-    $body->setContent("content", $show->get());
+    $body->setContent("selectPicker_indirizzi", $selectPicker_indirizzi->get());
+    $body->setContent("form_indirizzo", $form_indirizzo->get());
+    $body->setContent("table_prodotti", $table_prodotti->get());
     $main->setContent("title", "Ordine n°" . $ordine['numero_ordine']);
     $main->setContent("content", $body->get());
     $main->close();
 }
 
-function annulla()
+function annulla(): void
 {
     global $mysqli;
     $id = $_POST['id'];
@@ -114,7 +85,7 @@ function annulla()
     }
 }
 
-function edit()
+function edit(): void
 {
     global $mysqli;
     $controllo = $_POST['controllo'];

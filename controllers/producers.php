@@ -44,12 +44,12 @@ function show(): void
             if ($like->num_rows == 0) {
                 $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart-o'></i></a>
+                                    <a class='like2 heart'><i class='fa fa-heart-o' data-id='{$prodotto["id"]}'></i></a>
                                 </div>");
             } else {
                 $body->setContent("like", "
                                 <div class='add-cart'>
-                                    <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart'></i></a>
+                                    <a class='like2 heart'><i class='fa fa-heart' data-id='{$prodotto["id"]}'></i></a>
                                 </div>");
             }
         }

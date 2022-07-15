@@ -1,37 +1,34 @@
-
 <[foreach]>
-<tr>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+<tr class="text-start">
+    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important; width: 15rem">
         <[indirizzo]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
         <[citta]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
         <[cap]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
         <[provincia]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>">
+    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
         <[nazione]>
     </td>
-    <td>
-        <div class="elm-btn flex justify-content-start align-items-center">
-            <a href="/addresses/<[id]>"
-               class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-               style="font-size: 13px; margin: 0 2rem 0 0;padding-left: 20px; padding-right: 20px;">
-                MODIFICA</a>
+    <td class="elm-btn flex align-items-center">
+        <a href="/addresses/<[id]>"
+           class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+           style="font-size: 13px; margin: 0 2rem 0 0;padding-left: 20px; padding-right: 20px;">
+            MODIFICA</a>
 
-            <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-               style="font-size: 13px; margin: 0; padding-left: 20px; padding-right: 20px;"
-               data-bs-toggle="modal"
-               data-bs-target="#delete-confirmation"
-               data-bs-original-title="Cancella"
-               data-title="Sei sicuro di voler eliminare questo indirizzo?"
-               data-id="<[id]>"
-               href="/addresses/<[id]>/delete">ELIMINA</a>
-        </div>
+        <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+           style="font-size: 13px; margin: 0; padding-left: 20px; padding-right: 20px;"
+           data-bs-toggle="modal"
+           data-bs-target="#delete-confirmation"
+           data-bs-original-title="Cancella"
+           data-title="Sei sicuro di voler eliminare questo indirizzo?"
+           data-id="<[id]>"
+           data-href="/addresses/<[id]>/delete">ELIMINA</a>
     </td>
 </tr>
 <[/foreach]>

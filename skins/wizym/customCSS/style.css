@@ -27,6 +27,11 @@
     z-index: 0;
 }
 
+.modal-content {
+    width: 100% !important;
+}
+
+
 .page-item.active.page-link-color {
     z-index: 3; !important;
     color: #fff; !important;

@@ -1,25 +1,18 @@
-
 <[foreach]>
-<tr>
-    <td class="clickable-row" data-href="/products/<[id]>">
+<tr class="text-start" id="tr<[id]>">
+    <td class="clickable-row" data-href="/products/<[id]>" style="vertical-align: middle; !important; width: 15rem">
         <[nome]>
     </td>
-    <td class="clickable-row" data-href="/products/<[id]>">
+    <td class="clickable-row" data-href="/products/<[id]>" style="vertical-align: middle; !important;">
         <[prezzo]>€
     </td>
-    <td class="clickable-row" data-href="/products/<[id]>">
+    <td class="clickable-row" data-href="/products/<[id]>" style="vertical-align: middle; !important;">
         <[disponibilità]>
     </td>
-    <td class="clickable-row" data-href="/products/<[id]>">
+    <td class="clickable-row" data-href="/products/<[id]>" style="vertical-align: middle; !important;">
         <[categoria]>
     </td>
-    <td class="clickable-row" data-href="/products/<[id]>">
-        <[produttore]>
-    </td>
-    <td class="clickable-row" data-href="/products/<[id]>">
-        <[provenienza]>
-    </td>
-    <td>
+    <td class="text-center">
         <div class="heart mg-item-ct" style="cursor: pointer; color: #c21a1a;" data-id="<[id]>">
             <i class="fa fa-heart" aria-hidden="true"></i>
         </div>
@@ -30,6 +23,7 @@
 <script>
     $(document).ready(function() {
         $('.heart').click(function() {
+            let id = $(this).data('id');
             $.ajax({
                 type: 'POST',
                 url: '/products/' + $(this).data('id') + '/like',
@@ -39,7 +33,9 @@
                 success: function (data) {
                     let response = JSON.parse(data);
                     if (response['success'] === 'Dislike') {
-                        location.reload();
+                        $('#tr' + id).fadeOut(600, function() {
+                            $(this).remove();
+                        });
                     }
                 }
             });

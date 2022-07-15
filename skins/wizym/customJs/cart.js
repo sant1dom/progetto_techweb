@@ -4,11 +4,13 @@ $(document).ready(function () {
     const msg_span = $('#cart-msg');
     const thead = $('thead');
 
+
     //Se non ci sono prodotti nel carrello mostra un messaggio
     let tr = $('#cart-table-body').find($('tr[id^="tr"]'));
     if (tr.attr('id').replace('tr', '').length === 0) {
         tr.remove();
     }
+
 
     //Al caricamento del carrello vengono calcolati tutti i valori totali da mostrare all'utente
     $.each($('li[id^="quantity"]'), function (index, value) {
@@ -126,7 +128,7 @@ $(document).ready(function () {
 
     //Manda l'utente nella tab per il checkout
     $('#check-out-btn').click(function () {
-        if ($('#cart-table-body').children().length === 0) {
+        if ($('.dataTables_empty').text() === "Nessun record trovato" || $('#cart-table-body').children().length === 0) {
             addAlert('error', msg_span, 'Nessun elemento nel carrello.')
         } else {
             $('#tab-reviews-btn').trigger('click');

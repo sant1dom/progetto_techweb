@@ -32,10 +32,10 @@ function show(): void
     foreach ($colnames as $colname) {
         $table->setContent("colname", $colname);
     }
-    $specific_table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/specific_tables/ordini.html");
+    $specific_table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/ordini.html");
 
     $oid = $mysqli->query("SELECT ordini.id, u.email as utente, ordini.data, ordini.stato, ordini.totale, ordini.numero_ordine, 
-                                            CONCAT(isp.indirizzo,' ', isp.citta,' ', isp.cap,' ', isp.provincia,' ',isp.nazione) as indirizzo_spedizione,
+                                            CONCAT(isp.indirizzo,', ', isp.citta,', ', isp.cap,', ', isp.provincia,', ',isp.nazione) as indirizzo_spedizione,
                                             CONCAT(ifa.indirizzo,' ', ifa.citta,' ', ifa.cap,' ', ifa.provincia,' ', ifa.nazione) as indirizzo_fatturazione 
                                     FROM tdw_ecommerce.ordini 
                                         JOIN tdw_ecommerce.users as u on u.id=ordini.user_id 
@@ -44,14 +44,15 @@ function show(): void
                                     WHERE ordini.user_id = {$user['id']}");
     do {
         $ordini = $oid->fetch_assoc();
+
         if ($ordini) {
+            $ordini['data'] = date("d/m/Y", strtotime($ordini['data']));
             foreach ($ordini as $key => $value) {
                 $specific_table->setContent($key, $value);
             }
         }
     } while ($ordini);
     $table->setContent("specific_table", $specific_table->get());
-    $table->setContent("modal", $modal->get());
     $body->setContent("ordini", $table->get());
 
     //I MIEI INDIRIZZI
@@ -116,37 +117,30 @@ function show(): void
         "Prezzo",
         "Disponibilità",
         "Categoria",
-        "Produttore",
-        "Provenienza",
-        "Like"
+        "Rimuovi"
     );
     foreach ($colnames as $colname) {
         $table->setContent("colname", $colname);
     }
     $specific_table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/user/preferiti.html");
-    $oid = $mysqli->query("SELECT prodotti.id, prodotti.nome, prezzo, quantita_disponibile, ragione_sociale as produttore, nazione, regione, c.nome as categoria
+    $oid = $mysqli->query("SELECT prodotti.id, prodotti.nome, prezzo, quantita_disponibile, c.nome as categoria
                             FROM tdw_ecommerce.prodotti 
                                 JOIN tdw_ecommerce.categorie c on c.id = prodotti.categorie_id 
-                                JOIN tdw_ecommerce.produttori p on p.id = prodotti.produttori_id 
-                                JOIN tdw_ecommerce.provenienze p2 on p2.id = prodotti.provenienze_id 
-                            WHERE prodotti.id IN 
-                                  (SELECT prodotti_id 
-                                    FROM tdw_ecommerce.users_has_prodotti_preferiti 
-                                    WHERE users_id = " . $_SESSION['user']['id'] . ")");
+                                JOIN tdw_ecommerce.users_has_prodotti_preferiti up on up.prodotti_id = prodotti.id
+                            WHERE up.users_id = '{$_SESSION['user']['id']}'");
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
             foreach ($prodotto as $key => $value) {
                 $specific_table->setContent($key, $value);
             }
-            $specific_table->setContent("provenienza", $prodotto['nazione'] . " " . $prodotto['regione']);
             $specific_table->setContent("disponibilità", $prodotto['quantita_disponibile'] > 0 ? "Disponibile" : "Non disponibile");
         }
     } while ($prodotto);
     $table->setContent("specific_table", $specific_table->get());
     $body->setContent("preferiti", $table->get());
 
-
+    $body->setContent("modal", $modal->get());
     $main->setContent("content", $body->get());
     $main->close();
 }

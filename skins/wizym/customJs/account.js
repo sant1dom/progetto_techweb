@@ -1,3 +1,5 @@
+let delete_url = ''; //global variable
+
 $(document).ready(function () {
     const msg = $('#messaggio-errore');
 
@@ -22,8 +24,12 @@ $(document).ready(function () {
     const password_n = $("#password_n");
     const password_c = $("#password_c");
 
+    const param = window.location.search ? window.location.search.substring(1).replace('success=', '') : '';
+    if (param === "true") {
+        addAlert('success', msg, 'Modifica effettuata con successo');
+    }
+
     //Se si cerca di rimuovere un indirizzo, viene mostrata la form di conferma di eliminazione
-    let delete_url = ''; //global variable
     $('#delete-confirmation').on('show.bs.modal', function (e) {
         let message = $(e.relatedTarget).data('title');
         $('#delete-modal-text').html(message);
@@ -32,7 +38,7 @@ $(document).ready(function () {
 
     //rimuove il prodotto dal carrello
     $('#remove-button').click(function () {
-        deleteAddress(delete_url);
+        deleteWithModal(delete_url);
     });
 
     //Controllo delle tab
@@ -174,7 +180,7 @@ $(document).ready(function () {
         password_c.attr("readonly", !password_c.attr('readonly'));
     }
 
-    function deleteAddress(delete_url) {
+    function deleteWithModal(delete_url) {
         $.ajax({
             url: delete_url,
             type: 'POST',

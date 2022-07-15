@@ -1,55 +1,55 @@
 <link href="/skins/wizym/customCSS/profile.css" rel="stylesheet"/>
 <link href="/skins/wizym/customCSS/show_ordine.css" rel="stylesheet"/>
-
+<[modal]>
 <div class="account-container">
-    <div class="container">
-        <section class="p-4 bg-white">
-            <div class="row justify-content-between">
-                <div class="col-3 pt-3">
-                    <ul class="tabs">
-                        <li class="py-3">
-                            <a class="tab active" id="tab-info-btn" data-id='#tab-info' style="cursor: pointer">
-                                IL MIO ACCOUNT
-                            </a>
-                        </li>
-                        <li class="border-bottom"></li>
-                        <li class="py-3">
-                            <a class="tab" id="tab-ordini-btn" data-id='#tab-ordini' style="cursor: pointer">
-                                I MIEI ORDINI
-                            </a>
-                        </li>
-                        <li class="border-bottom"></li>
-                        <li class="py-3">
-                            <a class="tab " id="tab-indirizzi-btn" data-id='#tab-indirizzi' style="cursor: pointer">
-                                INDIRIZZI
-                            </a>
-                        </li>
-                        <li class="border-bottom"></li>
-                        <li class="py-3">
-                            <a class="tab " id="tab-recensioni-btn" data-id='#tab-recensioni' style="cursor: pointer">
-                                RECENSIONI
-                            </a>
-                        </li>
-                        <li class="border-bottom"></li>
-                        <li class="py-3">
-                            <a class="tab " id="tab-preferiti-btn" data-id='#tab-preferiti' style="cursor: pointer">
-                                PREFERITI
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-8" id="tab-info"><[info]></div>
-
-                <div class="col-8" id="tab-ordini" style="display: none;"><[ordini]></div>
-
-                <div class="col-8" id="tab-recensioni" style="display: none;"><[recensioni]></div>
-
-                <div class="col-8" id="tab-preferiti" style="display: none;"><[preferiti]></div>
-
-                <div class="col-8" id="tab-indirizzi" style="display: none;"><[indirizzi]></div>
+    <section class="p-4 bg-white">
+        <div class="row justify-content-between">
+            <div class="col-3 pt-3">
+                <ul class="tabs">
+                    <li class="py-3">
+                        <a class="tab active" id="tab-info-btn" data-id='#tab-info' style="cursor: pointer">
+                            IL MIO ACCOUNT
+                        </a>
+                    </li>
+                    <li class="border-bottom"></li>
+                    <li class="py-3">
+                        <a class="tab" id="tab-ordini-btn" data-id='#tab-ordini' style="cursor: pointer">
+                            I MIEI ORDINI
+                        </a>
+                    </li>
+                    <li class="border-bottom"></li>
+                    <li class="py-3">
+                        <a class="tab " id="tab-indirizzi-btn" data-id='#tab-indirizzi' style="cursor: pointer">
+                            INDIRIZZI
+                        </a>
+                    </li>
+                    <li class="border-bottom"></li>
+                    <li class="py-3">
+                        <a class="tab " id="tab-recensioni-btn" data-id='#tab-recensioni' style="cursor: pointer">
+                            RECENSIONI
+                        </a>
+                    </li>
+                    <li class="border-bottom"></li>
+                    <li class="py-3">
+                        <a class="tab " id="tab-preferiti-btn" data-id='#tab-preferiti' style="cursor: pointer">
+                            PREFERITI
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </section>
-    </div>
+            <div class="col-9">
+                <div id="tab-info"><[info]></div>
+
+                <div id="tab-ordini" style="display: none;"><[ordini]></div>
+
+                <div id="tab-recensioni" style="display: none;"><[recensioni]></div>
+
+                <div id="tab-preferiti" style="display: none;"><[preferiti]></div>
+
+                <div id="tab-indirizzi" style="display: none;"><[indirizzi]></div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<script src="/skins/wizym/customJs/account.js"></script>

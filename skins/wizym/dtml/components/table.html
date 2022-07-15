@@ -1,12 +1,9 @@
 <div class="content">
-    <div class="d-flex justify-content-end align-items-end">
-        <[button]>
-    </div>
-    <table class="table custom-table table-bordered text-nowrap mb-0 table-striped">
+    <table class="table custom-table table-bordered mb-0 table-striped responsive nowrap w-100">
         <thead>
         <tr>
             <[foreach]>
-            <th>
+            <th scope="col">
                 <[colname]>
             </th>
             <[/foreach]>
@@ -17,4 +14,30 @@
         </tbody>
     </table>
 </div>
+<div class="d-flex justify-content-end align-items-end">
+    <[button]>
+</div>
 <[modal]>
+
+
+<style>
+    table.dataTable.table-striped>tbody>tr.odd>* {
+        box-shadow: none !important;
+    }
+
+    .even {
+        background-color: #f2f4f5 !important;
+    }
+
+    thead {
+        background-color: #f2f4f5;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    tbody {
+        background-color: transparent;
+        text-align: center;
+        padding: 20px 0;
+    }
+</style>
