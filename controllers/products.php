@@ -95,9 +95,11 @@ function show()
                                            quantita_disponibile,
                                            descrizione,
                                            p.ragione_sociale as produttore,
+                                           p.id as produttore_id,
                                            p2.nazione,
                                            p2.regione,
-                                           c.nome as categoria
+                                           c.nome as categoria,
+                                           c.id as categoria_id
                                     FROM tdw_ecommerce.prodotti
                                         JOIN tdw_ecommerce.produttori p on p.id = prodotti.produttori_id
                                         JOIN tdw_ecommerce.provenienze p2 on prodotti.provenienze_id = p2.id

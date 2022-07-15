@@ -14,3 +14,11 @@
         background-color: #eee;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        if ($('ul').first().find('a[href="/admin"]').text() === "") {
+            $('li.separator').remove();
+        }
+    })
+</script>

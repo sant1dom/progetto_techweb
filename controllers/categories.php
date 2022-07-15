@@ -6,7 +6,7 @@ function show(){
     $main = setupMainUser();
     $id = explode("/", $_SERVER['REQUEST_URI'])[2];
     $main->setContent("title", "Categoria");
-    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/categories/show.html");
+    $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/categories/show.html");
     $category = $mysqli->query("SELECT id, nome as nome_categoria FROM tdw_ecommerce.categorie WHERE id = $id");
     $category = $category->fetch_assoc();
     $body->setContent("nome_categoria", $category["nome_categoria"]);
@@ -16,7 +16,7 @@ function show(){
                                                 WHERE quantita_disponibile > 0 
                                                   AND categorie_id = $id
                                                 ORDER BY prodotti.nome");
-    $pagina_prodotti = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/categories/prodotti_categoria.html");
+
     do {
         $prodotto = $oid->fetch_assoc();
         if ($prodotto) {
@@ -29,18 +29,17 @@ function show(){
             }
             $prodotto['percentuale'] = $prodotto['percentuale'] ? " <span class='sconto' id='percentuale{$prodotto['id']}'>-{$prodotto['percentuale']}%</span>" : "";
             foreach ($prodotto as $key => $value) {
-                $pagina_prodotti->setContent($key, $value);
+                $body->setContent($key, $value);
             }
             if (isset($_SESSION["user"])) {
-
                 $like = $mysqli->query("SELECT * FROM tdw_ecommerce.users_has_prodotti_preferiti WHERE users_id = " . $_SESSION["user"]["id"] . " AND prodotti_id = " . $prodotto["id"]);
                 if ($like->num_rows == 0) {
-                    $pagina_prodotti->setContent("like", "
+                    $body->setContent("like", "
                                 <div class='add-cart'>
                                     <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart-o'></i></a>
                                 </div>");
                 } else {
-                    $pagina_prodotti->setContent("like", "
+                    $body->setContent("like", "
                                 <div class='add-cart'>
                                     <a class='like2 heart' data-id='{$prodotto["id"]}'><i class='fa fa-heart'></i></a>
                                 </div>");
@@ -48,7 +47,6 @@ function show(){
             }
         }
     } while ($prodotto);
-    $body->setContent("prodotti_categoria", $pagina_prodotti->get());
     $main->setContent("content", $body->get());
     $main->close();
 

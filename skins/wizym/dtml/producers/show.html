@@ -2,6 +2,11 @@
 
 <div class="main-shop-right grid">
     <div class="container">
+        <section class="main-shop-detail p-0">
+            <div class="content-wrap p-0 text-center">
+                <h2 class="heading"><a><[ragione_sociale]></a></h2>
+            </div>
+        </section>
         <div class="d-lg-flex price-filter clearfix">
             <div class="elm-btn text-center mb-3" id="filter">
                 <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">MOSTRA
@@ -9,8 +14,26 @@
             </div>
             <div class="barra sidebar">
                 <div class="sidebar-inner">
+                    <div class="info-content mb-5">
+                        <ul>
+                            <li class="flex justify-content-between">
+                                <span class="note">Provenienza:</span>
+                                <span class="note"><[provenienza]></span>
+                            </li>
+                            <li class="flex justify-content-between">
+                                <span class="note">Telefono: </span> <[telefono]>
+                            </li>
+                            <li class="flex justify-content-between">
+                                <span class="note">Email: </span> <[email]>
+                            </li>
+                            <li class="flex justify-content-between">
+                                <span class="note">Sito Web: </span> <[sito_web]>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="elm-btn text-center mb-3" id="reset-filters">
-                        <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal mt-0">RESETTA FILTRI</a>
+                        <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal mt-0">RESETTA
+                            FILTRI</a>
                     </div>
                     <div class="widget widget-filter">
                         <h2 class="widget-title text-center">Per prezzo</h2>
@@ -26,28 +49,14 @@
                             </div>
                         </div>
                     </div> <!-- /widget-filter-->
-                    <div class="widget widget-categories">
-                        <h2 class="widget-title text-center mb-1">Categorie</h2>
-                        <ul>
-                            <li class="thumb-new-categories categorie m-0" style="cursor: pointer">
-                                <a id="all">Tutti</a>
-                                <img src="skins/wizym/image/dot.jpg" class="m-0" alt="image">
-                            </li>
-                            <[foreach]>
-                            <li class="thumb-new-categories categorie m-0" style="cursor: pointer">
-                                <a id="<[categoria_name]>"><[categoria_name]>
-                                    <span class="categories-time"><[counter]></span>
-                                </a>
-                                <img src="skins/wizym/image/dot.jpg" class="m-0" alt="image">
-                            </li>
-                            <[/foreach]>
-                        </ul>
-                    </div> <!-- /widget-categories-->
                 </div> <!-- /sidebar-inner -->
             </div> <!-- /sidebar -->
+
             <div class="prodotti">
                 <div class="dropdown" style="height: 46px">
-                    <button class="btn dropdown-toggle ordina-per" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 100%; width: 30%">
+                    <button class="btn dropdown-toggle ordina-per" type="button" id="dropdownMenu2"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="height: 100%; width: 30%">
                         Ordina per:
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="width: 30%">
@@ -57,6 +66,7 @@
                         <li class="dropdown-item" id="ordina-nome-za">Nome Z-A</li>
                     </ul>
                 </div>
+
                 <div class="product-content clearfix shop-right-grid flex flex-wrap justify-content-start">
                     <ul class="product style2 isotope-product clearfix">
                         <[foreach]>
@@ -68,7 +78,9 @@
                             <div class="product-thumb clearfix pt-0">
                                 <a href="/products/<[id]>" class="product-thumb">
                                     <img style="height: 250px; width: auto; margin: 1rem" src="<[image]>" alt="image">
+
                                 </a>
+                                <[percentuale]>
                             </div>
                             <div class="product-info clearfix">
                                 <span class="product-title"><[nome]></span>
@@ -78,7 +90,7 @@
                                     </ins>
                                 </div>
                             </div>
-                            <[percentuale]>
+
                             <div class="product-review">
                                 <[like]>
                                 <div class="add-cart">
@@ -105,5 +117,13 @@
 <script>
     $(document).ready(function () {
         paginate(allItems); //prima chiamata alla paginazione
+
+        if ($('input[name^="product_id"]').val() === "") {
+            $('input[name^="product_id"]').parent().remove();
+            $('.blog-pagination').remove();
+            $('#reset-filters').remove();
+            $('.widget-filter').remove();
+            $('.dropdown').remove();
+        }
     })
 </script>
