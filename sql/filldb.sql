@@ -195,10 +195,10 @@ insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (2, 3,
 insert into ordini_has_prodotti (ordini_id, prodotti_id, quantita) values (2, 4, 1);
 
 insert into personalizzazione (id, logo, phone, email, address, country, descrizione, titolo_descrizione, descrizione_estesa, immagine_about)
-values (NULL, 'logo.png', '+39-3-123456789', 'email@example.com', 'Vai Roma, 64' ,'Italia',
+values (NULL, 'logo.png', '+39-3-123456789', 'email@example.com', 'Via Roma, 64' ,'Italia',
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
         ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        'Welcome To The Wizym',
+        'Benvenuto Su WinEcommerce',
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
         ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
         in voluptate velit esse cillum dolore eu fugia: nulla pariatu: Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia

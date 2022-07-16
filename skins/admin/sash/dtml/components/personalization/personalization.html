@@ -1,0 +1,240 @@
+<div class="main-content app-content mt-5">
+    <div class="side-app">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header justify-content-between align-items-center">
+                    <h4 class="card-title">Personalizzazione</h4>
+                    <button class="btn btn-primary btn-sm mx-3" id="edit" name="edit" value="edit" type="submit">
+                        <span class="fe fe-edit fs-14"></span>Personalizzazione del sito</button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="logo" class="form-label">Logo</label>
+                                        <input class="form-control"
+                                               type="file"
+                                               id="logo"
+                                               accept="image/*"
+                                               disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mostro l'immagine attualmente selezionata -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="logo" class="form-label">Logo attuale</label>
+                                        <img src="/uploads/<[logo]>" style="height: 10rem" class="img-fluid" alt="logo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="phone">Telefono</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" value="<[phone]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un numero di telefono valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<[email]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una email valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="address">Indirizzo</label>
+                                        <input type="text" class="form-control" id="address" name="address" value="<[address]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un indirizzo valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="country">Nazione</label>
+                                        <input type="text" class="form-control" id="country" name="country" value="<[country]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci una nazione valida.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descrizione">Descrizione</label>
+                                        <textarea class="form-control" id="descrizione" name="descrizione" readonly required aria-required="true"><[descrizione]></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="titolo">Titolo Descrizione</label>
+                                        <input type="text" class="form-control" id="titolo" name="titolo" value="<[titolo_descrizione]>" readonly required aria-required="true">
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">
+                                                Inserisci un titolo valido.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descrizione_estesa">Descrizione Estesa</label>
+                                        <textarea class="form-control" id="descrizione_estesa" name="descrizione_estesa" readonly required aria-required="true"><[descrizione_estesa]></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="immagine_about" class="form-label">Immagine about</label>
+                                        <input class="form-control"
+                                               type="file"
+                                               id="immagine_about"
+                                               accept="image/*"
+                                               disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="immagine_about" class="form-label">Immagine about attuale</label>
+                                        <img src="/uploads/<[immagine_about]>" style="height: 10rem" class="img-fluid" alt="immagine_about">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- INTERNAL WYSIWYG Editor JS -->
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+<script src="/skins/admin/sash/assets/plugins/wysiwyag/wysiwyag.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#edit').click(function() {
+            if ($(this).val() === 'edit') {
+                $('body').find('.alert').remove();
+                $('#phone').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#email').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#titolo').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#address').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#country').attr('readonly', function (_, attr) {
+                    return !attr
+                });
+                $('#descrizione').richText({"imageUpload":false,
+                    "fileUpload":false,
+                    "videoEmbed":false,
+                    "code":false,
+                    "table":false,
+                    "urls":false});
+                $('#descrizione_estesa').richText({"imageUpload":false,
+                    "fileUpload":false,
+                    "videoEmbed":false,
+                    "code":false,
+                    "table":false,
+                    "urls":false});
+                $('#logo').attr('disabled', false);
+                $('#immagine_about').attr('disabled', false);
+                $(this).val('save');
+                $(this).html('<span class="fe fe-check fs-14"></span> Salva modifiche');
+            } else {
+                // Controllo che serve a vedere se tutti gli input sono riempiti
+                if ($.grep($('input'), (elem) => elem.checkValidity()).length === $('input').length) {
+                    $('body').find('.alert').remove();
+                    let formData = new FormData();
+                    formData.append('logo', $('#logo')[0].files[0]);
+                    formData.append('phone', $('#phone').val());
+                    formData.append('email', $('#email').val());
+                    formData.append('address', $('#address').val());
+                    formData.append('country', $('#country').val());
+                    formData.append('descrizione', $('#descrizione').val());
+                    formData.append('titolo_descrizione', $('#titolo').val());
+                    formData.append('descrizione_estesa', $('#descrizione_estesa').val());
+                    formData.append('immagine_about', $('#immagine_about')[0].files[0]);
+                    // Faccio la chiamata e in base al risultato lo mostro a schermo
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/personalization',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        success: function (data) {
+                            let response = JSON.parse(data);
+                            if (response['success']) {
+                                window.location.href = window.location.href.substring(0, window.location.href.indexOf('?'));
+                            } else if (response['error']) {
+                                $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['error'] + '</div>');
+                            } else {
+                                $('#edit').parent().after('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                                    response['warning'] + '</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#edit').parent().after('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
+                        'Compilare tutti i campi correttamente' + '</div>');
+                }
+            }
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            removeAlert();
+        });
+
+
+        $('input').on('propertychange change click keyup input paste', function() {
+            if ($(this)[0].checkValidity()) {
+                $(this).css('border-color', '#ced4da');
+                $(this).parent().find('.invalid-feedback').hide();
+            } else {
+                $(this).css('border-color', '#dc3545');
+                $(this).parent().find('.invalid-feedback').show();
+            }
+        });
+
+    });
+</script>

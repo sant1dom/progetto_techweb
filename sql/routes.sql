@@ -76,3 +76,4 @@ INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL,
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Modifica offerta', '/admin/offers/%/edit', 'admin/offers.php', 'edit');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Cancella offerta', '/admin/offers/%/delete', 'admin/offers.php', 'delete');
 INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione offerte', 'Aggiungi offerta', '/admin/offers/create', 'admin/offers.php', 'create');
+INSERT INTO services (id, tag, description, url, script, callback) VALUES (NULL, 'Gestione personalizzazione', 'Visualizza e modifica personalizzazioni', '/admin/personalization', 'admin/personalization.php', 'personalization');
