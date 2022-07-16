@@ -1,5 +1,6 @@
 <link href="/skins/wizym/customCSS/profile.css" rel="stylesheet"/>
-<link href="/skins/wizym/customCSS/show_ordine.css" rel="stylesheet"/>
+<link href="/skins/wizym/customCSS/orders.css" rel="stylesheet"/>
+
 <[modal]>
 <div class="account-container">
     <section class="p-4 bg-white">
@@ -7,17 +8,17 @@
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 11px" id="annullamento"
-                       hidden>L'ordine è stato annullato per il seguente motivo: <[motivazione]></p>
+                    >L'ordine è stato annullato per il seguente motivo: <[motivazione]></p>
                     <p class="lead fw-normal mb-0 text-left" style="color:#6c757d; font-size: 14px" id="sospensione"
-                       hidden>L'ordine è stato sospeso per il seguente motivo: <[motivazione]>. Puoi procedere
+                    >L'ordine è stato sospeso per il seguente motivo: <[motivazione]>. Puoi procedere
                         con l'annullamento o con la modifica dell'ordine</p>
                     <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0"
-                            style="font-size: 12px" id="annulla" name="annulla" value="annulla" hidden>
+                            style="font-size: 12px" id="annulla" name="annulla" value="annulla">
                         ANNULLA L'ORDINE
                     </button>
                     <div style="width: 2rem"></div>
                     <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 text-center"
-                            style="font-size: 12px" id="modifica" hidden href="#scroll">
+                       style="font-size: 12px" id="modifica" href="#scroll">
                         MODIFICA L'INDIRIZZO
                     </a>
                 </div>
@@ -28,7 +29,7 @@
                 <div id="dialog" class="modal">
                     <!-- Modal content -->
                     <div class="modal-dialog text-center" role="document">
-                        <div class="modal-content text-center" style="width: 90%">
+                        <div class="modal-content text-center" style="width: 100%; margin-top: 10rem">
                             <div class="modal-body text-center ">
                                 <div class="flex justify-content-end ">
                                     <button aria-label="Close" class="btn-close position-relative mb-3" id="close"
@@ -80,125 +81,33 @@
             </div>
             <span id="scroll"></span>
             <input type="hidden" name="id" id="id" value="<[id]>">
-            <div id="modifiche_ordine" hidden>
+            <div id="modifiche_ordine">
                 <div class="d-flex justify-content-evenly align-items-center">
                     <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
                             style="font-size: 13px" type="submit" id="indirizzo_esistente" name="indirizzo_esistente"
-                            value="indirizzo_esistente" hidden>
+                            value="indirizzo_esistente">
                         SCEGLI UN INDIRIZZO ESISTENTE
                     </button>
                     <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
                             style="font-size: 13px" type="submit" id="nuovo_indirizzo" name="nuovo_indirizzo"
-                            value="nuovo_indirizzo" hidden>
+                            value="nuovo_indirizzo">
                         SCEGLI UN NUOVO INDIRIZZO
                     </button>
                     <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-                            style="font-size: 13px" type="submit" id="annulla_modifiche" name="annulla_modifiche"
-                            hidden>
+                            style="font-size: 13px" type="submit" id="annulla_modifiche" name="annulla_modifiche">
                         ANNULLA
                     </button>
                 </div>
             </div>
-            <div id="table_indirizzi" class="pt-3 mt-2" hidden>
+            <div id="table_indirizzi" class="pt-3 mt-2">
                 <[selectPicker_indirizzi]>
             </div>
-            <div id="form_indirizzo" hidden>
+            <div id="form_indirizzo">
                 <[form_indirizzo]>
             </div>
         </div>
     </section>
 </div>
 
-<script>
-    let x = document.getElementById("stato").value;
-    $(document).ready(function () {
-        if (x === "MEMORIZZATO" || x === "SOSPESO") {
-            $("#annulla").removeAttr("hidden");
-        }
-    });
-    if (x === "ANNULLATO") {
-        $("#annullamento").removeAttr("hidden");
-    }
-    if (x === "SOSPESO") {
-        $("#sospensione").removeAttr("hidden");
-        $("#modifica").removeAttr("hidden");
-    }
-    // Get the modal
-    var modal = document.getElementById("dialog");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("annulla");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementById("close");
-
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-    $(document).ready(function () {
-        $("#conferma").click(function () {
-            if (x === "MEMORIZZATO" || x === "SOSPESO") {
-                $.ajax({
-                    type: "POST",
-                    url: "/orders/annulla",
-                    data: {
-                        id: $("#id").val()
-                    },
-                    success: function (data) {
-                        location.reload();
-                    }
-                });
-            } else {
-                $('#titolo').parent().after('<div class="alert alert-danger alert-dismissible fade show" id="messaggio" role="alert">' +
-                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>\n' +
-                    'Non puoi annullare l\'ordine' + '</div>');
-                setTimeout(function () {
-                    $('#messaggio').fadeOut(1000);
-                }, 3000);
-            }
-        });
-    });
-    $(document).ready(function () {
-        $("#modifica").click(function () {
-            $("#modifiche_ordine").attr("hidden", false);
-            $("#indirizzi").attr("hidden", true);
-            $("#indirizzo_esistente").removeAttr("hidden");
-            $("#nuovo_indirizzo").removeAttr("hidden");
-            $("#annulla_modifiche").removeAttr("hidden");
-        });
-    });
-    $(document).ready(function () {
-        $("#indirizzo_esistente").click(function () {
-            $("#table_indirizzi").removeAttr("hidden");
-            $("#nuovo_indirizzo").attr("hidden", true);
-        });
-    });
-    $(document).ready(function () {
-        $("#nuovo_indirizzo").click(function () {
-            $("#form_indirizzo").removeAttr("hidden");
-            $("#indirizzo_esistente").attr("hidden", true);
-        });
-    });
-    $(document).ready(function () {
-        $("#annulla_modifiche").click(function () {
-            $("#indirizzi").attr("hidden", false);
-            $("#modifiche_ordine").attr("hidden", true);
-            $("#table_indirizzi").attr("hidden", true);
-            $("#form_indirizzo").attr("hidden", true);
-        });
-    });
-</script>
+<script src="/skins/wizym/customJs/orders.js"></script>
 

@@ -1,6 +1,6 @@
 <[foreach]>
-<tr class="text-start">
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important; width: 5rem">
+<tr class="text-start" data-id="reviews<[id]>">
+    <td style="vertical-align: middle; !important; width: 5rem">
         <div class="post-rating" id="<[id]>"></div>
         <script>
             $('#' + '<[id]>').raty({
@@ -13,22 +13,22 @@
             });
         </script>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important; width: 18rem">
+    <td style="vertical-align: middle; !important; width: 18rem">
         <[commento]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important; width: 18rem">
+    <td style="vertical-align: middle; !important; width: 18rem">
         <a href="/products/<[prodotto_id]>" class="menu-style"> <[nome_prodotto]></a>
     </td>
     <td class="elm-btn flex justify-content-start">
-        <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+        <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal pointer"
            style="font-size: 13px; margin: 0; padding-left: 20px; padding-right: 20px;"
            data-bs-toggle="modal"
            data-bs-target="#delete-confirmation"
            data-bs-original-title="Cancella"
            data-title="Sei sicuro di voler eliminare questa recensione?"
            data-id="<[id]>"
-
-           data-href="/reviews/<[id]>/delete">ELIMINA</a>
+           data-href="/reviews/<[id]>/delete"><span
+                class="fe fe-trash-2 fs-14"></span></a>
     </td>
 </tr>
 <[/foreach]>

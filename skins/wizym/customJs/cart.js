@@ -3,6 +3,8 @@ $(document).ready(function () {
     const address_form_array = address_form.find('input');
     const msg_span = $('#cart-msg');
     const thead = $('thead');
+    const table = $('table');
+    const tbody = $('tbody');
 
 
     //Se non ci sono prodotti nel carrello mostra un messaggio
@@ -10,7 +12,6 @@ $(document).ready(function () {
     if (tr.attr('id').replace('tr', '').length === 0) {
         tr.remove();
     }
-
 
     //Al caricamento del carrello vengono calcolati tutti i valori totali da mostrare all'utente
     $.each($('li[id^="quantity"]'), function (index, value) {
@@ -34,38 +35,16 @@ $(document).ready(function () {
 
         //aggiorna il recap del carrello
         order_recap.after(
-            '<tr class="order-recap-row" data-id="'+ id +'">' +
+            '<tr class="order-recap-row" data-id="' + id + '">' +
             '<td style="width: 12rem;">' + product_name.text() + '</td>' +
-            '<td class="text-center" data-id="quantita'+ id +'">' + quantity + '</td>' +
-            '<td class="woocommerce-Price-amount amount text-end" data-id="totale'+ id +'">' + (parseFloat(prezzo) * quantity).toFixed(2) + '&euro;</td>' +
+            '<td class="text-center" data-id="quantita' + id + '">' + quantity + '</td>' +
+            '<td class="woocommerce-Price-amount amount text-end" data-id="totale' + id + '">' + (parseFloat(prezzo) * quantity).toFixed(2) + '&euro;</td>' +
             '</tr>'
         );
     });
 
     //chiamo la funzione che aggiorna il totale del carrello
     updateTotal();
-
-    //Se si cerca di rimuovere un prodotoo dal carrello, viene mostrata la form di conferma di eliminazione
-    let delete_url = ''; //global variable
-    $('#delete-confirmation').on('show.bs.modal', function (e) {
-        $('#delete-modal-text').html('Sei sicuro di voler rimuovere il prodotto dal tuo carrello?');
-        delete_url = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
-    });
-
-    //rimuove il prodotto dal carrello
-    $('#remove-button').click(function () {
-        remove(delete_url);
-    });
-
-    //Rimuove tutti gli elementi nel carrello
-    $('#clear-cart-btn').click(function () {
-        $.each($('td[id^="remove"]'), function (index, value) {
-            let id = $(value).attr('id').toString().replace('remove', '');
-            remove(id);
-        });
-        thead.children().remove();
-        thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
-    })
 
     //Incremento e decremento delle quantità di un prodotto
     $('li i').click(function () {
@@ -109,12 +88,12 @@ $(document).ready(function () {
                         dimensione.text((dimensioneOriginale * newQ).toFixed(2) + "l");
                         let table_recap_row = $('.order-table').find('tr[data-id="' + id + '"]');
                         table_recap_row.find('td[data-id="quantita' + id + '"]').text(newQ);
-                        table_recap_row.find('td[data-id="totale'+ id +'"]').text((parseFloat(prezzo) * newQ).toFixed(2) + '€');
+                        table_recap_row.find('td[data-id="totale' + id + '"]').text((parseFloat(prezzo) * newQ).toFixed(2) + '€');
                         updateTotal();
                     } else if (response['error']) {
-                        addAlert('error', msg_span,response['error']);
+                        addAlert('error', msg_span, response['error']);
                     } else {
-                        addAlert('error', msg_span,response['warning']);
+                        addAlert('error', msg_span, response['warning']);
                     }
                 },
                 error: function (data) {
@@ -156,56 +135,86 @@ $(document).ready(function () {
             });
         }
     });
-});
 
-/*
-* @Author: Davide De Acetis
-*
-* Aggiorna il totale del carrello
-* @param {int} id - Id del prodotto da aggiungere
-* @param {int} quantity - Quantità del prodotto da aggiungere
-*/
-function updateTotal() {
-    let total = 0.00;
-    let cart_total = $('#cart-total');
-    $.each($('td[id^="totale"]'), function (index, value) {
-        total += parseFloat($(value).text());
+    /*-------------------------------------------------MODALE---------------------------------------------------------*/
+    //Se si cerca di rimuovere un prodotoo dal carrello, viene mostrata la form di conferma di eliminazione
+    let delete_url = ''; //global variable
+    $('#delete-confirmation').on('show.bs.modal', function (e) {
+        $('#delete-modal-text').html('Sei sicuro di voler rimuovere il prodotto dal tuo carrello?');
+        delete_url = $(e.relatedTarget).data('id'); //fetch value of `data-id` attribute load it to global variable
     });
-    cart_total.html(total.toFixed(2) + ' &euro;');
-    let order_recap_total = $('#order-recap-total');
-    order_recap_total.text(cart_total.text());
-}
 
-function remove(delete_url) {
-    const msg_span = $('#cart-msg');
-    const thead = $('thead');
+    //rimuove il prodotto dal carrello
+    $('#remove-button').click(function () {
+        remove(delete_url);
+        addAlert('success', msg_span, 'Prodotto eliminato con successo');
+    });
 
-    $.ajax({
-        url: delete_url,
-        type: 'POST',
-        success: function (data) {
-            $('#delete-confirmation').modal('hide');
-            let response = JSON.parse(data);
 
-            if (response['success']) {
-                let id = delete_url.replace('/cart/', '').replace('/remove', '');
-                $('#tr' + id).remove();
-                $('tr[data-id="' + id + '"]').remove();
-                addAlert('success', msg_span, response['success'])
-                if ($('#cart-table-body').children().length === 0) {
-                    thead.children().remove();
-                    thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+    //rimuove il prodotto dal carrello
+    $('#remove-all-button').click(function () {
+        $.each($('td[id^="remove"]'), function (index, value) {
+            let id = $(value).attr('id').toString().replace('remove', '');
+            delete_url = '/cart/' + id + '/remove';
+            remove(delete_url);
+        });
+        addAlert('success', msg_span, 'Carrello svuotato con successo');
+        $('#close-modal-all').trigger('click');
+    });
+
+    /*
+    * @Author: Davide De Acetis
+    *
+    * Aggiorna il totale del carrello
+    * @param {int} id - Id del prodotto da aggiungere
+    * @param {int} quantity - Quantità del prodotto da aggiungere
+    */
+    function updateTotal() {
+        let total = 0.00;
+        let cart_total = $('#cart-total');
+        $.each($('td[id^="totale"]'), function (index, value) {
+            total += parseFloat($(value).text());
+        });
+        cart_total.html(total.toFixed(2) + ' &euro;');
+        let order_recap_total = $('#order-recap-total');
+        order_recap_total.text(cart_total.text());
+    }
+
+    /*
+    * @Author: Davide De Acetis
+    *
+    * Rimuove un prodotto dal carrello
+    * @param {String} delete_url - Url della delete con l'id del prodotto da rimuovere
+    */
+    function remove(delete_url) {
+        $.ajax({
+            url: delete_url,
+            type: 'POST',
+            success: function (data) {
+                $('#delete-confirmation').modal('hide');
+                let response = JSON.parse(data);
+
+                if (response['success']) {
+                    let id = delete_url.replace('/cart/', '').replace('/remove', '');
+                    $('#tr' + id).remove();
+                    $('tr[data-id="' + id + '"]').remove();
+                    if ($('#cart-table-body').children().length === 0) {
+                        thead.children().remove();
+                        tbody.children().remove();
+                        thead.html('<tr><th scope="col">Non ci sono prodotti nel carrello</th></tr>');
+                        tbody.append("<tr class='odd'><td colspan='6' class='dataTables_empty'>Nessun record trovato</td></tr>")
+                        $('#' + table.attr('aria-describedby')).text('Nessun record trovato');
+                    }
+                } else if (response['error']) {
+                    addAlert('error', msg_span, response['error'])
+                } else {
+                    addAlert('error', msg_span, response['warning'])
                 }
-
-            } else if (response['error']) {
-                addAlert('error', msg_span, response['error'])
-            } else {
-                addAlert('error', msg_span, response['warning'])
+                updateTotal();
+            },
+            error: function (data) {
+                console.log(data);
             }
-            updateTotal();
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
-}
+        });
+    }
+});

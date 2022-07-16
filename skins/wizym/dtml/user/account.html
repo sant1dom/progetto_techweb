@@ -1,5 +1,5 @@
 <link href="/skins/wizym/customCSS/profile.css" rel="stylesheet"/>
-<link href="/skins/wizym/customCSS/show_ordine.css" rel="stylesheet"/>
+
 <[modal]>
 <div class="account-container">
     <section class="p-4 bg-white">
@@ -40,13 +40,78 @@
             <div class="col-9">
                 <div id="tab-info"><[info]></div>
 
-                <div id="tab-ordini" style="display: none;"><[ordini]></div>
+                <div id="tab-ordini" style="display: none;">
+                    <h2 class="text-right mb-3" id="messaggio-errore-ordini">I Miei Ordini</h2>
 
-                <div id="tab-recensioni" style="display: none;"><[recensioni]></div>
+                    <[ordini]>
+                </div>
 
-                <div id="tab-preferiti" style="display: none;"><[preferiti]></div>
+                <div id="tab-recensioni" style="display: none;">
+                    <h2 class="text-right mb-3" id="messaggio-errore-recensioni">Le Mie Recensioni</h2>
 
-                <div id="tab-indirizzi" style="display: none;"><[indirizzi]></div>
+                    <[recensioni]>
+                </div>
+
+                <div id="tab-preferiti" style="display: none;">
+                    <h2 class="text-right mb-3" id="messaggio-errore-preferiti">I Miei Preferiti</h2>
+
+                    <[preferiti]>
+                </div>
+
+                <div id="tab-indirizzi" style="display: none;">
+                    <h2 class="text-right mb-3" id="messaggio-errore-indirizzi">I Miei Indirizzi</h2>
+
+                    <[indirizzi]>
+
+                    <div class="row justify-content-between" id="new-address-form">
+                        <input type="hidden" id="indirizzo_id" value="">
+                        <div class="col-12">
+                            <label class="labels" for="indirizzo">Indirizzo</label>
+                            <input type="text" class="form-control" id="indirizzo" name="indirizzo"
+                                   value="<[indirizzo]>">
+                        </div>
+                        <div class="col-3">
+                            <label class="labels" for="citta">Città</label>
+                            <input type="text" class="form-control" id="citta" name="citta" value="<[citta]>">
+                        </div>
+                        <div class="col-2">
+                            <label class="labels" for="cap">CAP</label>
+                            <input type="text" class="form-control" id="cap" name="cap" value="<[cap]>">
+                        </div>
+                        <div class="col-2">
+                            <label class="labels" for="provincia">Provincia</label>
+                            <input type="text" class="form-control" id="provincia" name="provincia"
+                                   value="<[provincia]>">
+                        </div>
+                        <div class="col-3">
+                            <label class="labels" for="nazione">Nazione</label>
+                            <input type="text" class="form-control" id="nazione" name="nazione" value="<[nazione]>">
+                        </div>
+                        <div class="col-6">
+                            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                                    style="font-size: 12px;" id="submit-indirizzo-button" name="submit-indirizzo-button"
+                                    value="add-indirizzo">
+                                SALVA
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                                    style="font-size: 12px" id="annulla-indirizzo-button"
+                                    name="annulla-indirizzo-button" value="annulla-indirizzo-button">
+                                ANNULLA
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-6" id="add-indirizzo-button-container">
+                            <button class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal mt-0 w-100"
+                                    style="font-size: 12px;" id="add-indirizzo-button" name="add-indirizzo-button"
+                                    value="add-indirizzo">
+                                AGGIUNGI INDIRIZZO
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

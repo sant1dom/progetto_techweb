@@ -65,8 +65,7 @@ function show(): void
         "Azioni"
     );
     $table = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/table.html");
-    $table->setContent("button", '<div class="pb-5"></div><a href="/addresses/0" class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal" style="font-size: 11px" type="submit" id="modifica_indirizzo">
-    AGGIUNGI UN NUOVO INDIRIZZO </a></div>');
+
     foreach ($colnames as $colname) {
         $table->setContent("colname", $colname);
     }

@@ -50,7 +50,7 @@ function show(): void
         }
     } while ($prodotti);
 
-    $selectPicker_indirizzi = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/indirizzi.html");
+    $selectPicker_indirizzi = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/selectIndirizzi.html");
     $oid = $mysqli->query("SELECT id, CONCAT(indirizzo,' ', citta,' ', cap,' ', provincia,' ', nazione) as indirizzo FROM tdw_ecommerce.indirizzi WHERE users_id=" . $ordine['id_utente']);
     do {
         $indirizzi = $oid->fetch_assoc();
@@ -60,7 +60,7 @@ function show(): void
             }
         }
     } while ($indirizzi);
-    $form_indirizzo = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/components/addresses/form_indirizzo.html");
+    $form_indirizzo = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/formIndirizzi.html");
     $form_indirizzo->setContent("id_ordine", $ordine['id']);
     $selectPicker_indirizzi->setContent("id_ordine", $ordine['id']);
     $body->setContent("selectPicker_indirizzi", $selectPicker_indirizzi->get());

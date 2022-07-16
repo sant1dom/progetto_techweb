@@ -55,8 +55,12 @@
                                         <ul>
                                             <li>
                                                 <div class="elm-btn" id="clear-cart-btn">
-                                                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal">SVUOTA
-                                                        CARRELLO</a>
+                                                    <a class="themesflat-button outline ol-accent margin-top-40 hvr-shutter-out-horizontal"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#delete-confirmation-all"
+                                                       data-bs-original-title="Cancella"
+                                                       data-id="all">
+                                                        SVUOTA CARRELLO</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -162,3 +166,27 @@
         </div>
     </section>
 </div> <!-- /main-order-tracking -->
+
+<div class="modal" id="delete-confirmation-all">
+    <div class="modal-dialog text-center" role="document" style="margin-top: 10rem">
+        <div class="modal-content text-center">
+            <div class="modal-body text-center">
+                <div class="flex justify-content-end ">
+                    <button aria-label="Close" class="btn-close position-relative mb-3" data-bs-dismiss="modal"><span
+                            aria-hidden="true" id="close-modal-all"></span></button>
+                </div>
+                <p id="delete-all-modal-text">Sei sicuro di voler rimuovere tutti i prodotti dal tuo carrello?</p>
+                <div class="flex justify-content-around align-items-center">
+                    <button aria-label="Annulla"
+                            class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                            data-bs-dismiss="modal">Annulla
+                    </button>
+                    <button aria-label="Procedi"
+                            class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+                            id="remove-all-button">Procedi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

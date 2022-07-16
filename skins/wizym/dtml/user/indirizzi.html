@@ -1,34 +1,30 @@
 <[foreach]>
-<tr class="text-start">
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important; width: 15rem">
+<tr class="text-start pointer" data-id="addresses<[id]>">
+    <td class="edit-indirizzo" style="vertical-align: middle; !important; width: 15rem">
         <[indirizzo]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
+    <td class="edit-indirizzo" style="vertical-align: middle; !important;">
         <[citta]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
+    <td class="edit-indirizzo" style="vertical-align: middle; !important;">
         <[cap]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
+    <td class="edit-indirizzo" style="vertical-align: middle; !important;">
         <[provincia]>
     </td>
-    <td class="clickable-row" data-href="/addresses/<[id]>" style="vertical-align: middle; !important;">
+    <td class="edit-indirizzo" style="vertical-align: middle; !important;">
         <[nazione]>
     </td>
     <td class="elm-btn flex align-items-center">
-        <a href="/addresses/<[id]>"
-           class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
-           style="font-size: 13px; margin: 0 2rem 0 0;padding-left: 20px; padding-right: 20px;">
-            MODIFICA</a>
-
-        <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal"
+        <a class="themesflat-button outline ol-accent margin-top-table hvr-shutter-out-horizontal pointer"
            style="font-size: 13px; margin: 0; padding-left: 20px; padding-right: 20px;"
            data-bs-toggle="modal"
            data-bs-target="#delete-confirmation"
            data-bs-original-title="Cancella"
            data-title="Sei sicuro di voler eliminare questo indirizzo?"
            data-id="<[id]>"
-           data-href="/addresses/<[id]>/delete">ELIMINA</a>
+           data-href="/addresses/<[id]>/delete"><span
+                class="fe fe-trash-2 fs-14"></span></a>
     </td>
 </tr>
 <[/foreach]>
