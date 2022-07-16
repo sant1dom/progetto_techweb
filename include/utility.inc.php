@@ -2,10 +2,25 @@
 
 function setupMainAdmin()
 {
+    checkSession();
+    global $mysqli;
     $main = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/views/main.html");
+    $sidebar = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/sidebar.html");
+    $header = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/header.html");
+
+    $personalizzazione = $mysqli->query("SELECT logo FROM personalizzazione WHERE id = 1")->fetch_assoc();
+    if ($personalizzazione) {
+        if ($personalizzazione["logo"] != "") {
+            $sidebar->setContent("logo", "/uploads/".$personalizzazione["logo"]);
+            $header->setContent("logo", "/uploads/".$personalizzazione["logo"]);
+        } else {
+            $sidebar->setContent("logo", "https://via.placeholder.com/500");
+            $header->setContent("logo", "https://via.placeholder.com/500");
+        }
+    }
 // Default set delle parti statiche
-    $main->setContent("header", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/header.html"))->get());
-    $main->setContent("sidebar", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/sidebar.html"))->get());
+    $main->setContent("header", $header->get());
+    $main->setContent("sidebar",$sidebar->get());
     $main->setContent("footer", (new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/admin/sash/dtml/components/footer.html"))->get());
     return $main;
 }

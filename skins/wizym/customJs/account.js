@@ -66,7 +66,6 @@ $(document).ready(function () {
         if ($(this).val() === 'edit-password') {
             showPasswordForm();
         } else {
-            console.log(password_n.val());
             if (password_n.val() !== "" && password_c.val() !== "" && password_v.val() !== "") {
                 if (password_n.val().length >= 8) {
                     if (password_n.val() === password_c.val()) {
@@ -257,7 +256,6 @@ $(document).ready(function () {
         showAddressForm();
         if (indirizzo.val() !== "" && citta.val() !== "" && cap.val() !== "" && provincia.val() !== "" && nazione.val() !== "") {
             if (cap.val().length === 5 && provincia.val().length === 2) {
-                console.log(indirizzo_id.val());
                 if (indirizzo_id.val() === "") {
                     $.ajax({
                         url: '/addresses/create',
