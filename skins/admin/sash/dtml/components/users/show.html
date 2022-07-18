@@ -73,13 +73,12 @@
 
 <script>
     $(document).ready(function () {
-        $('select').select2();
-        $('.unselected').attr('selected', false);
+        $('.unselected').removeAttr('selected');
         $('.unselected').removeClass('unselected');
-        $('.selected').attr('selected', true);
+        $('.selected').attr('selected', 'selected');
         $('.selected').removeClass('selected');
+        $('select').select2();
 
-        console.log();
 
         $('#edit').click(function () {
 

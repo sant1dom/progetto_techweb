@@ -128,13 +128,6 @@ function edit(){
     $response = array();
     if ($id != "" && $nome != "" && $cognome != "" && $email != "" && $telefono != "") {
         $mysqli->query("UPDATE tdw_ecommerce.users SET nome = '$nome', cognome = '$cognome', email = '$email', telefono = '$telefono' WHERE id = $id");
-        if($mysqli->affected_rows == 1){
-            $response['success'] = "Utente modificato con successo";
-        } elseif($mysqli->affected_rows == 0) {
-            $response['warning'] = "Nessun dato modificato";
-        } else {
-            $response['error'] = "Errore nella modifica dell'utente";
-        }
 
         if (isset($_POST["gruppi"])) {
             $groups = $_POST["gruppi"];
@@ -142,6 +135,13 @@ function edit(){
             foreach ($groups as $group) {
                 $mysqli->query("INSERT INTO tdw_ecommerce.users_has_groups (users_id, groups_id) VALUES ($id, $group)");
             }
+        }
+        if($mysqli->affected_rows == 1){
+            $response['success'] = "Utente modificato con successo";
+        } elseif($mysqli->affected_rows == 0 ) {
+            $response['warning'] = "Nessun dato modificato";
+        } else {
+            $response['error'] = "Errore nella modifica dell'utente";
         }
 
     } else {

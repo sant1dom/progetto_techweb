@@ -42,7 +42,7 @@ function cart(): void
             //seleziono la prima immagine del prodotto
             $image = $mysqli->query("SELECT nome_file FROM tdw_ecommerce.immagini WHERE prodotto_id = {$product["id"]} LIMIT 1")->fetch_assoc();
             if ($image) {
-                $table->setContent('image', $image["nome_file"]);
+                $table->setContent('image', "/uploads/".$image["nome_file"]);
             } else {
                 $table->setContent('image', 'https://via.placeholder.com/500');
             }

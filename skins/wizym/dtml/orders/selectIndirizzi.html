@@ -17,9 +17,6 @@
 <script>
     $(document).ready(function () {
         $("#conferma_indirizzo_esistente").click(function () {
-            console.log("<[id_ordine]>");
-            console.log($("#indirizzo").val());
-            console.log($("#conferma_indirizzo_esistente").val());
             $.ajax({
                 type: "POST",
                 url: "/orders/<[id_ordine]>/edit",

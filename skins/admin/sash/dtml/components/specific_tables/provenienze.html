@@ -34,7 +34,7 @@
                data-bs-original-title="Edit"
                href="/admin/provenances/<[id]>"><span
                     class="fe fe-edit fs-14"></span></a>
-            <a class="btn text-danger btn-sm"
+            <a class="btn btn-sm"
                data-bs-toggle="modal"
                data-bs-target="#deleteconfirmation"
                data-bs-original-title="Cancella"
@@ -78,7 +78,6 @@
                 url: delid,
                 type: 'POST',
                 success: function(data) {
-                    console.log(data);
                     $('#deleteconfirmation').modal('hide');
                     let response = JSON.parse(data);
                     if (response['success']) {

@@ -18,6 +18,7 @@ function show(): void
     $main = setupMainUser();
     $body = new Template($_SERVER['DOCUMENT_ROOT'] . "/skins/wizym/dtml/orders/show.html");
 
+    $ordine['data'] = date("d/m/Y", strtotime($ordine['data']));
     foreach ($ordine as $key => $value) {
         $body->setContent($key, $value);
     }
@@ -30,7 +31,7 @@ function show(): void
     do {
         $prodotti = $oid->fetch_assoc();
         if ($prodotti) {
-            $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = '{$prodotti['id']}' LIMIT 1");
+            $image = $mysqli->query("SELECT nome_file as image FROM immagini JOIN prodotti p on immagini.prodotto_id = '{$prodotti['id']}' ORDER BY immagini.id LIMIT 1 ");
             $image = $image->fetch_assoc();
             if (!$image) {
                 $table_prodotti->setContent('image', 'https://via.placeholder.com/150');
@@ -157,11 +158,9 @@ function create(): void
                 do {
                     $product = $oid->fetch_assoc();
                     if ($product) {
-                        debug_to_console($product['sconto']);
                         if ($product['sconto'] === null) {
                             $product['sconto'] = 0;
                         }
-                        debug_to_console($product['sconto']);
                         $mysqli->query("INSERT INTO tdw_ecommerce.ordini_has_prodotti (ordini_id, prodotti_id, quantita, percentuale) VALUES ('$order_id', {$product['products_id']}, {$product['quantity']}, {$product['sconto']})");
                         if ($mysqli->affected_rows > 0) {
                             $mysqli->query("UPDATE tdw_ecommerce.prodotti SET quantita_disponibile=quantita_disponibile-{$product['quantity']} WHERE id={$product['products_id']}");

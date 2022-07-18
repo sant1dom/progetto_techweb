@@ -6,9 +6,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/include/utility.inc.php";
  * Routing page
  */
 checkSession();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $request = strtok($_SERVER["REQUEST_URI"], '?');
 const __CONTROLLERS__ = __DIR__ . '/controllers/';

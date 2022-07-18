@@ -84,7 +84,6 @@ function register(): void
 #[NoReturn] function redirect($referrer): void
 {
     //se è stato impostato un referrer reindirizza
-    echo "Referrer" . $referrer;
     if ($referrer != "") {
         unset($_SESSION['referrer']);
         header("Location: $referrer");

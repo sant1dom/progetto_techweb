@@ -95,9 +95,6 @@ $(document).ready(function () {
                     } else {
                         addAlert('error', msg_span, response['warning']);
                     }
-                },
-                error: function (data) {
-                    console.log(data);
                 }
             });
         } else {
@@ -211,9 +208,6 @@ $(document).ready(function () {
                     addAlert('error', msg_span, response['warning'])
                 }
                 updateTotal();
-            },
-            error: function (data) {
-                console.log(data);
             }
         });
     }

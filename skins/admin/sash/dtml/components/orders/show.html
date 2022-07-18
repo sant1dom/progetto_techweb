@@ -177,10 +177,8 @@
                 $(this).html('<span class="fe fe-check fs-14"></span> Salva lo stato');
             } else {
                 var x = document.getElementById("stato").value;
-                console.log(x);
                 if (x === 'SOSPESO'|| x === 'ANNULLATO') {
                     var motivazione = document.getElementById("motivazione");
-                    console.log(motivazione.value.length);
                     if (motivazione.value.length === 0) {
                         $('#stato').attr('readonly', function (_, attr) {
                             return !attr
