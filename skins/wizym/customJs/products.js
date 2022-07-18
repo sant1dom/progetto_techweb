@@ -37,8 +37,6 @@ $(document).ready(function () {
         showScontoIndex(id, percentuale, amount);
     });
 
-
-
     //Imposta gli sconti per tutti i top prodotti nella home
     $.each($('span[id^="rec_percentuale"]'), function () {
         let id = $(this).attr('id').replace('rec_percentuale', '');
@@ -48,11 +46,11 @@ $(document).ready(function () {
         showScontoIndex(id, percentuale, amount);
     });
 
-    const recs = $('div[id^="rec"]');
+    const recs = $('div[id^="rec_"]');
     $.each(recs, function (index, value) {
-        let id = value.id.replace('rec', '');
+        let id = value.id.replace('rec_', '');
         let voto_medio = $('#voto-medio' + id).val();
-        raty($(this), voto_medio);
+        ratify($(this), voto_medio);
     });
 
     // Aggiunge il prodotto ai preferiti dell'utente
@@ -255,7 +253,7 @@ function addToLiked(id, heart) {
 * @param {Selector} stelle - Selettore di dove andranno messe le stelle
 * @param {int} voto - Numero di stelle inserite
 */
-function raty(stelle, voto) {
+function ratify(stelle, voto) {
     stelle.raty({
         score: voto,
         readOnly: true,

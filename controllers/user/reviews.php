@@ -7,10 +7,13 @@ require $_SERVER['DOCUMENT_ROOT'] . "/include/template.inc.php";
 #[NoReturn] function add(): void
 {
     global $mysqli;
+
     $voto = $_POST['score'];
     $comment = $_POST['comment'];
     $id_prodotto = $_POST['id_prodotto'];
+
     $id = $_SESSION['user']['id'];
+
     $mysqli->query("INSERT INTO tdw_ecommerce.recensioni SET voto = '$voto', commento = '$comment', users_id = '$id', prodotti_id = '$id_prodotto'");
     if ($mysqli->affected_rows == 1) {
         $response['success'] = "Recensione aggiunta con successo";

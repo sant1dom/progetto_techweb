@@ -1,5 +1,5 @@
 /*
-* @Author: Domenico Santone
+* @Author: Raluca Mihaela Bujoreanu
 *
 * Azioni e funzioni per la gestione della show di un prodotto
 * @param {int} id - Id del prodotto
@@ -10,15 +10,13 @@ $(document).ready(function () {
     const voto_medio = parseFloat($('#voto-medio').val());
     const stelle = $('#stars');
 
-
-
     // Media delle recensioni del prodotto
-    raty(stelle, voto_medio);
+    ratify(stelle, voto_medio);
 
     // Creazione delle stelle per tutte le recensioni del prodotto
     $('.post-rating-stars').each(function () {
         if ($(this).attr('data-rating') !== "") {
-            raty($(this), $(this).attr('data-rating'));
+            ratify($(this), $(this).attr('data-rating'));
         } else {
             $(this).html('<h2>Nessuna recensione</h2>');
         }
@@ -55,14 +53,14 @@ $(document).ready(function () {
 });
 
 /*
-* @Author: Domenico Santone
+* @Author: Raluca Mihaela Bujoreanu
 *
 * Aggiunge una recensione al prodotto
 * @param {int} id - Id del prodotto
 * @param {int} voto - Voto della recensione
 * @param {string} commento - Commento della recensione
 */
-function addRecensione(voto, commento, id) {
+function addRecensione(id, voto, commento) {
     $.ajax({
         type: "POST",
         url: "/reviews/add",
